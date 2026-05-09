@@ -1,5 +1,11 @@
 meta:
-  environment: docker
+  environment: static-web
+  toolchain:
+    name: npm
+    version: 20
 
-run:
-  exposedPort: 80
+build:
+  additionalCommands: "npm run build"
+
+artifacts:
+  "./": "/"
