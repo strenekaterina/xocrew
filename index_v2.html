@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XO Crew — Школа брейкданса для детей</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --soft: #f7f6f4;
+      --line: #e8e6e2;
+      --text: #111111;
+      --mid: #666666;
+      --light: #aaaaaa;
+      --accent: #FF3500;
+      --accent2: #e02e00;
+      --f: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--f); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* TICKER */
+    .ticker { border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 9px 0; }
+    .t-track { display: inline-flex; animation: roll 28s linear infinite; }
+    .t-item { font-size: 11px; font-weight: 500; letter-spacing: .11em; text-transform: uppercase; color: var(--mid); padding: 0 32px; }
+    .t-dot { color: var(--accent); }
+    @keyframes roll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 52px;
+    }
+    .n-logo { font-size: 14px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .n-links { display: flex; gap: 28px; list-style: none; position: absolute; left: 50%; transform: translateX(-50%); }
+    .n-links a { font-size: 12px; font-weight: 500; letter-spacing: .06em; color: var(--mid); transition: color .15s; }
+    .n-links a:hover { color: var(--text); }
+    .n-right { display: flex; align-items: center; gap: 20px; }
+    .n-contact { font-size: 12px; font-weight: 400; color: var(--mid); transition: color .15s; }
+    .n-contact:hover { color: var(--text); }
+    .n-cta { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; background: var(--text); color: #fff; padding: 9px 18px; transition: background .15s; }
+    .n-cta:hover { background: var(--accent); }
+
+    /* HERO */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 86px); border-bottom: 1px solid var(--line); }
+    .hero-l {
+      padding: 72px 32px 72px 32px;
+      border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .h-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--light); }
+    .h-title { font-size: clamp(60px, 9vw, 128px); font-weight: 900; line-height: .88; letter-spacing: -.04em; text-transform: uppercase; padding: 48px 0 40px; }
+    .h-title .red { color: var(--accent); }
+    .h-desc { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--mid); max-width: 380px; margin-bottom: 28px; }
+    .h-desc strong { color: var(--text); font-weight: 500; }
+    .h-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-fill { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 15px 28px; transition: background .15s, gap .2s; }
+    .btn-fill:hover { background: var(--accent2); gap: 18px; }
+    .btn-out { display: inline-flex; align-items: center; border: 1px solid var(--line); color: var(--mid); font-size: 12px; font-weight: 500; padding: 14px 24px; transition: border-color .15s, color .15s; }
+    .btn-out:hover { border-color: var(--mid); color: var(--text); }
+
+    .hero-r { position: relative; background: var(--soft); overflow: hidden; }
+    .hr-inner { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 32px; }
+    .hr-tag { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--light); }
+    .hr-watermark { font-size: clamp(48px, 7vw, 96px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; color: var(--line); line-height: 1; text-align: right; }
+    .hr-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
+
+    /* geo */
+    .hr-geo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+    .gc { position: absolute; border-radius: 50%; border: 1px solid; }
+    .gc1 { width: 180px; height: 180px; border-color: var(--line); }
+    .gc2 { width: 280px; height: 280px; border-color: #ede9e4; }
+    .gc3 { width: 380px; height: 380px; border-color: #f2eee9; }
+    .gc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); position: absolute; }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+    .stat { padding: 36px 32px; border-right: 1px solid var(--line); }
+    .stat:last-child { border-right: none; }
+    .s-n { font-size: 48px; font-weight: 900; letter-spacing: -.04em; line-height: 1; margin-bottom: 6px; }
+    .s-n .a { color: var(--accent); }
+    .s-l { font-size: 12px; font-weight: 400; color: var(--mid); letter-spacing: .03em; }
+
+    /* PROGRAM */
+    .prog-wrap { border-bottom: 1px solid var(--line); }
+    .sec-hd {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .sec-hd-l { padding: 72px 32px; border-right: 1px solid var(--line); }
+    .sec-hd-r { padding: 72px 32px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .sec-big { font-size: clamp(44px, 6vw, 80px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .92; }
+    .sec-intro { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--mid); max-width: 380px; }
+    .sec-intro strong { color: var(--text); font-weight: 500; }
+
+    .prog-rows {}
+    .prog-row {
+      display: grid; grid-template-columns: 56px 1fr 1fr 96px;
+      gap: 24px; align-items: start;
+      padding: 36px 32px;
+      border-bottom: 1px solid var(--line);
+      transition: background .15s;
+    }
+    .prog-row:last-child { border-bottom: none; }
+    .prog-row:hover { background: var(--soft); }
+    .p-n { font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: .1em; padding-top: 4px; }
+    .p-nm { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
+    .prog-row:hover .p-nm { color: var(--accent); transition: color .2s; }
+    .p-ds { font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--mid); }
+    .p-tg { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--light); text-align: right; padding-top: 5px; border: 1px solid var(--line); padding: 4px 10px; height: fit-content; }
+
+    /* FOR WHO */
+    .for-who { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+    .fw-l { padding: 72px 32px; border-right: 1px solid var(--line); }
+    .fw-ey { font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--light); margin-bottom: 32px; }
+    .fw-big { font-size: clamp(36px, 5vw, 64px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .92; margin-bottom: 48px; }
+    .fw-list { list-style: none; }
+    .fw-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); font-size: 15px; }
+    .fw-item:last-child { border-bottom: 1px solid var(--line); }
+    .fw-n { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: .08em; flex-shrink: 0; margin-top: 4px; }
+
+    .fw-r { padding: 72px 32px; background: var(--soft); display: flex; flex-direction: column; justify-content: space-between; }
+    .fw-r-label { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--light); }
+    .fw-quote { font-size: 22px; font-weight: 300; line-height: 1.5; color: var(--text); }
+    .fw-quote em { font-style: normal; font-weight: 700; color: var(--accent); }
+    .fw-note { font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--mid); }
+
+    /* PRICING */
+    .pricing { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+    .pr-l { padding: 72px 32px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
+    .pr-ey { font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--light); margin-bottom: 24px; }
+    .pr-big { font-size: clamp(40px, 6vw, 76px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .92; }
+    .pr-price { display: flex; align-items: baseline; gap: 8px; }
+    .pr-val { font-size: 72px; font-weight: 900; letter-spacing: -.05em; line-height: 1; color: var(--accent); }
+    .pr-per { font-size: 14px; color: var(--mid); }
+
+    .pr-r { padding: 72px 32px; display: flex; flex-direction: column; justify-content: space-between; }
+    .feat-list { list-style: none; margin-bottom: 40px; }
+    .feat { display: flex; align-items: flex-start; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); font-size: 14px; }
+    .feat:last-child { border-bottom: 1px solid var(--line); }
+    .f-ico { color: var(--accent); font-size: 11px; flex-shrink: 0; margin-top: 3px; }
+    .f-tx { color: var(--mid); line-height: 1.55; }
+    .f-tx strong { color: var(--text); font-weight: 600; }
+
+    /* FAQ */
+    .faq { border-bottom: 1px solid var(--line); }
+    .faq-hd { display: flex; align-items: baseline; justify-content: space-between; padding: 56px 32px 40px; }
+    .faq-ttl { font-size: clamp(40px, 6vw, 80px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .92; }
+    .faq-ct { font-size: 12px; color: var(--light); letter-spacing: .06em; }
+    .faq-body { padding: 0 32px 72px; }
+    .fi { border-top: 1px solid var(--line); }
+    .fi:last-child { border-bottom: 1px solid var(--line); }
+    .fq { width: 100%; background: none; border: none; font-family: var(--f); font-size: 15px; font-weight: 500; color: var(--text); text-align: left; cursor: pointer; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; transition: color .15s; }
+    .fq:hover { color: var(--accent); }
+    .fq-ic { font-size: 20px; color: var(--light); transition: transform .3s; flex-shrink: 0; }
+    .fi.open .fq-ic { transform: rotate(45deg); color: var(--accent); }
+    .fa { max-height: 0; overflow: hidden; transition: max-height .38s ease; }
+    .fa-in { padding: 0 0 24px; font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--mid); max-width: 680px; }
+
+    /* CTA */
+    .cta { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+    .cta-l { padding: 80px 32px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 28px; }
+    .cta-tag { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+    .cta-ttl { font-size: clamp(40px, 5.5vw, 76px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .9; }
+    .cta-sub { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--mid); max-width: 360px; }
+    .cta-r { padding: 80px 32px; background: var(--accent); display: flex; flex-direction: column; justify-content: space-between; }
+    .cta-r-label { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+    .cta-r-body { display: flex; flex-direction: column; gap: 20px; }
+    .cta-r-text { font-size: 22px; font-weight: 300; line-height: 1.4; color: white; }
+    .cta-r-text strong { font-weight: 800; }
+    .btn-white { display: inline-flex; align-items: center; gap: 10px; background: white; color: var(--text); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 15px 28px; width: fit-content; transition: gap .2s, color .15s; }
+    .btn-white:hover { color: var(--accent); gap: 18px; }
+
+    /* FOOTER */
+    footer { padding: 48px 32px 32px; border-top: none; }
+    .ft-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+    .ft-brand { font-size: 14px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 10px; }
+    .ft-desc { font-size: 12px; font-weight: 300; color: var(--mid); line-height: 1.6; max-width: 180px; }
+    .ft-ch { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--light); margin-bottom: 14px; }
+    .ft-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .ft-links a { font-size: 13px; font-weight: 300; color: var(--mid); transition: color .15s; }
+    .ft-links a:hover { color: var(--text); }
+    .ft-bot { display: flex; justify-content: space-between; }
+    .ft-copy { font-size: 11px; color: var(--light); letter-spacing: .04em; }
+
+    /* REVEAL */
+    .r { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .r.v { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
+
+    /* MOBILE */
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; }
+      .n-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-r { min-height: 280px; }
+      .hero-l { padding: 52px 20px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat { border-bottom: 1px solid var(--line); }
+      .sec-hd { grid-template-columns: 1fr; }
+      .sec-hd-l { border-right: none; border-bottom: 1px solid var(--line); padding: 52px 20px; }
+      .sec-hd-r { padding: 36px 20px; }
+      .prog-row { grid-template-columns: 40px 1fr; padding: 28px 20px; }
+      .p-ds, .p-tg { grid-column: 2; }
+      .for-who { grid-template-columns: 1fr; }
+      .fw-l { border-right: none; border-bottom: 1px solid var(--line); padding: 52px 20px; }
+      .fw-r { padding: 52px 20px; min-height: 280px; }
+      .pricing { grid-template-columns: 1fr; }
+      .pr-l { border-right: none; border-bottom: 1px solid var(--line); padding: 52px 20px; }
+      .pr-r { padding: 52px 20px; }
+      .faq-hd { padding: 52px 20px 36px; }
+      .faq-body { padding: 0 20px 52px; }
+      .cta { grid-template-columns: 1fr; }
+      .cta-l { border-right: none; border-bottom: 1px solid var(--line); padding: 52px 20px; }
+      .cta-r { padding: 52px 20px; }
+      .ft-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .ft-bot { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="t-track">
+      <span class="t-item">XO Crew <span class="t-dot">·</span></span>
+      <span class="t-item">Школа брейкданса для детей <span class="t-dot">·</span></span>
+      <span class="t-item">Доступ открывается мгновенно <span class="t-dot">·</span></span>
+      <span class="t-item">Закрытая группа ВКонтакте <span class="t-dot">·</span></span>
+      <span class="t-item">Занимайтесь в удобное время <span class="t-dot">·</span></span>
+      <span class="t-item">XO Crew <span class="t-dot">·</span></span>
+      <span class="t-item">Школа брейкданса для детей <span class="t-dot">·</span></span>
+      <span class="t-item">Доступ открывается мгновенно <span class="t-dot">·</span></span>
+      <span class="t-item">Закрытая группа ВКонтакте <span class="t-dot">·</span></span>
+      <span class="t-item">Занимайтесь в удобное время <span class="t-dot">·</span></span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="n-logo">XO Crew</div>
+    <ul class="n-links">
+      <li><a href="#program">Программа</a></li>
+      <li><a href="#pricing">Стоимость</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="n-right">
+      <a href="mailto:admin@xocrew.ru" class="n-contact">Контакты</a>
+      <a href="#pricing" class="n-cta">Записаться</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-l">
+      <div class="h-eyebrow r">Брейкданс · Онлайн · Для детей</div>
+      <div class="h-title r d1">XO<br><span class="red">CREW</span></div>
+      <div>
+        <p class="h-desc r d2">Школа брейкданса для детей — <strong>удобное онлайн-обучение</strong> в закрытой ВК-группе. Живая обратная связь и сообщество.</p>
+        <div class="h-btns r d3">
+          <a href="#pricing" class="btn-fill">Начать обучение →</a>
+          <a href="#program" class="btn-out">Программа</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-r">
+      <div class="hr-geo">
+        <div class="gc gc3"></div>
+        <div class="gc gc2"></div>
+        <div class="gc gc1"><div class="gc-dot"></div></div>
+      </div>
+      <div class="hr-inner">
+        <div class="hr-tag">XO Crew / 2025</div>
+        <div class="hr-watermark">BREAK<br>DANCE</div>
+      </div>
+      <div class="hr-bar"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat r"><div class="s-n">200<span class="a">+</span></div><div class="s-l">Учеников прошли</div></div>
+    <div class="stat r d1"><div class="s-n">5</div><div class="s-l">Лет опыта команды</div></div>
+    <div class="stat r d2"><div class="s-n">24<span class="a">/7</span></div><div class="s-l">Доступ к урокам</div></div>
+    <div class="stat r d3"><div class="s-n">0</div><div class="s-l">Требований к опыту</div></div>
+  </div>
+
+  <!-- PROGRAM -->
+  <section class="prog-wrap" id="program">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-big r">Программа<br>обучения</div>
+      </div>
+      <div class="sec-hd-r">
+        <p class="sec-intro r">Структурированная программа от <strong>базовых движений</strong> до сложных связок. Каждый блок — практика, разборы и обратная связь.</p>
+      </div>
+    </div>
+    <div class="prog-rows">
+      <div class="prog-row r"><div class="p-n">01</div><div class="p-nm">Топрок & Основы</div><div class="p-ds">Стойка, ритм, базовые шаги. Учимся держать музыку и двигаться уверенно с первого занятия.</div><div class="p-tg">Начало</div></div>
+      <div class="prog-row r"><div class="p-n">02</div><div class="p-nm">Footwork</div><div class="p-ds">6-step, 3-step и вариации. Работа ног — основа всего брейка. Разборы с покадровым анализом.</div><div class="p-tg">База</div></div>
+      <div class="prog-row r"><div class="p-n">03</div><div class="p-nm">Фризы & Баланс</div><div class="p-ds">Baby freeze, chair, headstand. Безопасная прогрессия от простого к сложному.</div><div class="p-tg">Сила</div></div>
+      <div class="prog-row r"><div class="p-n">04</div><div class="p-nm">Пауэр-муувы</div><div class="p-ds">Windmill, flare, headspin. Вращения через правильную технику — пошагово и без травм.</div><div class="p-tg">Уровень+</div></div>
+      <div class="prog-row r"><div class="p-n">05</div><div class="p-nm">Комбинации & Стиль</div><div class="p-ds">Составляем цельные раунды. Развиваем личный почерк и узнаваемую манеру движения.</div><div class="p-tg">Стиль</div></div>
+      <div class="prog-row r"><div class="p-n">06</div><div class="p-nm">Практика & Баттлы</div><div class="p-ds">Ежемесячные внутренние баттлы, разборы видео, живая обратная связь.</div><div class="p-tg">Практика</div></div>
+    </div>
+  </section>
+
+  <!-- FOR WHO -->
+  <section class="for-who" id="for-who">
+    <div class="fw-l">
+      <div class="fw-ey r">Для кого</div>
+      <div class="fw-big r d1">Кому<br>подойдёт</div>
+      <ul class="fw-list">
+        <li class="fw-item r"><span class="fw-n">01</span>Дети от 6 лет без опыта в танцах</li>
+        <li class="fw-item r d1"><span class="fw-n">02</span>Те, кто пробовал, но хочет системный подход</li>
+        <li class="fw-item r d2"><span class="fw-n">03</span>Семьи, которым важен гибкий график</li>
+        <li class="fw-item r d3"><span class="fw-n">04</span>Дети, которым скучен традиционный спорт</li>
+        <li class="fw-item r"><span class="fw-n">05</span>Кто хочет живое сообщество, не просто видео</li>
+      </ul>
+    </div>
+    <div class="fw-r">
+      <div class="fw-r-label r">О подходе</div>
+      <p class="fw-quote r d1">Брейкданс развивает не только тело — он учит <em>уверенности в себе,</em> координации и работе в команде.</p>
+      <p class="fw-note r d2">Все занятия в записи — ребёнок занимается когда удобно. Родитель может отслеживать прогресс и получает фидбэк каждую неделю.</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="pr-l">
+      <div>
+        <div class="pr-ey r">Стоимость</div>
+        <div class="pr-big r d1">Доступ<br>к школе</div>
+      </div>
+      <div class="pr-price r">
+        <div class="pr-val">3 500</div>
+        <div class="pr-per">₽ / месяц</div>
+      </div>
+    </div>
+    <div class="pr-r">
+      <ul class="feat-list">
+        <li class="feat r"><span class="f-ico">✦</span><span class="f-tx"><strong>Закрытая ВК-группа</strong> — доступ открывается сразу после оплаты</span></li>
+        <li class="feat r d1"><span class="f-ico">✦</span><span class="f-tx"><strong>Все 6 блоков программы</strong> — видео-уроки с объяснениями, доступны 24/7</span></li>
+        <li class="feat r d2"><span class="f-ico">✦</span><span class="f-tx"><strong>Обратная связь</strong> — еженедельный разбор видео от преподавателя</span></li>
+        <li class="feat r d3"><span class="f-ico">✦</span><span class="f-tx"><strong>Чат сообщества</strong> — общение с учениками и родителями</span></li>
+        <li class="feat r"><span class="f-ico">✦</span><span class="f-tx"><strong>Ежемесячные баттлы</strong> — внутренние соревнования и мотивация</span></li>
+        <li class="feat r d1"><span class="f-ico">✦</span><span class="f-tx"><strong>Отмена в любой момент</strong> — никаких скрытых условий</span></li>
+      </ul>
+      <a href="#" class="btn-fill r">Оплатить и получить доступ →</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-hd">
+      <div class="faq-ttl r">Вопросы</div>
+      <div class="faq-ct r">6 ответов</div>
+    </div>
+    <div class="faq-body">
+      <div class="fi"><button class="fq">С какого возраста можно начинать?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Программа подходит детям от 6 лет. Первые блоки построены так, что ребёнок любого уровня освоит базу. Физическая форма развивается в процессе.</div></div></div>
+      <div class="fi"><button class="fq">Нужна ли специальная форма или оборудование?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Только удобная одежда и нескользящая обувь. Никаких матов или специального пола — занимайтесь дома.</div></div></div>
+      <div class="fi"><button class="fq">Как проходит обучение — это живые занятия?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Основа — видео-уроки в закрытой ВК-группе. Занимайтесь когда удобно. Плюс еженедельный разбор: ребёнок снимает видео, преподаватель даёт фидбэк.</div></div></div>
+      <div class="fi"><button class="fq">Как получить доступ после оплаты?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Автоматически — сразу после подтверждения платежа приходит ссылка в закрытую группу ВКонтакте. Меньше минуты.</div></div></div>
+      <div class="fi"><button class="fq">Можно ли отменить подписку?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Да, в любой момент без штрафов. Доступ сохраняется до конца оплаченного месяца.</div></div></div>
+      <div class="fi"><button class="fq">Как родитель может следить за прогрессом?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">В группе видны все материалы, видео ребёнка и комментарии преподавателя. Родитель может быть добавлен в группу отдельно.</div></div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-l">
+      <div class="cta-tag r">Начать сейчас</div>
+      <div class="cta-ttl r d1">Готовы<br>начать?</div>
+      <p class="cta-sub r d2">Доступ к школе открывается сразу после оплаты. Первые результаты — уже через 2 недели.</p>
+    </div>
+    <div class="cta-r">
+      <div class="cta-r-label r">XO Crew</div>
+      <div class="cta-r-body">
+        <div class="cta-r-text r d1"><strong>3 500 ₽ / месяц.</strong><br>Отмена в любой момент.</div>
+        <a href="#" class="btn-white r d2">Оплатить и войти →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-top">
+      <div>
+        <div class="ft-brand">XO Crew</div>
+        <p class="ft-desc">Онлайн-школа брейкданса. Обучение в закрытой ВК-группе.</p>
+      </div>
+      <div>
+        <div class="ft-ch">Разделы</div>
+        <ul class="ft-links">
+          <li><a href="#program">Программа</a></li>
+          <li><a href="#for-who">Для кого</a></li>
+          <li><a href="#pricing">Стоимость</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-ch">Документы</div>
+        <ul class="ft-links">
+          <li><a href="privacy.html">Политика конфиденциальности</a></li>
+          <li><a href="offer.html">Публичная оферта</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-ch">Контакты</div>
+        <ul class="ft-links">
+          <li><a href="mailto:admin@xocrew.ru">admin@xocrew.ru</a></li>
+          <li><a href="https://vk.com" target="_blank">ВКонтакте</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span class="ft-copy">© 2025 XO Crew. Все права защищены.</span>
+      <span class="ft-copy">xocrew.ru</span>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); }
+    }), { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.r').forEach(el => obs.observe(el));
+    document.querySelectorAll('.hero-l .r, .hero-r .r').forEach(el => el.classList.add('v'));
+
+    document.querySelectorAll('.fq').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.fi');
+        const ans = item.querySelector('.fa');
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.fi').forEach(i => { i.classList.remove('open'); i.querySelector('.fa').style.maxHeight = '0'; });
+        if (!open) { item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
+      });
+    });
+  </script>
+</body>
+</html>
