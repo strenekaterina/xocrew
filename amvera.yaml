@@ -1,0 +1,12 @@
+meta:
+  environment: static-web
+  toolchain:
+    name: npm
+    version: 20
+
+build:
+  additionalCommands: ""
+
+artifacts:
+  - source: ./
+    target: /
