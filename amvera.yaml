@@ -8,5 +8,4 @@ build:
   additionalCommands: ""
 
 artifacts:
-  - source: ./
-    target: /
+  "./": "/"
