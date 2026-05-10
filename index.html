@@ -181,6 +181,9 @@
     .cta-r-text strong { font-weight: 800; }
     .btn-white { display: inline-flex; align-items: center; gap: 10px; background: white; color: var(--text); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 15px 28px; width: fit-content; transition: gap .2s, color .15s; }
     .btn-white:hover { color: var(--accent); gap: 18px; }
+    .cta-includes { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .cta-includes li { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.85); display: flex; align-items: center; gap: 10px; }
+    .ci-check { color: white; font-weight: 700; font-size: 14px; }
 
     /* FOOTER */
     footer { padding: 48px 32px 32px; border-top: none; }
@@ -388,7 +391,13 @@
       <div class="cta-r-label r">XO Crew</div>
       <div class="cta-r-body">
         <div class="cta-r-text r d1"><strong>3 500 ₽ / месяц.</strong><br>Отмена в любой момент.</div>
-        <a href="#" class="btn-white r d2">Оплатить и войти →</a>
+        <ul class="cta-includes r d2">
+          <li><span class="ci-check">✓</span> Закрытая ВК-группа — доступ сразу</li>
+          <li><span class="ci-check">✓</span> Все видео-уроки программы 24/7</li>
+          <li><span class="ci-check">✓</span> Еженедельная обратная связь</li>
+          <li><span class="ci-check">✓</span> Чат сообщества и баттлы</li>
+        </ul>
+        <a href="#" class="btn-white r d3">Оплатить и войти →</a>
       </div>
     </div>
   </section>
