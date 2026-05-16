@@ -1081,6 +1081,101 @@
       /* ── MODAL ───────────────────────────────────────── */
       .modal-box { padding: 32px 20px; }
       .m-opts { grid-template-columns: 1fr; }
+
+      /* ── INLINE STYLE OVERRIDES (requires !important) ── */
+
+      /* Section 07: КАК ПРОХОДИТ — remove full-height, fix header layout */
+      #format { height: auto !important; }
+      #format > div:first-child {
+        padding: 32px 16px !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        align-items: flex-start !important;
+      }
+      #format > div:first-child > h2 {
+        max-width: 100% !important;
+        font-size: clamp(40px, 11vw, 72px) !important;
+      }
+      #format > div:first-child > div {
+        width: 100% !important;
+      }
+
+      /* Section 09: 30-40 МИН — stack photo + text vertically */
+      #how .how-content > div[style] {
+        flex-direction: column !important;
+        gap: 0 !important;
+        margin-top: 40px !important;
+      }
+      #how .how-content > div[style] > div:first-child {
+        flex: none !important;
+        width: 100% !important;
+        min-height: 56vw !important;
+        border-radius: 4px 4px 0 0 !important;
+      }
+      #how .how-content > div[style] > .how-body {
+        flex: none !important;
+        margin-top: 32px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+
+      /* Section 11: ЧТОБЫ ЧТО? — 2×2 cards stay 2×2 but use full width */
+      .what-photo > div[style*="grid-template-rows"] {
+        height: auto !important;
+        min-height: auto !important;
+      }
+      .what-photo > div[style*="grid-template-rows"] > div {
+        padding: 20px 16px !important;
+        min-height: 38vw !important;
+      }
+      .what-photo > div[style*="grid-template-rows"] > div > div[style*="font-family"] {
+        font-size: clamp(15px, 4vw, 22px) !important;
+      }
+
+      /* Team list col: 2×2 → single column */
+      .team-list-col > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        height: auto !important;
+        width: 100% !important;
+      }
+      .team-list-col > div[style] > div[style*="padding:36px"] {
+        padding: 20px 16px !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(255,255,255,.15) !important;
+      }
+      .team-list-col > div[style] > div[style*="padding:36px"]:last-child {
+        border-bottom: none !important;
+      }
+
+      /* Section 14: Pricing — single column, reduce padding */
+      #pricing { padding: 16px !important; gap: 16px !important; }
+      #pricing > h2 { padding: 24px 0 8px !important; font-size: clamp(56px, 15vw, 100px) !important; }
+      #pricing > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Section 15: Final statement — remove full-height */
+      .s-blue[style*="min-height:100vh"] {
+        min-height: auto !important;
+        padding: 40px 16px !important;
+      }
+      .s-blue[style*="min-height:100vh"] .statement {
+        font-size: clamp(26px, 7.5vw, 48px) !important;
+      }
+
+      /* Section 16+17: Legal + Care — stack columns, reduce padding */
+      #legal {
+        flex-direction: column !important;
+        padding: 16px !important;
+        gap: 16px !important;
+        height: auto !important;
+      }
+      #legal .pair-col {
+        padding: 28px 20px !important;
+      }
+
+      /* what-quote: prevent single-line overflow */
+      .what-quote { white-space: normal !important; }
     }
   </style>
 </head>
