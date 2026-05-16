@@ -1798,8 +1798,7 @@
   }
 
   // ── Modal ─────────────────────────────────────────────────
-  // TODO: заменить на реальную ссылку VK-сообщества
-  const VK_BOT = 'https://vk.com/im?sel=-XXXXXXX';
+  const VK_BOT_BASE = 'https://vk.me/xocrewinvite';
   let tariff = null;
 
   function openModal(t) {
@@ -1821,12 +1820,12 @@
   }
   function goToBot() {
     if (!tariff) {
-      document.getElementById('opt-base').style.borderColor = 'rgba(255,255,255,.5)';
+      document.getElementById('opt-base').style.borderColor = 'rgba(255,80,0,.7)';
       setTimeout(() => document.getElementById('opt-base').style.borderColor = '', 800);
       return;
     }
     closeModal();
-    window.open(VK_BOT, '_blank');
+    window.open(VK_BOT_BASE + '?start=' + tariff, '_blank');
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
