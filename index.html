@@ -3,459 +3,1664 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XO Crew — Школа брейкданса для детей</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23FF3500'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Inter,Arial,sans-serif' font-weight='900' font-size='13' fill='%23111'>XO</text></svg>">
+  <title>БРЕЙК-РОДИТЕЛЬ — XO Crew</title>
+  <meta name="description" content="Первый в мире онлайн-интенсив для родителей, дети которых занимаются брейкингом. Старт 1 июля 2026.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231929C2'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='11' fill='%23FF5200'>XO</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: 'Sprite Graffiti';
+      src: url('SpriteGraffiti-Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Sprite Graffiti Shadow';
+      src: url('SpriteGraffiti-Shadow.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Sprite Graffiti Extras';
+      src: url('SpriteGraffiti-Extras.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    /*
+      Шрифты:
+      Заголовки → 'Sprite Graffiti' (кастомный) / Anton (fallback)
+      Текст     → 'Neutral Face' (кастомный) / Inter (fallback)
+    */
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #ffffff;
-      --soft: #f7f6f4;
-      --line: #e8e6e2;
-      --text: #111111;
-      --mid: #666666;
-      --light: #aaaaaa;
-      --accent: #FF3500;
-      --accent2: #e02e00;
-      --f: 'Inter', sans-serif;
+      --blue:    #1929C2;
+      --blue-dk: #0F1A8F;
+      --orange:  #FF5200;
+      --orange2: #CC4100;
+      --dark:    #0D0D0D;
+      --white:   #ffffff;
+      --offwhite:#F4F3EF;
+      --gray:    #888;
+      --line-light: rgba(255,255,255,.14);
+      --line-dark:  rgba(0,0,0,.12);
+      --line-mid:   #DDDBD6;
+
+      --f-head: 'Sprite Graffiti', 'Anton', 'Impact', sans-serif;
+      --f-body: 'Neutral Face', 'Inter', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--f); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body {
+      background: var(--white);
+      color: var(--dark);
+      font-family: var(--f-body);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
     a { color: inherit; text-decoration: none; }
+    button { font-family: var(--f-body); cursor: pointer; border: none; }
 
-    /* TICKER */
-    .ticker { border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 9px 0; }
-    .t-track { display: inline-flex; animation: roll 28s linear infinite; }
-    .t-item { font-size: 11px; font-weight: 500; letter-spacing: .11em; text-transform: uppercase; color: var(--mid); padding: 0 32px; }
-    .t-dot { color: var(--accent); }
+    /* ── TICKER ──────────────────────────────────────────── */
+    .ticker {
+      background: var(--white);
+      color: var(--dark);
+      overflow: hidden; white-space: nowrap;
+      padding: 10px 0;
+      border-bottom: 2px solid var(--dark);
+    }
+    .ticker-track {
+      display: inline-flex;
+      align-items: center;
+      animation: roll 48s linear infinite;
+    }
+    .ticker-item {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: .22em; text-transform: uppercase;
+      padding: 0 24px; color: var(--dark);
+    }
+    .t-star { display: inline-flex; align-items: center; padding: 0 4px; }
+    .t-star img { width: 14px; height: 14px; display: block; }
     @keyframes roll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* NAV */
+    /* ── NAV ─────────────────────────────────────────────── */
     nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.95); backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: 52px;
+      position: sticky; top: 0; z-index: 500;
+      background: var(--blue);
+      border-bottom: 2px solid rgba(255,255,255,.15);
+      display: flex; align-items: stretch; justify-content: space-between;
+      padding: 0 0 0 48px; height: 58px;
     }
-    .n-logo { font-size: 14px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-    .n-links { display: flex; gap: 28px; list-style: none; position: absolute; left: 50%; transform: translateX(-50%); }
-    .n-links a { font-size: 12px; font-weight: 500; letter-spacing: .06em; color: var(--mid); transition: color .15s; }
-    .n-links a:hover { color: var(--text); }
-    .n-right { display: flex; align-items: center; gap: 20px; }
-    .n-contact { font-size: 12px; font-weight: 400; color: var(--mid); transition: color .15s; }
-    .n-contact:hover { color: var(--text); }
-    .n-cta { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; background: var(--text); color: #fff; padding: 9px 18px; transition: background .15s; }
-    .n-cta:hover { background: var(--accent); }
+    .nav-logo {
+      font-family: var(--f-head);
+      font-size: 18px; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--white);
+      display: flex; align-items: center;
+    }
+    .nav-links {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 32px; list-style: none;
+      height: 100%; align-items: center;
+    }
+    .nav-links a {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.7); transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--orange); color: var(--white);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: 0 32px; align-self: stretch;
+      display: flex; align-items: center;
+      transition: background .15s; border: none; cursor: pointer;
+    }
+    .nav-cta:hover { background: var(--orange2); }
 
-    /* HERO */
-    .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 86px); border-bottom: 1px solid var(--line); }
-    .hero-l {
-      padding: 72px 32px 72px 32px;
-      border-right: 1px solid var(--line);
+    /* ── PILL LABEL ──────────────────────────────────────── */
+    .pill {
+      display: inline-block;
+      background: var(--orange); color: var(--white);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      padding: 5px 16px; border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .pill-blue {
+      background: var(--blue); color: var(--white);
+    }
+    .pill-dark {
+      background: var(--dark); color: var(--white);
+    }
+    .pill-white {
+      background: var(--white); color: var(--dark);
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: 15px 32px;
+      transition: background .18s, gap .18s;
+    }
+    .btn:hover { gap: 20px; }
+    .btn-orange { background: var(--orange); color: var(--white); }
+    .btn-orange:hover { background: var(--orange2); }
+    .btn-blue   { background: var(--blue);   color: var(--white); }
+    .btn-blue:hover   { background: var(--blue-dk); }
+    .btn-dark   { background: var(--dark);   color: var(--white); }
+    .btn-dark:hover   { background: #222; }
+    .btn-white  { background: var(--white);  color: var(--dark); }
+    .btn-white:hover  { background: var(--offwhite); }
+    .btn-outline-white {
+      background: transparent; color: var(--white);
+      border: 2px solid rgba(255,255,255,.5);
+    }
+    .btn-outline-white:hover { border-color: var(--white); }
+
+    /* ── SECTION BACKGROUNDS ─────────────────────────────── */
+    .s-blue   { background: var(--blue); }
+    .s-orange { background: var(--orange); }
+    .s-dark   { background: var(--dark); }
+    .s-white  { background: var(--white); }
+    .s-off    { background: var(--offwhite); }
+
+    /* ── SECTION HEADER ──────────────────────────────────── */
+    .sec-wrap { border-bottom: 2px solid; }
+    .s-blue.sec-wrap   { border-color: rgba(255,255,255,.12); }
+    .s-orange.sec-wrap { border-color: rgba(0,0,0,.1); }
+    .s-dark.sec-wrap   { border-color: rgba(255,255,255,.1); }
+    .s-white.sec-wrap, .s-off.sec-wrap { border-color: var(--dark); }
+
+    .sec-hd {
+      padding: 64px 48px 0;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .sec-n {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      opacity: .45; margin-top: 10px; flex-shrink: 0;
+    }
+    .sec-t {
+      font-family: var(--f-head);
+      font-size: clamp(52px, 9vw, 116px);
+      font-weight: 900; text-transform: uppercase;
+      line-height: .88; letter-spacing: -.01em;
+    }
+
+    /* heading colors per bg */
+    .s-blue   .sec-t { color: var(--orange); }
+    .s-blue   .sec-n { color: var(--white); }
+    .s-orange .sec-t { color: var(--dark); }
+    .s-orange .sec-n { color: var(--dark); }
+    .s-dark   .sec-t { color: var(--orange); }
+    .s-dark   .sec-n { color: var(--white); }
+    .s-white  .sec-t, .s-off .sec-t { color: var(--blue); }
+    .s-white  .sec-n, .s-off .sec-n { color: var(--dark); }
+
+    .sec-body { padding: 36px 48px 64px; }
+    .sec-body.cols {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: start;
+    }
+
+    /* ── DIVIDERS ────────────────────────────────────────── */
+    .s-blue   .div-line { border-color: var(--line-light); }
+    .s-orange .div-line { border-color: rgba(0,0,0,.15); }
+    .s-dark   .div-line { border-color: var(--line-light); }
+    .s-white  .div-line, .s-off .div-line { border-color: var(--line-mid); }
+
+    /* ── TEXT ────────────────────────────────────────────── */
+    .t-body {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300; line-height: 1.75; max-width: 740px;
+    }
+    .t-body + .t-body { margin-top: 18px; }
+    .t-body strong { font-weight: 600; }
+
+    .t-large {
+      font-size: clamp(20px, 2.8vw, 30px);
+      font-weight: 400; line-height: 1.45; max-width: 820px;
+    }
+
+    /* text colors per bg */
+    .s-blue .t-body, .s-dark .t-body { color: rgba(255,255,255,.75); }
+    .s-blue .t-body strong, .s-dark .t-body strong { color: var(--white); }
+    .s-blue .t-large, .s-dark .t-large { color: var(--white); }
+    .s-orange .t-body { color: rgba(0,0,0,.75); }
+    .s-orange .t-body strong { color: var(--dark); }
+    .s-orange .t-large { color: var(--dark); }
+    .s-white .t-body, .s-off .t-body { color: #444; }
+    .s-white .t-body strong, .s-off .t-body strong { color: var(--dark); }
+    .s-white .t-large, .s-off .t-large { color: var(--dark); }
+
+    /* ── STAR LIST (буллеты ✳) ───────────────────────────── */
+    .slist { list-style: none; margin-top: 24px; }
+    .slist li {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300; line-height: 1.6;
+      padding: 12px 0;
+      border-bottom: 1px solid;
+      display: flex; align-items: baseline; gap: 14px;
+    }
+    .slist li:first-child { border-top: 1px solid; }
+    .slist li::before {
+      content: '✳'; color: var(--orange);
+      font-size: 14px; font-weight: 900; flex-shrink: 0;
+    }
+    .s-blue  .slist li { color: rgba(255,255,255,.78); border-color: rgba(255,255,255,.12); }
+    .s-dark  .slist li { color: rgba(255,255,255,.78); border-color: rgba(255,255,255,.1); }
+    .s-orange .slist li { color: rgba(0,0,0,.78); border-color: rgba(0,0,0,.12); }
+    .s-white  .slist li, .s-off .slist li { color: #444; border-color: var(--line-mid); }
+
+    /* ── PHOTO PLACEHOLDER ───────────────────────────────── */
+    .ph {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+      font-weight: 600;
+    }
+    .s-blue .ph   { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.25); }
+    .s-orange .ph { background: rgba(0,0,0,.08); border: 1px solid rgba(0,0,0,.12); color: rgba(0,0,0,.3); }
+    .s-dark .ph   { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.2); }
+    .s-white .ph, .s-off .ph { background: var(--offwhite); border: 1px solid var(--line-mid); color: #ccc; }
+    .ph-xl { height: 540px; }
+    .ph-l  { height: 420px; }
+    .ph-m  { height: 300px; }
+    .ph-s  { height: 180px; }
+
+    /* ── HIGHLIGHT TEXT ──────────────────────────────────── */
+    .hl-orange { color: var(--orange); }
+    .hl-blue   { color: var(--blue); }
+    .hl-white  { color: var(--white); }
+
+    /* ══════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════ */
+    #hero {
+      background: var(--blue);
+      display: flex; flex-direction: column;
+      /* 100vh минус тикер (~32px) и навбар (58px) */
+      height: calc(100vh - 90px);
+      min-height: 520px;
+      overflow: hidden;
+    }
+    .hero-top {
+      flex: 1; min-height: 0;
+      padding: 40px 40px 28px;
+      border-bottom: 1px solid var(--line-light);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    /* .hero-eyebrow — удалён */
+
+    /* Wilson title — SVG логотип */
+    .wilson-wrap { position: relative; display: block; cursor: default; width: 100%; }
+    .hero-title-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 30vh;
+      object-fit: contain;
+      object-position: left center;
+      user-select: none;
+    }
+
+    /* Wilson cards — отключены до добавления фото */
+    .wilson-cards { display: none; }
+
+    /* Описание — по центру, капс, жирное, 2 строки */
+    .hero-sub {
+      font-size: clamp(13px, 1.45vw, 18px);
+      font-weight: 800; line-height: 1.4;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      text-align: center;
+      margin-top: 80px;
+      max-width: 640px;
+    }
+
+    /* 3 нижних блока */
+    .hero-bottom {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      height: 170px; flex-shrink: 0;
+    }
+    .hb-cell {
+      padding: 18px 28px 18px;
+      border-right: 1px solid var(--line-light);
       display: flex; flex-direction: column; justify-content: space-between;
     }
-    .h-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--light); }
-    .h-title { font-size: clamp(60px, 9vw, 128px); font-weight: 900; line-height: .88; letter-spacing: -.04em; text-transform: uppercase; padding: 48px 0 40px; }
-    .h-title .red { color: var(--accent); }
-    .h-desc { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--mid); max-width: 380px; margin-bottom: 28px; }
-    .h-desc strong { color: var(--text); font-weight: 500; }
-    .h-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hb-cell:last-child { border-right: none; }
+    .hb-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+    }
 
-    .btn-fill { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 15px 28px; transition: background .15s, gap .2s; }
-    .btn-fill:hover { background: var(--accent2); gap: 18px; }
-    .btn-out { display: inline-flex; align-items: center; border: 1px solid var(--line); color: var(--mid); font-size: 12px; font-weight: 500; padding: 14px 24px; transition: border-color .15s, color .15s; }
-    .btn-out:hover { border-color: var(--mid); color: var(--text); }
+    /* Кнопка-блок */
+    .hb-btn {
+      flex: 1;
+      background: var(--orange);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-body);
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--white);
+      transition: background .18s;
+      padding: 0;
+    }
+    .hb-btn:hover { background: var(--orange2); }
 
-    .hero-r { position: relative; background: var(--soft); overflow: hidden; }
-    .hr-inner { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 32px; }
-    .hr-tag { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--light); }
-    .hr-watermark { font-size: clamp(48px, 7vw, 96px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; color: var(--line); line-height: 1; text-align: right; }
-    .hr-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
+    /* Countdown */
+    .cd-row {
+      display: flex; align-items: flex-start;
+      gap: 3px;
+    }
+    /* каждый столбик: подпись сверху + цифра */
+    .cd-col {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px;
+    }
+    .cd-n {
+      font-family: var(--f-body);
+      font-size: clamp(28px, 3.6vw, 52px);
+      font-weight: 900; line-height: 1;
+      color: var(--white);
+    }
+    .cd-sep {
+      font-family: var(--f-body);
+      font-size: clamp(24px, 3.2vw, 44px);
+      font-weight: 900; color: var(--white); line-height: 1;
+      /* сдвигаем вниз на высоту подписи чтобы совпало с цифрами */
+      align-self: flex-end;
+      margin-bottom: 0;
+    }
+    .cd-u {
+      font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+    }
+    .start-date {
+      font-family: var(--f-body);
+      font-size: clamp(26px, 3.6vw, 52px);
+      font-weight: 900; text-transform: uppercase;
+      line-height: 1.05; color: var(--white);
+      white-space: nowrap;
+    }
 
-    /* geo */
-    .hr-geo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-    .gc { position: absolute; border-radius: 50%; border: 1px solid; }
-    .gc1 { width: 180px; height: 180px; border-color: var(--line); }
-    .gc2 { width: 280px; height: 280px; border-color: #ede9e4; }
-    .gc3 { width: 380px; height: 380px; border-color: #f2eee9; }
-    .gc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); position: absolute; }
+    /* ══════════════════════════════════════════════════════
+       ЧТО? SECTION
+    ══════════════════════════════════════════════════════ */
+    .what-sec {
+      display: flex; flex-direction: row;
+      height: 100vh;
+      border-bottom: 2px solid var(--dark);
+      overflow: hidden;
+    }
+    .what-photo {
+      width: 42%;
+      flex-shrink: 0;
+      border-left: 2px solid var(--dark);
+      order: 2;
+    }
+    .what-photo .ph {
+      height: 100%; width: 100%;
+      border-radius: 0;
+    }
+    .what-content {
+      flex: 1;
+      padding: 64px 48px;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      order: 1;
+      overflow: hidden;
+    }
+    .what-content .what-title {
+      font-family: var(--f-head);
+      font-size: clamp(68px, 10vw, 130px);
+      font-weight: 900; text-transform: uppercase;
+      line-height: .88; letter-spacing: -.01em;
+      color: var(--blue);
+    }
+    .what-paragraphs { display: flex; flex-direction: column; gap: 28px; margin-top: 56px; }
+    /* абзацы со SVG-звёздочкой */
+    .star-p {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .star-p .star-icon {
+      width: 40px; height: 40px;
+      flex-shrink: 0;
+      margin-top: 3px; /* optical align с первой строкой текста */
+    }
+    .star-p p {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 700; line-height: 1.55;
+      color: var(--dark);
+    }
+    .what-quote {
+      font-size: clamp(18px, 2.2vw, 30px);
+      font-weight: 800; line-height: 1.25;
+      color: var(--blue);
+      margin-top: 56px;
+    }
+    .what-quote span { color: var(--orange); }
 
-    /* STATS */
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
-    .stat { padding: 36px 32px; border-right: 1px solid var(--line); }
-    .stat:last-child { border-right: none; }
-    .s-n { font-size: 48px; font-weight: 900; letter-spacing: -.04em; line-height: 1; margin-bottom: 6px; }
-    .s-n .a { color: var(--accent); }
-    .s-l { font-size: 12px; font-weight: 400; color: var(--mid); letter-spacing: .03em; }
+    /* уменьшенный заголовок — 2 строки */
+    .what-title.what-title-md { font-size: clamp(54px, 7.8vw, 106px); }
 
-    /* PROGRAM */
-    .prog-wrap { border-bottom: 1px solid var(--line); }
-    .sec-hd {
+    /* ── dark-sec — тёмный вариант what-sec ─────────────── */
+    .dark-sec .what-title  { color: var(--orange); }
+    .dark-sec .what-photo  { border-left-color: rgba(255,255,255,.1); }
+    .dark-sec .star-p p    { color: var(--white); }
+    .dark-sec .what-quote  { color: var(--white); }
+    .dark-sec .what-quote span { color: var(--orange); }
+
+    /* ── КАК? — блок 09, центрированный ────────────────── */
+    .how-sec {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 0 120px 0;
+      border-bottom: 2px solid rgba(0,0,0,.15);
+      overflow: hidden;
+    }
+    .how-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 0;
+      width: 88%;
+      overflow: hidden;
+    }
+    .how-title {
+      font-family: 'Sprite Graffiti Shadow', 'Anton', sans-serif;
+      font-size: clamp(80px, 12vw, 160px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: .88;
+      letter-spacing: -.01em;
+      color: var(--dark);
+      white-space: nowrap;
+      text-align: center;
+      width: 100%;
+    }
+    .how-body {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: 120px;
+      width: 100%;
+      max-width: 560px;
+    }
+    .how-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      text-align: left;
+    }
+    .how-item .star-icon {
+      width: 36px; height: 36px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      filter: brightness(0) opacity(.8);
+    }
+    .how-body .t-body { font-weight: 800; font-size: clamp(17px, 2vw, 22px); line-height: 1; }
+
+    /* ── БЛОКИ 16+17 — два в одном экране ───────────────── */
+    .pair-sec {
+      display: flex;
+      border-bottom: 2px solid var(--dark);
+      overflow: hidden;
+    }
+    .pair-sec.pair-full { height: 100vh; }
+    .pair-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 64px 48px;
+      overflow: hidden;
+    }
+    .pair-full .pair-col { justify-content: flex-start; padding-top: 64px; }
+    .pair-full .pair-title { font-size: clamp(68px, 10vw, 130px); }
+    .pair-col + .pair-col { border-left: 2px solid var(--dark); }
+    .pair-title {
+      font-family: var(--f-head);
+      font-size: clamp(38px, 5vw, 68px);
+      font-weight: 900; text-transform: uppercase;
+      line-height: .88; letter-spacing: -.01em;
+      color: var(--blue);
+      white-space: nowrap;
+    }
+    .pair-body { display: flex; flex-direction: column; gap: 32px; margin-top: 40px; }
+    .pair-item-head {
+      font-size: 11px;
+      font-weight: 700; text-transform: uppercase;
+      letter-spacing: .14em; color: rgba(0,0,0,.4);
+      margin-bottom: 8px;
+    }
+    .pair-item-text {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 700; line-height: 1.55;
+      color: var(--dark);
+    }
+    .pair-item-text a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(25,41,194,.3); }
+    .pair-item-text a:hover { border-bottom-color: var(--blue); }
+
+    /* ── ПОЧЕМУ? — карточки справа ─────────────────────── */
+    .why-cards {
+      height: 100%; width: 100%;
+      display: flex; flex-direction: column;
+      background: var(--dark);
+    }
+    .why-card {
+      flex: 1;
+      display: flex; align-items: center; gap: 20px;
+      padding: 0 32px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      transition: background .2s;
+    }
+    .why-card:last-child { border-bottom: none; }
+    .why-card:hover { background: rgba(255,255,255,.04); }
+    .wc-num {
+      font-family: var(--f-head);
+      font-size: 28px; font-weight: 900;
+      color: var(--orange); flex-shrink: 0; line-height: 1;
+    }
+    .wc-text {
+      font-size: clamp(12px, 1.2vw, 14px);
+      font-weight: 700; line-height: 1.45;
+      color: rgba(255,255,255,.85);
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+
+    /* ── ПОЧЕМУ? — оранжевые оверрайды ──────────────────── */
+    .why-sec .what-title  { color: var(--dark); }
+    .why-sec .what-photo  { border-left-color: rgba(0,0,0,.2); }
+    .why-sec .what-paragraphs { gap: 28px; margin-top: 56px; }
+    .why-sec .star-p p    { color: rgba(0,0,0,.85); }
+    .why-sec .star-icon   { filter: brightness(0) opacity(.75); }
+    .why-sec .slist li    { color: rgba(0,0,0,.8); border-color: rgba(0,0,0,.15); font-weight: 700; }
+    .why-sec .slist li::before { color: var(--dark); }
+    .why-sec .what-quote  { color: var(--dark); margin-top: 56px; }
+    .why-sec .what-quote span { color: var(--blue); }
+
+    /* ══════════════════════════════════════════════════════
+       КТО ОРГАНИЗАТОРЫ? SECTION
+    ══════════════════════════════════════════════════════ */
+    .team-sec {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      background: var(--blue);
+      border-bottom: 2px solid rgba(255,255,255,.12);
+    }
+    /* верх: заголовок по центру + описание по центру */
+    .team-top {
+      flex-shrink: 0;
+      min-height: 44vh;
+      padding: 0 48px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 24px;
+    }
+    .team-title {
+      font-family: var(--f-head);
+      font-size: clamp(80px, 12vw, 160px);
+      font-weight: 900; text-transform: uppercase;
+      line-height: .88; letter-spacing: -.01em;
+      color: var(--orange);
+      text-align: center;
+    }
+    .team-desc-text {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 700; line-height: 1.55;
+      color: rgba(255,255,255,.9);
+      text-align: center;
+    }
+    .team-desc-text strong { color: var(--white); }
+    .star-p-light p {
+      color: rgba(255,255,255,.9);
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 700; line-height: 1.55;
+    }
+    /* нижняя часть: фото слева + список справа */
+    .team-split {
+      flex: 1; min-height: 300px;
+      display: flex;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .team-photo-col {
+      width: 50%; flex-shrink: 0;
+      border-right: 1px solid rgba(255,255,255,.12);
+    }
+    .team-photo-col .ph {
+      height: 100%; width: 100%; border-radius: 0;
+    }
+    .team-list-col {
+      flex: 1;
+      padding: 0;
+      display: flex; flex-direction: column;
+    }
+    .team-list-head {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,.55);
+      text-transform: uppercase; letter-spacing: .1em;
+      margin-bottom: 4px;
+    }
+    .team-list-col .slist li {
+      font-weight: 700;
+      color: rgba(255,255,255,.92);
+      border-top: none;
+      border-bottom: none;
+      padding: 10px 0;
+      align-items: center;
+    }
+    .team-list-col .slist li::before {
+      content: '';
+      display: inline-block;
+      background-image: url('star.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 28px; height: 28px;
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       9 TOPICS GRID
+    ══════════════════════════════════════════════════════ */
+    .topics-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    .topic {
+      padding: 28px 28px 32px;
+      border-right: 1px solid var(--line-light);
+      border-top: 1px solid var(--line-light);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .topic:nth-child(3n) { border-right: none; }
+    .topic:hover, .topic.open { background: rgba(255,255,255,.07); }
+    .t-num {
+      font-family: var(--f-head);
+      font-size: 56px; font-weight: 900; line-height: 1;
+      color: rgba(255,255,255,.12); margin-bottom: 14px;
+      transition: color .2s;
+    }
+    .topic.open .t-num { color: var(--orange); }
+    .t-name {
+      font-family: var(--f-head);
+      font-size: 18px; font-weight: 900;
+      text-transform: uppercase; letter-spacing: .03em;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .t-desc {
+      font-size: 13px; line-height: 1.6;
+      color: rgba(255,255,255,.6);
+      display: none;
+    }
+    .topic.open .t-desc { display: block; }
+
+    /* ══════════════════════════════════════════════════════
+       FORMAT GRID
+    ══════════════════════════════════════════════════════ */
+    .fmt-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 1fr 1fr;  /* 2 строки, растягиваются на всю высоту */
+      flex: 1;                       /* заполняет остаток блока */
+      border-top: 2px solid var(--dark);
+    }
+    .fmt-item {
+      padding: 24px 40px;
+      border-right: 2px solid var(--dark);
+      border-bottom: 2px solid var(--dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+    .fmt-item:nth-child(4n)        { border-right: none; }
+    .fmt-item:nth-last-child(-n+4) { border-bottom: none; }
+    .fmt-icon { font-size: 48px; line-height: 1; color: var(--orange); }
+    .fmt-label {
+      font-size: clamp(14px, 1.3vw, 18px); font-weight: 800;
+      letter-spacing: .04em; text-transform: uppercase;
+      color: var(--dark); line-height: 1.2;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       PRICING  —  чистая структура, без хаков
+       ↕ поднять/опустить кнопки = padding-bottom у .pc-body
+    ══════════════════════════════════════════════════════ */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .pc {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .pc:last-child { border-right: none; }
+    /* Весь контент карточки — в обёртке с паддингами */
+    .pc-body {
+      flex: 1;
+      padding: 36px 40px 40px;
+    }
+    /* Кнопка вне обёртки — сама занимает полную ширину */
+    .pc .btn {
+      width: 100%;
+      flex-shrink: 0;
+      justify-content: center;
+      height: clamp(86px, 12vh, 140px);
+      font-size: clamp(14px,1.6vw,20px);
+      letter-spacing: .14em;
+      font-weight: 800;
+    }
+
+    .pc-tag {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 10px;
+    }
+    .pc-name {
+      font-family: var(--f-head);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900; text-transform: uppercase; line-height: 1;
+      color: var(--white); margin-bottom: 4px;
+    }
+    .pc-price {
+      font-family: var(--f-head);
+      font-size: clamp(44px, 5.5vw, 72px);
+      font-weight: 900; line-height: 1;
+      color: var(--orange); margin: 20px 0 4px;
+    }
+    .pc-inst { font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 28px; }
+    .pc-features { list-style: none; margin-bottom: 0; }
+    .pc-features li {
+      padding: 12px 0;
+      font-size: clamp(15px,1.5vw,17px); font-weight: 700; color: rgba(255,255,255,.9);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .pc-features li::before {
+      content: '';
+      width: 20px; height: 20px;
+      background: url('star.svg') center/contain no-repeat;
+      flex-shrink: 0;
+      display: block;
+    }
+    .pc-blue {
+      background: rgba(25,41,194,.15);
+      border-top: 1px solid rgba(25,41,194,.3);
+      border-bottom: 1px solid rgba(25,41,194,.3);
+    }
+    .pc-highlight {
+      background: rgba(255,82,0,.12);
+      border-top: 1px solid rgba(255,82,0,.3);
+      border-bottom: 1px solid rgba(255,82,0,.3);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       WHEN GRID
+    ══════════════════════════════════════════════════════ */
+    .when-grid {
       display: grid; grid-template-columns: 1fr 1fr;
-      border-bottom: 1px solid var(--line);
+      border: 1px solid rgba(255,255,255,.15); max-width: 520px; margin-bottom: 24px;
     }
-    .sec-hd-l { padding: 72px 32px; border-right: 1px solid var(--line); }
-    .sec-hd-r { padding: 72px 32px; display: flex; flex-direction: column; justify-content: flex-end; }
-    .sec-big { font-size: clamp(44px, 6vw, 80px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .92; }
-    .sec-intro { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--mid); max-width: 380px; }
-    .sec-intro strong { color: var(--text); font-weight: 500; }
+    .when-cell { padding: 24px 28px; border-right: 1px solid rgba(255,255,255,.15); }
+    .when-cell:last-child { border-right: none; }
+    .when-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 8px; }
+    .when-date { font-family: var(--f-head); font-size: clamp(26px, 3.5vw, 44px); font-weight: 900; text-transform: uppercase; color: var(--white); line-height: 1.1; }
 
-    .prog-rows {}
-    .prog-row {
-      display: grid; grid-template-columns: 56px 1fr 1fr 96px;
-      gap: 24px; align-items: start;
-      padding: 36px 32px;
-      border-bottom: 1px solid var(--line);
-      transition: background .15s;
+    /* ══════════════════════════════════════════════════════
+       TWO-COL GRID (юрлица / забота)
+    ══════════════════════════════════════════════════════ */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; }
+    .tcol { padding: 44px 36px; border-right: 1px solid var(--line-mid); }
+    .tcol:last-child { border-right: none; }
+    .tcol-head { font-family: var(--f-head); font-size: 20px; text-transform: uppercase; font-weight: 900; color: var(--blue); letter-spacing: .04em; margin-bottom: 18px; }
+    .tcol-text { font-size: 14px; line-height: 1.75; color: #555; }
+    .tcol-text a { color: var(--dark); text-decoration: underline; text-underline-offset: 3px; }
+    .tcol-text a:hover { color: var(--orange); }
+
+    /* ══════════════════════════════════════════════════════
+       STATEMENT BLOCK
+    ══════════════════════════════════════════════════════ */
+    .statement {
+      font-family: var(--f-head);
+      font-size: clamp(32px, 5vw, 68px);
+      font-weight: 900; text-transform: uppercase;
+      line-height: .95; padding: 52px 32px;
     }
-    .prog-row:last-child { border-bottom: none; }
-    .prog-row:hover { background: var(--soft); }
-    .p-n { font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: .1em; padding-top: 4px; }
-    .p-nm { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
-    .prog-row:hover .p-nm { color: var(--accent); transition: color .2s; }
-    .p-ds { font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--mid); }
-    .p-tg { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--light); text-align: right; padding-top: 5px; border: 1px solid var(--line); padding: 4px 10px; height: fit-content; }
+    .s-orange .statement { color: var(--dark); }
+    .s-blue   .statement { color: var(--white); }
 
-    /* FOR WHO */
-    .for-who { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
-    .fw-l { padding: 72px 32px; border-right: 1px solid var(--line); }
-    .fw-ey { font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--light); margin-bottom: 32px; }
-    .fw-big { font-size: clamp(36px, 5vw, 64px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .92; margin-bottom: 48px; }
-    .fw-list { list-style: none; }
-    .fw-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); font-size: 15px; }
-    .fw-item:last-child { border-bottom: 1px solid var(--line); }
-    .fw-n { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: .08em; flex-shrink: 0; margin-top: 4px; }
+    /* ══════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════ */
+    footer {
+      background: var(--dark); color: var(--white);
+      padding: 64px 48px 40px;
+    }
+    .ft-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding-bottom: 44px;
+      border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 28px;
+    }
+    .ft-logo { font-family: var(--f-head); font-size: 36px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; }
+    .ft-logo span { color: var(--orange); }
+    .ft-desc { font-size: 14px; font-weight: 700; line-height: 1.65; color: var(--white); max-width: 500px; }
+    .ft-col-title { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 16px; font-weight: 700; }
+    .ft-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .ft-links a { font-size: 14px; color: var(--white); font-weight: 700; transition: color .15s; }
+    .ft-links a:hover { color: var(--orange); }
+    .ft-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,.4); font-weight: 700; }
+    .ft-docs { display: flex; gap: 48px; }
+    .ft-docs a { color: rgba(255,255,255,.4); font-weight: 700; transition: color .15s; }
+    .ft-docs a:hover { color: var(--white); }
 
-    .fw-r { padding: 72px 32px; background: var(--soft); display: flex; flex-direction: column; justify-content: space-between; }
-    .fw-r-label { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--light); }
-    .fw-quote { font-size: 22px; font-weight: 300; line-height: 1.5; color: var(--text); }
-    .fw-quote em { font-style: normal; font-weight: 700; color: var(--accent); }
-    .fw-note { font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--mid); }
+    /* ══════════════════════════════════════════════════════
+       MODAL
+    ══════════════════════════════════════════════════════ */
+    .modal-bg {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.65);
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .modal-bg.on { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 36px 36px; max-width: 540px; width: 100%;
+      position: relative;
+      transform: translateY(24px);
+      transition: transform .3s cubic-bezier(.34,1.2,.64,1);
+      box-shadow: 0 24px 80px rgba(0,0,0,.35);
+    }
+    .modal-bg.on .modal-box { transform: translateY(0); }
+    .m-close {
+      position: absolute; top: 18px; right: 22px;
+      background: none; border: none;
+      font-size: 26px; color: rgba(0,0,0,.35); line-height: 1; cursor: pointer;
+      transition: color .15s;
+    }
+    .m-close:hover { color: rgba(0,0,0,.8); }
+    .m-title {
+      font-family: var(--f-head); font-size: clamp(32px, 5vw, 42px);
+      font-weight: 900; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 4px; line-height: 1;
+    }
+    .m-sub {
+      font-size: 11px; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: rgba(0,0,0,.35);
+      margin-bottom: 24px;
+    }
+    .m-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+    .m-opt {
+      background: #f5f5f5;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 18px 16px; cursor: pointer;
+      transition: border-color .2s, background .2s;
+      display: flex; flex-direction: column;
+    }
+    .m-opt:hover { border-color: #bbb; }
+    .m-opt.sel   { border-color: var(--orange); background: rgba(255,82,0,.06); }
+    .m-opt-name {
+      font-size: 10px; font-weight: 800; letter-spacing: .18em;
+      text-transform: uppercase; color: rgba(0,0,0,.45); margin-bottom: 6px;
+    }
+    .m-opt-price {
+      font-family: var(--f-head); font-size: clamp(28px, 4vw, 36px);
+      font-weight: 900; color: var(--orange); line-height: 1; margin-bottom: 12px;
+    }
+    .m-opt-features {
+      list-style: none; display: flex; flex-direction: column; gap: 6px; flex: 1;
+    }
+    .m-opt-features li {
+      font-size: 12px; font-weight: 700; color: rgba(0,0,0,.65);
+      display: flex; align-items: flex-start; gap: 7px; line-height: 1.3;
+    }
+    .m-opt-features li::before {
+      content: ''; flex-shrink: 0;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--orange); margin-top: 4px;
+    }
+    /* Custom checkbox */
+    .m-inst {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 13px; font-weight: 700; color: rgba(0,0,0,.6);
+      margin-bottom: 16px; cursor: pointer; user-select: none;
+    }
+    .m-inst input[type="checkbox"] { display: none; }
+    .m-chk {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border: 1.5px solid rgba(0,0,0,.2); border-radius: 5px;
+      background: rgba(255,255,255,.8);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s, background .2s;
+    }
+    .m-inst input:checked ~ .m-chk {
+      background: var(--orange); border-color: var(--orange);
+    }
+    .m-chk-tick {
+      width: 10px; height: 10px;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l3 3 5-6' stroke='white' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: contain; background-repeat: no-repeat; opacity: 0;
+      transition: opacity .15s;
+    }
+    .m-inst input:checked ~ .m-chk .m-chk-tick { opacity: 1; }
+    .m-legal {
+      font-size: 10px; font-weight: 600; color: rgba(0,0,0,.35);
+      line-height: 1.5; text-align: center; margin-bottom: 12px;
+    }
+    .m-legal a { color: rgba(0,0,0,.45); text-decoration: underline; }
+    .m-submit {
+      width: 100%; background: var(--orange); color: var(--white); border: none;
+      padding: 19px; font-family: var(--f-head); font-size: 20px; font-weight: 900;
+      letter-spacing: .05em; text-transform: uppercase;
+      border-radius: 10px; cursor: pointer;
+      transition: background .18s; line-height: 1;
+    }
+    .m-submit:hover { background: var(--orange2); }
 
-    /* PRICING */
-    .pricing { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
-    .pr-l { padding: 72px 32px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
-    .pr-ey { font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--light); margin-bottom: 24px; }
-    .pr-big { font-size: clamp(40px, 6vw, 76px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .92; }
-    .pr-price { display: flex; align-items: baseline; gap: 8px; }
-    .pr-val { font-size: 72px; font-weight: 900; letter-spacing: -.05em; line-height: 1; color: var(--accent); }
-    .pr-per { font-size: 14px; color: var(--mid); }
-
-    .pr-r { padding: 72px 32px; display: flex; flex-direction: column; justify-content: space-between; }
-    .feat-list { list-style: none; margin-bottom: 40px; }
-    .feat { display: flex; align-items: flex-start; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); font-size: 14px; }
-    .feat:last-child { border-bottom: 1px solid var(--line); }
-    .f-ico { color: var(--accent); font-size: 11px; flex-shrink: 0; margin-top: 3px; }
-    .f-tx { color: var(--mid); line-height: 1.55; }
-    .f-tx strong { color: var(--text); font-weight: 600; }
-
-    /* FAQ */
-    .faq { border-bottom: 1px solid var(--line); }
-    .faq-hd { display: flex; align-items: baseline; justify-content: space-between; padding: 56px 32px 40px; }
-    .faq-ttl { font-size: clamp(40px, 6vw, 80px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .92; }
-    .faq-ct { font-size: 12px; color: var(--light); letter-spacing: .06em; }
-    .faq-body { padding: 0 32px 72px; }
-    .fi { border-top: 1px solid var(--line); }
-    .fi:last-child { border-bottom: 1px solid var(--line); }
-    .fq { width: 100%; background: none; border: none; font-family: var(--f); font-size: 15px; font-weight: 500; color: var(--text); text-align: left; cursor: pointer; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; transition: color .15s; }
-    .fq:hover { color: var(--accent); }
-    .fq-ic { font-size: 20px; color: var(--light); transition: transform .3s; flex-shrink: 0; }
-    .fi.open .fq-ic { transform: rotate(45deg); color: var(--accent); }
-    .fa { max-height: 0; overflow: hidden; transition: max-height .38s ease; }
-    .fa-in { padding: 0 0 24px; font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--mid); max-width: 680px; }
-
-    /* CTA */
-    .cta { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
-    .cta-l { padding: 80px 32px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 28px; }
-    .cta-tag { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
-    .cta-ttl { font-size: clamp(40px, 5.5vw, 76px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; line-height: .9; }
-    .cta-sub { font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--mid); max-width: 360px; }
-    .cta-r { padding: 80px 32px; background: var(--accent); display: flex; flex-direction: column; justify-content: space-between; }
-    .cta-r-label { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); }
-    .cta-r-body { display: flex; flex-direction: column; gap: 20px; }
-    .cta-r-text { font-size: 22px; font-weight: 300; line-height: 1.4; color: white; }
-    .cta-r-text strong { font-weight: 800; }
-    .btn-white { display: inline-flex; align-items: center; gap: 10px; background: white; color: var(--text); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 15px 28px; width: fit-content; transition: gap .2s, color .15s; }
-    .btn-white:hover { color: var(--accent); gap: 18px; }
-    .cta-includes { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .cta-includes li { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.85); display: flex; align-items: center; gap: 10px; }
-    .ci-check { color: white; font-weight: 700; font-size: 14px; }
-
-    /* FOOTER */
-    footer { padding: 48px 32px 32px; border-top: none; }
-    .ft-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
-    .ft-brand { font-size: 14px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 10px; }
-    .ft-desc { font-size: 12px; font-weight: 300; color: var(--mid); line-height: 1.6; max-width: 180px; }
-    .ft-ch { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--light); margin-bottom: 14px; }
-    .ft-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .ft-links a { font-size: 13px; font-weight: 300; color: var(--mid); transition: color .15s; }
-    .ft-links a:hover { color: var(--text); }
-    .ft-bot { display: flex; justify-content: space-between; }
-    .ft-copy { font-size: 11px; color: var(--light); letter-spacing: .04em; }
-
-    /* REVEAL */
-    .r { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
-    .r.v { opacity: 1; transform: none; }
-    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
-
-    /* MOBILE */
-    @media (max-width: 860px) {
-      nav { padding: 0 20px; }
-      .n-links { display: none; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-r { min-height: 280px; }
-      .hero-l { padding: 52px 20px; }
-      .stats { grid-template-columns: 1fr 1fr; }
-      .stat { border-bottom: 1px solid var(--line); }
-      .sec-hd { grid-template-columns: 1fr; }
-      .sec-hd-l { border-right: none; border-bottom: 1px solid var(--line); padding: 52px 20px; }
-      .sec-hd-r { padding: 36px 20px; }
-      .prog-row { grid-template-columns: 40px 1fr; padding: 28px 20px; }
-      .p-ds, .p-tg { grid-column: 2; }
-      .for-who { grid-template-columns: 1fr; }
-      .fw-l { border-right: none; border-bottom: 1px solid var(--line); padding: 52px 20px; }
-      .fw-r { padding: 52px 20px; min-height: 280px; }
-      .pricing { grid-template-columns: 1fr; }
-      .pr-l { border-right: none; border-bottom: 1px solid var(--line); padding: 52px 20px; }
-      .pr-r { padding: 52px 20px; }
-      .faq-hd { padding: 52px 20px 36px; }
-      .faq-body { padding: 0 20px 52px; }
-      .cta { grid-template-columns: 1fr; }
-      .cta-l { border-right: none; border-bottom: 1px solid var(--line); padding: 52px 20px; }
-      .cta-r { padding: 52px 20px; }
-      .ft-top { grid-template-columns: 1fr 1fr; gap: 28px; }
-      .ft-bot { flex-direction: column; gap: 8px; }
+    /* ══════════════════════════════════════════════════════
+       MOBILE
+    ══════════════════════════════════════════════════════ */
+    @media (max-width: 820px) {
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .hero-top { padding: 36px 16px 32px; }
+      .hero-title { font-size: clamp(56px, 14vw, 88px); }
+      .wilson-wrap .wc { display: none; }
+      .hero-bottom { grid-template-columns: 1fr; }
+      .hb-cell { border-right: none; border-bottom: 1px solid var(--line-light); }
+      .hb-cell:last-child { border-bottom: none; }
+      .sec-hd { padding: 36px 16px 0; }
+      .sec-body { padding: 28px 16px 44px; }
+      .sec-body.cols { grid-template-columns: 1fr; }
+      .statement { padding: 36px 16px; }
+      .topics-grid { grid-template-columns: 1fr; }
+      .topic { border-right: none; }
+      .fmt-grid { grid-template-columns: 1fr 1fr; }
+      .fmt-item:nth-child(2n) { border-right: none; }
+      .fmt-item:nth-child(4n) { border-right: 1px solid var(--line-mid); }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pc { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+      .pc:last-child { border-bottom: none; }
+      .two-col { grid-template-columns: 1fr; }
+      .tcol { border-right: none; border-bottom: 1px solid var(--line-mid); }
+      .tcol:last-child { border-bottom: none; }
+      .ft-top { grid-template-columns: 1fr; gap: 28px; }
+      .ft-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .m-opts { grid-template-columns: 1fr; }
+      .modal-box { padding: 32px 20px; }
+      .when-grid { max-width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- TICKER -->
-  <div class="ticker">
-    <div class="t-track">
-      <span class="t-item">XO Crew <span class="t-dot">·</span></span>
-      <span class="t-item">Школа брейкданса для детей <span class="t-dot">·</span></span>
-      <span class="t-item">Доступ открывается мгновенно <span class="t-dot">·</span></span>
-      <span class="t-item">Закрытая группа ВКонтакте <span class="t-dot">·</span></span>
-      <span class="t-item">Занимайтесь в удобное время <span class="t-dot">·</span></span>
-      <span class="t-item">XO Crew <span class="t-dot">·</span></span>
-      <span class="t-item">Школа брейкданса для детей <span class="t-dot">·</span></span>
-      <span class="t-item">Доступ открывается мгновенно <span class="t-dot">·</span></span>
-      <span class="t-item">Закрытая группа ВКонтакте <span class="t-dot">·</span></span>
-      <span class="t-item">Занимайтесь в удобное время <span class="t-dot">·</span></span>
-    </div>
+<!-- ══ TICKER ═══════════════════════════════════════════════ -->
+<div class="ticker">
+  <div class="ticker-track" aria-hidden="true">
+    <span class="ticker-item">БРЕЙК-РОДИТЕЛЬ</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">ПЕРВЫЙ В МИРЕ ОНЛАЙН-ИНТЕНСИВ</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">СТАРТ 1 ИЮЛЯ 2026</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">XO CREW</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">9 ТЕМ · 1 МЕСЯЦ</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">ДЛЯ РОДИТЕЛЕЙ БРЕЙКЕРОВ</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">БРЕЙК-РОДИТЕЛЬ</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">ПЕРВЫЙ В МИРЕ ОНЛАЙН-ИНТЕНСИВ</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">СТАРТ 1 ИЮЛЯ 2026</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">XO CREW</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">9 ТЕМ · 1 МЕСЯЦ</span><span class="t-star"><img src="star.svg" alt=""></span>
+    <span class="ticker-item">ДЛЯ РОДИТЕЛЕЙ БРЕЙКЕРОВ</span><span class="t-star"><img src="star.svg" alt=""></span>
   </div>
+</div>
 
-  <!-- NAV -->
-  <nav>
-    <div class="n-logo">XO Crew</div>
-    <ul class="n-links">
-      <li><a href="#program">Программа</a></li>
-      <li><a href="#pricing">Стоимость</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <div class="n-right">
-      <a href="mailto:admin@xocrew.ru" class="n-contact">admin@xocrew.ru</a>
-      <a href="#pricing" class="n-cta">Записаться</a>
+<!-- ══ NAV ══════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo">XO Crew</div>
+  <ul class="nav-links">
+    <li><a href="#what">Что?</a></li>
+    <li><a href="#why">Почему?</a></li>
+    <li><a href="#program">Программа</a></li>
+    <li><a href="#pricing">Стоимость</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal()">Присоединиться →</button>
+</nav>
+
+<!-- ══ 01 · HERO · СИНИЙ ═════════════════════════════════════ -->
+<div id="hero">
+  <div class="hero-top">
+    <div class="wilson-wrap">
+      <img src="брейк-родитель.svg" alt="БРЕЙК-РОДИТЕЛЬ" class="hero-title-svg">
     </div>
-  </nav>
+    <p class="hero-sub">
+      <strong>Первый в мире</strong> онлайн-интенсив для самых вдумчивых родителей,
+      дети которых занимаются брейкингом и хотят в этом преуспеть
+    </p>
+  </div>
+  <div class="hero-bottom">
+    <div class="hb-cell">
+      <div class="hb-label">Дата старта</div>
+      <div class="start-date">1 Июля 2026</div>
+    </div>
+    <div class="hb-cell">
+      <div class="hb-label">До старта потока</div>
+      <div class="cd-row">
+        <div class="cd-col"><span class="cd-u">дней</span><span class="cd-n" id="cd-d">00</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-col"><span class="cd-u">часов</span><span class="cd-n" id="cd-h">00</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-col"><span class="cd-u">минут</span><span class="cd-n" id="cd-m">00</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-col"><span class="cd-u">секунд</span><span class="cd-n" id="cd-s">00</span></div>
+      </div>
+    </div>
+    <button class="hb-btn" onclick="openModal()">ПРИСОЕДИНИТЬСЯ →</button>
+  </div>
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-l">
-      <div class="h-eyebrow r">Брейкданс · Онлайн · Для детей</div>
-      <div class="h-title r d1">XO<br><span class="red">CREW</span></div>
-      <div>
-        <p class="h-desc r d2">Школа брейкданса для детей — <strong>удобное онлайн-обучение</strong> в закрытой ВК-группе. Живая обратная связь и сообщество.</p>
-        <div class="h-btns r d3">
-          <a href="#pricing" class="btn-fill">Начать обучение →</a>
-          <a href="#program" class="btn-out">Программа</a>
+<!-- ══ 02 · ЧТО? · БЕЛЫЙ ════════════════════════════════════ -->
+<section class="what-sec s-white" id="what">
+  <div class="what-photo">
+    <div style="width:100%;height:100%;background:rgba(0,0,0,.07);"></div>
+  </div>
+  <div class="what-content">
+    <h2 class="what-title">ЧТО?</h2>
+    <div class="what-paragraphs">
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Брейк-родитель — <strong>первый в своём роде месячный онлайн-интенсив</strong> для родителей, которые желают разобраться, как устроен современный мир брейкинга и как грамотно сопровождать ребёнка на этом сложнейшем (но интереснейшем) пути.</p>
+      </div>
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Сегодня брейкинг — это уже не просто танцы. Это <strong>олимпийская дисциплина</strong> и целая международная индустрия.</p>
+      </div>
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Это соревнования, рейтинги, отборы, команды, судейство, тренеры, выезды, сборы, психология, развитие и огромное количество информации.</p>
+      </div>
+    </div>
+    <p class="what-quote">
+      Интенсив поможет разобраться в этой системе <span>спокойно, глубоко и без хаоса.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ══ 03 · КТО ОРГАНИЗАТОРЫ? · СИНИЙ ══════════════════════ -->
+<section class="team-sec" id="team">
+  <div class="team-top">
+    <h2 class="team-title">ОРГАНИЗАТОРЫ</h2>
+    <p class="team-desc-text">Интенсив создан командой <strong>XO Crew</strong> — крупнейшей школой брейкинга в мире<br>и одной из главных точек развития брейкинг-культуры в России.</p>
+    <p class="team-list-head" style="margin-bottom:0;">За плечами команды:</p>
+  </div>
+  <div class="team-split">
+    <div class="team-photo-col">
+      <div style="width:100%;height:100%;background:rgba(255,255,255,.07);"></div>
+    </div>
+    <div class="team-list-col">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;height:100%;width:100%;flex:1;">
+        <div style="padding:36px 40px;border-right:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
+          <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
+          <p style="font-size:clamp(14px,1.3vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Многолетний (почти 25 лет) опыт воспитания детей в культуре брейкинга</p>
+        </div>
+        <div style="padding:36px 40px;border-bottom:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
+          <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
+          <p style="font-size:clamp(14px,1.3vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Работа с начинающими и профессиональными танцорами</p>
+        </div>
+        <div style="padding:36px 40px;border-right:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
+          <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
+          <p style="font-size:clamp(14px,1.3vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Организация мероприятий, батлов и образовательных проектов</p>
+        </div>
+        <div style="padding:36px 40px;display:flex;flex-direction:column;gap:20px;justify-content:center;">
+          <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
+          <p style="font-size:clamp(14px,1.3vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Понимание брейкинга не только как танца, но и как культурной среды, спорта и образа жизни</p>
         </div>
       </div>
     </div>
-    <div class="hero-r">
-      <div class="hr-geo">
-        <div class="gc gc3"></div>
-        <div class="gc gc2"></div>
-        <div class="gc gc1"><div class="gc-dot"></div></div>
-      </div>
-      <div class="hr-inner">
-        <div class="hr-tag">XO Crew / 2025</div>
-        <div class="hr-watermark">BREAK<br>DANCE</div>
-      </div>
-      <div class="hr-bar"></div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat r"><div class="s-n">200<span class="a">+</span></div><div class="s-l">Учеников прошли</div></div>
-    <div class="stat r d1"><div class="s-n">5</div><div class="s-l">Лет опыта команды</div></div>
-    <div class="stat r d2"><div class="s-n">24<span class="a">/7</span></div><div class="s-l">Доступ к урокам</div></div>
-    <div class="stat r d3"><div class="s-n">0</div><div class="s-l">Требований к опыту</div></div>
   </div>
+</section>
 
-  <!-- PROGRAM -->
-  <section class="prog-wrap" id="program">
-    <div class="sec-hd">
-      <div class="sec-hd-l">
-        <div class="sec-big r">Программа<br>обучения</div>
+<!-- ══ 04 · ПОЧЕМУ? · ОРАНЖЕВЫЙ ═════════════════════════════ -->
+<section class="what-sec why-sec s-orange" id="why">
+  <div class="what-photo">
+    <div style="width:100%;height:100%;background:rgba(0,0,0,.1);"></div>
+  </div>
+  <div class="what-content">
+    <h2 class="what-title">ПОЧЕМУ?</h2>
+    <div class="what-paragraphs">
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Сегодня родителям становится всё сложнее ориентироваться в брейкинге, как в явлении и даже целой индустрии.</p>
       </div>
-      <div class="sec-hd-r">
-        <p class="sec-intro r">Структурированная программа от <strong>базовых движений</strong> до сложных связок. Каждый блок — практика, разборы и обратная связь.</p>
+    </div>
+    <p style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.45);margin-top:3.5vh;">Как понять:</p>
+    <ul class="slist" style="margin-top:6px;">
+      <li>Где настоящее развитие, а где непланомерный перегруз</li>
+      <li>Какие соревнования важны, а какие просто коммерция</li>
+      <li>Как работает судейство и на чём оно основано</li>
+      <li>Как выбрать тренера и команду</li>
+      <li>Как поддерживать ребёнка без давления</li>
+      <li>Как не потеряться в индустрии и не выгореть вместе с ребёнком</li>
+    </ul>
+    <p class="what-quote">Ребёнку нужен взрослый рядом,<br><span>который понимает, что происходит.</span></p>
+  </div>
+</section>
+
+<!-- ══ 05 · ДЛЯ КОГО? · БЕЛЫЙ ══════════════════════════════ -->
+<section class="what-sec s-white" id="for-whom">
+  <div class="what-photo">
+    <div style="width:100%;height:100%;background:rgba(0,0,0,.07);"></div>
+  </div>
+  <div class="what-content">
+    <h2 class="what-title">ДЛЯ КОГО?</h2>
+    <div class="what-paragraphs">
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Родителей детей, которые уже занимаются брейкингом.</p>
+      </div>
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Родителей, чьи дети только начинают путь.</p>
+      </div>
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Семей, которые хотят глубже понять культуру и индустрию.</p>
+      </div>
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Тех, кто хочет выстроить здоровое и долгосрочное развитие ребёнка в хип-хоп индустрии в целом.</p>
       </div>
     </div>
-    <div class="prog-rows">
-      <div class="prog-row r"><div class="p-n">01</div><div class="p-nm">Топрок & Основы</div><div class="p-ds">Стойка, ритм, базовые шаги. Учимся держать музыку и двигаться уверенно с первого занятия.</div><div class="p-tg">Начало</div></div>
-      <div class="prog-row r"><div class="p-n">02</div><div class="p-nm">Footwork</div><div class="p-ds">6-step, 3-step и вариации. Работа ног — основа всего брейка. Разборы с покадровым анализом.</div><div class="p-tg">База</div></div>
-      <div class="prog-row r"><div class="p-n">03</div><div class="p-nm">Фризы & Баланс</div><div class="p-ds">Baby freeze, chair, headstand. Безопасная прогрессия от простого к сложному.</div><div class="p-tg">Сила</div></div>
-      <div class="prog-row r"><div class="p-n">04</div><div class="p-nm">Пауэр-муувы</div><div class="p-ds">Windmill, flare, headspin. Вращения через правильную технику — пошагово и без травм.</div><div class="p-tg">Уровень+</div></div>
-      <div class="prog-row r"><div class="p-n">05</div><div class="p-nm">Комбинации & Стиль</div><div class="p-ds">Составляем цельные раунды. Развиваем личный почерк и узнаваемую манеру движения.</div><div class="p-tg">Стиль</div></div>
-      <div class="prog-row r"><div class="p-n">06</div><div class="p-nm">Практика & Баттлы</div><div class="p-ds">Ежемесячные внутренние баттлы, разборы видео, живая обратная связь.</div><div class="p-tg">Практика</div></div>
-    </div>
-  </section>
+    <p class="what-quote">Возрастных <span>ограничений нет.</span></p>
+  </div>
+</section>
 
-  <!-- FOR WHO -->
-  <section class="for-who" id="for-who">
-    <div class="fw-l">
-      <div class="fw-ey r">Для кого</div>
-      <div class="fw-big r d1">Кому<br>подойдёт</div>
-      <ul class="fw-list">
-        <li class="fw-item r"><span class="fw-n">01</span>Дети от 6 лет без опыта в танцах</li>
-        <li class="fw-item r d1"><span class="fw-n">02</span>Те, кто пробовал, но хочет системный подход</li>
-        <li class="fw-item r d2"><span class="fw-n">03</span>Семьи, которым важен гибкий график</li>
-        <li class="fw-item r d3"><span class="fw-n">04</span>Дети, которым скучен традиционный спорт</li>
-        <li class="fw-item r"><span class="fw-n">05</span>Кто хочет живое сообщество, не просто видео</li>
-      </ul>
-    </div>
-    <div class="fw-r">
-      <div class="fw-r-label r">О подходе</div>
-      <p class="fw-quote r d1">Брейкданс развивает не только тело — он учит <em>уверенности в себе,</em> координации и работе в команде.</p>
-      <p class="fw-note r d2">Все занятия в записи — ребёнок занимается когда удобно. Родитель может отслеживать прогресс и получает фидбэк каждую неделю.</p>
-    </div>
-  </section>
+<!-- ══ 06 · 9 ТЕМ · СИНИЙ ═══════════════════════════════════ -->
+<section class="s-blue" id="program" style="min-height:100vh;display:flex;flex-direction:column;border-bottom:2px solid rgba(255,255,255,.12);overflow:hidden;">
+  <div style="padding:64px 48px 20px;flex-shrink:0;text-align:center;">
+    <h2 style="font-family:var(--f-head);font-size:clamp(52px,7.5vw,96px);font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.01em;color:var(--orange);">ЧЕМУ БУДЕТ ПОСВЯЩЕН<br>ЭТОТ ИНТЕНСИВ?</h2>
+    <p style="margin-top:32px;font-size:clamp(15px,1.5vw,17px);font-weight:700;color:rgba(255,255,255,.8);line-height:1.6;">Обучение построено вокруг <strong style="color:var(--white);">9 ключевых тем</strong>, через которые<br>проходит практически каждая семья в брейкинге.</p>
+  </div>
+  <div style="flex:1;min-height:480px;">
+    <svg viewBox="0 0 1000 520" width="100%" height="100%" style="display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="#FF5200"/>
+        </marker>
+      </defs>
 
-  <!-- PRICING -->
-  <section class="pricing" id="pricing">
-    <div class="pr-l">
+      <!-- Person: walking SVG scaled 6x (5x smaller), centered at (500,365) -->
+      <g transform="translate(398, 299) scale(12)" fill="#FF5200">
+        <path d="M9.99994 1.5C9.99994 2.32843 9.32837 3 8.49994 3C7.67151 3 6.99994 2.32843 6.99994 1.5C6.99994 0.671573 7.67151 0 8.49994 0C9.32837 0 9.99994 0.671573 9.99994 1.5Z"/>
+        <path d="M2.8312 5.45056C3.07651 4.59195 3.86128 4 4.75424 4H7.73601L10.5455 5.40474L12.6286 4.57152L13.3713 6.42848L11.2883 7.2617C10.7579 7.47386 10.162 7.44908 9.65107 7.1936L9.50107 7.1186L8.96631 9.2576L9.83834 9.75591C10.6163 10.2005 11.0037 11.1082 10.7864 11.9775L9.78072 16H7.71917L8.84607 11.4924L7.14993 10.5232L5.78072 16H3.71917L6.21917 6H4.75424L4.18281 8H2.10278L2.8312 5.45056Z"/>
+      </g>
+
+      <!-- 9 arrows from head (500,365), 180° upper arc (left→top→right), inner r=85, outer r=215 -->
+      <!-- ТРЕНЕР 180° (left) -->
+      <line x1="415" y1="365" x2="285" y2="365" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+      <!-- ИНДУСТРИЯ 157.5° -->
+      <line x1="421" y1="333" x2="301" y2="283" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+      <!-- ЗДОРОВЬЕ 135° -->
+      <line x1="440" y1="305" x2="348" y2="213" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+      <!-- СООБЩЕСТВО 112.5° -->
+      <line x1="468" y1="287" x2="418" y2="167" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+      <!-- РОДИТЕЛЬСКИЙ БРЕЙК 90° (straight up) -->
+      <line x1="500" y1="280" x2="500" y2="150" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+      <!-- КАРЬЕРА 67.5° -->
+      <line x1="533" y1="287" x2="582" y2="167" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+      <!-- ДЕНЬГИ 45° -->
+      <line x1="560" y1="305" x2="652" y2="213" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+      <!-- ОБРАЗОВАНИЕ 22.5° -->
+      <line x1="579" y1="333" x2="699" y2="283" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+      <!-- СЕМЬЯ 0° (right) -->
+      <line x1="585" y1="365" x2="715" y2="365" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+
+      <!-- Labels at r=260 from head center (500,365) -->
+      <text x="240" y="370" text-anchor="end"    font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">ТРЕНЕР</text>
+      <text x="260" y="270" text-anchor="end"    font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">ИНДУСТРИЯ</text>
+      <text x="315" y="185" text-anchor="end"    font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">ЗДОРОВЬЕ</text>
+      <text x="400" y="130" text-anchor="end"    font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">СООБЩЕСТВО</text>
+      <text x="500" y="106" text-anchor="middle" font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">РОДИТЕЛЬСКИЙ</text>
+      <text x="500" y="127" text-anchor="middle" font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">БРЕЙК</text>
+      <text x="601" y="130" text-anchor="start"  font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">КАРЬЕРА</text>
+      <text x="684" y="185" text-anchor="start"  font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">ДЕНЬГИ</text>
+      <text x="740" y="270" text-anchor="start"  font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">ОБРАЗОВАНИЕ</text>
+      <text x="760" y="370" text-anchor="start"  font-family="'Anton','Inter',sans-serif" font-size="19" font-weight="700" fill="white" letter-spacing="1.5">СЕМЬЯ</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ══ 07 · КАК ПРОХОДИТ? · БЕЛЫЙ ═══════════════════════════ -->
+<section class="s-white" id="format" style="height:100vh;display:flex;flex-direction:column;border-bottom:2px solid var(--dark);">
+  <!-- шапка с паддингами -->
+  <div style="padding:80px 48px;flex-shrink:0;display:flex;gap:48px;align-items:center;">
+    <h2 style="font-family:var(--f-head);font-size:clamp(68px,10vw,130px);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--blue);flex-shrink:0;max-width:52%;">КАК ПРОХОДИТ<br>ОБУЧЕНИЕ?</h2>
+    <div style="display:flex;flex-direction:column;gap:28px;flex:1;">
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Интенсив длится <strong>1 месяц</strong>. Каждой теме посвящено <strong>3 дня</strong> погружения, практики и обсуждений.</p>
+      </div>
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Все материалы и записи сохраняются — используй как личную библиотеку брейк-родителя.</p>
+      </div>
+    </div>
+  </div>
+  <!-- грид от края до края, растягивается на остаток -->
+  <div class="fmt-grid">
+    <div class="fmt-item"><div class="fmt-icon">▶</div><div class="fmt-label">Видеоуроки</div></div>
+    <div class="fmt-item"><div class="fmt-icon">◉</div><div class="fmt-label">Живые эфиры</div></div>
+    <div class="fmt-item"><div class="fmt-icon">◈</div><div class="fmt-label">Практические задания</div></div>
+    <div class="fmt-item"><div class="fmt-icon">◎</div><div class="fmt-label">Доп. материалы</div></div>
+    <div class="fmt-item"><div class="fmt-icon">✳</div><div class="fmt-label">Разборы ситуаций</div></div>
+    <div class="fmt-item"><div class="fmt-icon">◐</div><div class="fmt-label">Общий чат</div></div>
+    <div class="fmt-item"><div class="fmt-icon">◑</div><div class="fmt-label">Ответы на вопросы</div></div>
+    <div class="fmt-item"><div class="fmt-icon">◻</div><div class="fmt-label">Доступ к записям</div></div>
+  </div>
+</section>
+
+<!-- ══ 08 · ПО КАЖДОЙ ТЕМЕ · ТЁМНЫЙ ════════════════════════ -->
+<section class="what-sec dark-sec s-dark">
+  <div class="what-photo">
+    <div style="width:100%;height:100%;background:rgba(255,255,255,.06);"></div>
+  </div>
+  <div class="what-content">
+    <h2 class="what-title what-title-md">ПО КАЖДОЙ ТЕМЕ<br>ВЫ ПОЛУЧИТЕ:</h2>
+    <div class="what-paragraphs">
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Знания и опыт от приглашённых экспертов.</p>
+      </div>
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Практические рекомендации и живой опыт.</p>
+      </div>
+      <div class="star-p">
+        <img src="star.svg" class="star-icon" alt="">
+        <p>Советы от звёздных брейк-родителей, которые уже прошли этот путь вместе со своими детьми.</p>
+      </div>
+    </div>
+    <p class="what-quote">Это не теория «из интернета».<br><span>Это реальный опыт семей, тренеров и людей внутри индустрии.</span></p>
+  </div>
+</section>
+
+<!-- ══ 09 · 30-40 МИНУТ · ОРАНЖЕВЫЙ ═══════════════════════════ -->
+<section class="how-sec s-orange" id="how">
+  <div class="how-content">
+    <h2 class="how-title">30–40 МИНУТ В ДЕНЬ</h2>
+    <div style="display:flex;gap:48px;margin-top:120px;align-items:stretch;width:100%;">
+      <div style="flex:0 0 48%;border-radius:4px;overflow:hidden;min-height:200px;background:rgba(0,0,0,.1);"></div>
+      <div class="how-body" style="flex:1;margin-top:0;max-width:none;">
+        <div class="how-item">
+          <img src="star.svg" class="star-icon" alt="">
+          <p class="t-body">Формат устроен так, чтобы родители могли учиться без перегруза.</p>
+        </div>
+        <div class="how-item">
+          <img src="star.svg" class="star-icon" alt="">
+          <p class="t-body">При этом материалов будет значительно больше — интенсив можно будет использовать как полноценную <strong>библиотеку знаний</strong> и «шпаргалку» по брейк-воспитанию ребёнка.</p>
+        </div>
+        <div class="how-item">
+          <img src="star.svg" class="star-icon" alt="">
+          <p class="t-body">Это система ориентиров, к которой мы очень рекомендуем возвращаться снова, снова и снова.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 10 · ЗАЧЕМ? · БЕЛЫЙ ════════════════════════════════════ -->
+<section class="what-sec s-white" id="why-join">
+  <div class="what-photo">
+    <div style="width:100%;height:100%;background:rgba(0,0,0,.07);"></div>
+  </div>
+  <div class="what-content">
+    <h2 class="what-title">ЗАЧЕМ?</h2>
+    <div class="what-paragraphs">
+      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Понимали, как устроен современный брейкинг.</p></div>
+      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Умели принимать грамотные решения.</p></div>
+      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Лучше ориентировались в соревнованиях, тренировках и развитии.</p></div>
+      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Могли поддерживать ребёнка экологично.</p></div>
+      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Не терялись в информации и индустрии.</p></div>
+    </div>
+    <p class="what-quote" style="white-space:nowrap;">Чтобы знать, поддерживать <span>и не мешать.</span></p>
+  </div>
+</section>
+
+<!-- ══ 11 · ЧТОБЫ ЧТО? · ОФФБЕЛЫЙ ═══════════════════════════ -->
+<section class="what-sec s-off">
+  <div class="what-photo" style="padding:0;overflow:hidden;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;">
+      <!-- Card 1: blue — БОЛЕЕ ОСОЗНАННЫМ -->
+      <div style="background:var(--blue);padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid rgba(255,255,255,.12);border-bottom:2px solid rgba(255,255,255,.12);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <svg width="64" height="44" viewBox="0 0 64 44" fill="none"><line x1="8" y1="36" x2="56" y2="8" stroke="rgba(255,255,255,.35)" stroke-width="2"/><line x1="8" y1="24" x2="38" y2="8" stroke="rgba(255,255,255,.18)" stroke-width="2"/></svg>
+          <span style="color:rgba(255,255,255,.6);font-size:22px;font-weight:300;line-height:1;">↗</span>
+        </div>
+        <div style="font-family:var(--f-head);font-size:clamp(18px,1.9vw,26px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.05;">БОЛЕЕ<br>ОСОЗНАННЫМ</div>
+      </div>
+      <!-- Card 2: orange — БОЛЕЕ ЗДОРОВЫМ -->
+      <div style="background:var(--orange);padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-bottom:2px solid rgba(255,255,255,.12);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <svg width="64" height="44" viewBox="0 0 64 44" fill="none"><circle cx="22" cy="30" r="12" fill="rgba(255,255,255,.25)"/><line x1="34" y1="10" x2="58" y2="26" stroke="rgba(255,255,255,.45)" stroke-width="2"/></svg>
+          <span style="color:rgba(255,255,255,.6);font-size:22px;font-weight:300;line-height:1;">↗</span>
+        </div>
+        <div style="font-family:var(--f-head);font-size:clamp(18px,1.9vw,26px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.05;">БОЛЕЕ<br>ЗДОРОВЫМ</div>
+      </div>
+      <!-- Card 3: lavender — БОЛЕЕ ДОЛГОСРОЧНЫМ -->
+      <div style="background:#D4D2FF;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid rgba(0,0,0,.08);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <svg width="64" height="44" viewBox="0 0 64 44" fill="none"><circle cx="20" cy="28" r="13" fill="#1929C2" opacity=".3"/><circle cx="10" cy="12" r="5" fill="#FF5200" opacity=".6"/><line x1="28" y1="22" x2="58" y2="36" stroke="rgba(0,0,0,.15)" stroke-width="1.5"/></svg>
+          <span style="color:#1929C2;font-size:22px;font-weight:300;line-height:1;opacity:.6;">↗</span>
+        </div>
+        <div style="font-family:var(--f-head);font-size:clamp(16px,1.7vw,22px);font-weight:900;text-transform:uppercase;color:#1929C2;line-height:1.05;">БОЛЕЕ<br>ДОЛГОСРОЧНЫМ</div>
+      </div>
+      <!-- Card 4: dark — БЕЗ ДАВЛЕНИЯ И ХАОСА -->
+      <div style="background:#0D0D0D;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <svg width="64" height="44" viewBox="0 0 64 44" fill="none"><rect x="6" y="16" width="28" height="14" rx="7" fill="rgba(255,255,255,.12)"/><circle cx="48" cy="23" r="9" fill="#FF5200" opacity=".75"/></svg>
+          <span style="color:rgba(255,255,255,.4);font-size:22px;font-weight:300;line-height:1;">↗</span>
+        </div>
+        <div style="font-family:var(--f-head);font-size:clamp(16px,1.7vw,22px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.05;">БЕЗ ДАВЛЕНИЯ<br>И ХАОСА</div>
+      </div>
+    </div>
+  </div>
+  <div class="what-content">
+    <h2 class="what-title">ЧТОБЫ ЧТО?</h2>
+    <p class="what-quote" style="margin-top:5vh;">И чтобы рядом с ребёнком был взрослый,<br><span>который действительно понимает этот путь.</span></p>
+  </div>
+</section>
+
+<!-- ══ 12+13 · ГДЕ? + КОГДА? · СИНИЙ ════════════════════════ -->
+<section class="pair-sec s-blue" id="where" style="border-bottom-color:rgba(255,255,255,.12);min-height:auto;">
+  <!-- LEFT: ГДЕ? -->
+  <div class="pair-col" style="border-left:none;padding-top:12vh;padding-bottom:12vh;">
+    <h2 class="pair-title" style="color:var(--orange);font-size:clamp(72px,11vw,140px);">ГДЕ?</h2>
+    <div class="pair-body">
       <div>
-        <div class="pr-ey r">Стоимость</div>
-        <div class="pr-big r d1">Доступ<br>к школе</div>
+        <div class="pair-item-head" style="color:rgba(255,255,255,.45);">Формат</div>
+        <p class="pair-item-text" style="color:var(--white);">Онлайн. Закрытый канал VK с последующим доступом ко всем материалам.</p>
       </div>
-      <div class="pr-price r">
-        <div class="pr-val">3 500</div>
-        <div class="pr-per">₽ / месяц</div>
+      <div>
+        <div class="pair-item-head" style="color:rgba(255,255,255,.45);">Доступность</div>
+        <p class="pair-item-text" style="color:var(--white);">Участвовать можно из <span style="color:var(--orange);">любой точки мира.</span></p>
+      </div>
+      <!-- VK + замок -->
+      <div style="display:inline-block;position:relative;margin-top:8px;">
+        <img src="../Картинки/VK_Compact_Logo_(2021-present).svg.png" alt="VK" style="width:68px;height:68px;border-radius:14px;display:block;">
+        <div style="position:absolute;bottom:-6px;right:-6px;width:26px;height:26px;background:rgba(20,20,40,.95);border-radius:50%;border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;">
+          <img src="../Картинки/Lock.svg" alt="locked" style="width:13px;height:13px;filter:invert(1);opacity:.9;">
+        </div>
       </div>
     </div>
-    <div class="pr-r">
-      <ul class="feat-list">
-        <li class="feat r"><span class="f-ico">✦</span><span class="f-tx"><strong>Закрытая ВК-группа</strong> — доступ открывается сразу после оплаты</span></li>
-        <li class="feat r d1"><span class="f-ico">✦</span><span class="f-tx"><strong>Все 6 блоков программы</strong> — видео-уроки с объяснениями, доступны 24/7</span></li>
-        <li class="feat r d2"><span class="f-ico">✦</span><span class="f-tx"><strong>Обратная связь</strong> — еженедельный разбор видео от преподавателя</span></li>
-        <li class="feat r d3"><span class="f-ico">✦</span><span class="f-tx"><strong>Чат сообщества</strong> — общение с учениками и родителями</span></li>
-        <li class="feat r"><span class="f-ico">✦</span><span class="f-tx"><strong>Ежемесячные баттлы</strong> — внутренние соревнования и мотивация</span></li>
-        <li class="feat r d1"><span class="f-ico">✦</span><span class="f-tx"><strong>Отмена в любой момент</strong> — никаких скрытых условий</span></li>
-      </ul>
-      <a href="#" class="btn-fill r">Оплатить и получить доступ →</a>
+  </div>
+  <!-- RIGHT: КОГДА? -->
+  <div class="pair-col" id="when" style="border-left-color:rgba(255,255,255,.12);padding-top:12vh;padding-bottom:12vh;">
+    <h2 class="pair-title" style="color:var(--orange);font-size:clamp(72px,11vw,140px);">КОГДА?</h2>
+    <div class="pair-body">
+      <!-- описание сверху -->
+      <div>
+        <p class="pair-item-text" style="color:rgba(255,255,255,.85);">1 месяц погружения, практики и переосмысления роли родителя в брейкинге.</p>
+      </div>
+      <!-- маршрут -->
+      <div style="display:flex;align-items:flex-start;gap:0;margin-top:8px;">
+        <!-- старт -->
+        <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);">Старт</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--orange);flex-shrink:0;"></div>
+            <div style="font-family:var(--f-head);font-size:clamp(28px,3.2vw,44px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:1;white-space:nowrap;">1 Июля</div>
+          </div>
+        </div>
+        <!-- пунктирная линия -->
+        <div style="flex:1;display:flex;align-items:center;padding:0 12px;margin-top:28px;">
+          <div style="width:100%;border-top:2px dashed rgba(255,255,255,.3);"></div>
+          <div style="flex-shrink:0;margin-left:4px;color:rgba(255,255,255,.35);font-size:16px;line-height:1;">→</div>
+        </div>
+        <!-- завершение -->
+        <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);">Завершение</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="font-family:var(--f-head);font-size:clamp(28px,3.2vw,44px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:1;white-space:nowrap;">1 Августа</div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.4);flex-shrink:0;"></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FAQ -->
-  <section class="faq" id="faq">
-    <div class="faq-hd">
-      <div class="faq-ttl r">Вопросы</div>
-      <div class="faq-ct r">6 ответов</div>
-    </div>
-    <div class="faq-body">
-      <div class="fi"><button class="fq">С какого возраста можно начинать?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Программа подходит детям от 6 лет. Первые блоки построены так, что ребёнок любого уровня освоит базу. Физическая форма развивается в процессе.</div></div></div>
-      <div class="fi"><button class="fq">Нужна ли специальная форма или оборудование?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Только удобная одежда и нескользящая обувь. Никаких матов или специального пола — занимайтесь дома.</div></div></div>
-      <div class="fi"><button class="fq">Как проходит обучение — это живые занятия?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Основа — видео-уроки в закрытой ВК-группе. Занимайтесь когда удобно. Плюс еженедельный разбор: ребёнок снимает видео, преподаватель даёт фидбэк.</div></div></div>
-      <div class="fi"><button class="fq">Как получить доступ после оплаты?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Автоматически — сразу после подтверждения платежа приходит ссылка в закрытую группу ВКонтакте. Меньше минуты.</div></div></div>
-      <div class="fi"><button class="fq">Можно ли отменить подписку?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Да, в любой момент без штрафов. Доступ сохраняется до конца оплаченного месяца.</div></div></div>
-      <div class="fi"><button class="fq">Как родитель может следить за прогрессом?<span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">В группе видны все материалы, видео ребёнка и комментарии преподавателя. Родитель может быть добавлен в группу отдельно.</div></div></div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta">
-    <div class="cta-l">
-      <div class="cta-tag r">Начать сейчас</div>
-      <div class="cta-ttl r d1">Готовы<br>начать?</div>
-      <p class="cta-sub r d2">Доступ к школе открывается сразу после оплаты. Первые результаты — уже через 2 недели.</p>
-    </div>
-    <div class="cta-r">
-      <div class="cta-r-label r">XO Crew</div>
-      <div class="cta-r-body">
-        <div class="cta-r-text r d1"><strong>3 500 ₽ / месяц.</strong></div>
-        <ul class="cta-includes r d2">
-          <li><span class="ci-check">✓</span> Закрытая ВК-группа — доступ сразу</li>
-          <li><span class="ci-check">✓</span> Все видео-уроки программы 24/7</li>
-          <li><span class="ci-check">✓</span> Еженедельная обратная связь</li>
-          <li><span class="ci-check">✓</span> Чат сообщества и баттлы</li>
+<!-- ══ 14 · СКОЛЬКО? · ТЁМНЫЙ ═══════════════════════════════ -->
+<section class="s-dark" id="pricing" style="border-bottom:2px solid rgba(255,255,255,.1);padding:24px;display:flex;flex-direction:column;gap:24px;">
+  <h2 style="font-family:'Sprite Graffiti Shadow','Anton',sans-serif;font-size:clamp(80px,12vw,160px);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--orange);text-align:center;width:100%;padding:40px 0 16px;">СКОЛЬКО?</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+    <!-- БАЗА -->
+    <div class="pc" style="border:1.5px solid rgba(255,255,255,.25);border-radius:6px;background:rgba(255,255,255,.05);overflow:hidden;">
+      <div class="pc-body">
+        <div class="pc-tag"><img src="star.svg" style="width:14px;height:14px;vertical-align:middle;margin-right:6px;margin-top:-2px;"> Тариф</div>
+        <div class="pc-name">БАЗА</div>
+        <div class="pc-price">20 000 <span style="font-family:'Inter',sans-serif;font-size:.55em;font-weight:900;letter-spacing:0;position:relative;top:-.05em;">р.</span></div>
+        <div class="pc-inst"><span style="display:inline-block;border:1px solid rgba(255,255,255,.3);padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);">Доступна рассрочка</span></div>
+        <ul class="pc-features">
+          <li>Общий чат участников</li>
+          <li>Доступ ко всем материалам</li>
+          <li>Доступ к записям на 6 месяцев</li>
         </ul>
-        <a href="#" class="btn-white r d3" style="margin-top:12px;">Оплатить и войти →</a>
       </div>
+      <button class="btn btn-orange" onclick="openModal('base')" style="border-top:1.5px solid rgba(255,255,255,.15);">ВЫБРАТЬ ТАРИФ →</button>
     </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="ft-top">
-      <div>
-        <div class="ft-brand">XO Crew</div>
-        <p class="ft-desc">Онлайн-школа брейкданса. Обучение в закрытой ВК-группе.</p>
-      </div>
-      <div>
-        <div class="ft-ch">Разделы</div>
-        <ul class="ft-links">
-          <li><a href="#program">Программа</a></li>
-          <li><a href="#for-who">Для кого</a></li>
-          <li><a href="#pricing">Стоимость</a></li>
-          <li><a href="#faq">FAQ</a></li>
+    <!-- РАСШИРЕННЫЙ -->
+    <div class="pc" style="border:1.5px solid rgba(255,255,255,.25);border-radius:6px;background:rgba(255,255,255,.05);overflow:hidden;">
+      <div class="pc-body">
+        <div class="pc-tag"><img src="star.svg" style="width:14px;height:14px;vertical-align:middle;margin-right:6px;margin-top:-2px;"> Тариф · Рекомендуем</div>
+        <div class="pc-name">РАСШИРЕННЫЙ</div>
+        <div class="pc-price">30 000 <span style="font-family:'Inter',sans-serif;font-size:.55em;font-weight:900;letter-spacing:0;position:relative;top:-.05em;">р.</span></div>
+        <div class="pc-inst"><span style="display:inline-block;border:1px solid rgba(255,255,255,.3);padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);">Доступна рассрочка</span></div>
+        <ul class="pc-features">
+          <li>Общий чат участников</li>
+          <li>Доступ ко всем материалам</li>
+          <li>Доступ к записям на 1 год</li>
+          <li>Дополнительные материалы</li>
+          <li>Личный разбор вопросов с Кириллом Кочневым</li>
         </ul>
       </div>
+      <button class="btn btn-orange" onclick="openModal('extended')" style="border-top:1.5px solid rgba(255,255,255,.15);">ВЫБРАТЬ ТАРИФ →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 15 · ФИНАЛЬНЫЙ СТЕЙТМЕНТ · СИНИЙ ═════════════════════ -->
+<section class="s-blue" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px;border-bottom:2px solid rgba(255,255,255,.12);">
+  <p class="statement" style="text-align:center;max-width:1100px;font-size:clamp(32px,5.2vw,68px);color:var(--white);">
+    БРЕЙК-РОДИТЕЛЬ —<br>
+    ЭТО НЕ ПРОСТО ОНЛАЙН-КУРС.<br>
+    ЭТО ПЕРВАЯ В СВОЁМ РОДЕ ВОЗМОЖНОСТЬ
+    <span style="color:var(--orange);">СТАТЬ НАСТОЯЩЕЙ ОПОРОЙ</span>
+    ДЛЯ РЕБЁНКА.
+  </p>
+</section>
+
+<!-- ══ 16+17 · ЮРЛИЦА + ЗАБОТА · БЕЛЫЙ ══════════════════════ -->
+<!-- ══ 16+17 · ДЛЯ ЮРЛИЦ + СЛУЖБА ЗАБОТЫ · БЕЛЫЙ ════════════ -->
+<section class="pair-sec s-blue" id="legal" style="gap:24px;padding:24px;border-bottom-color:rgba(255,255,255,.12);">
+  <!-- LEFT: блок 16 -->
+  <div class="pair-col" id="support" style="border:1.5px solid rgba(255,255,255,.25);border-radius:6px;background:rgba(255,255,255,.07);">
+    <h2 class="pair-title" style="color:var(--orange);">ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ</h2>
+    <div class="pair-body">
       <div>
-        <div class="ft-ch">Документы</div>
-        <ul class="ft-links">
-          <li><a href="privacy.html">Политика конфиденциальности</a></li>
-          <li><a href="offer.html">Публичная оферта</a></li>
-        </ul>
+        <div class="pair-item-head" style="color:rgba(255,255,255,.5);">Договор и документы</div>
+        <p class="pair-item-text" style="color:var(--white);">Если вы оплачиваете участие как юридическое лицо, мы предоставим полный пакет документов: договор, счёт, акт выполненных работ.<br><br>Для оформления — напишите нам напрямую.</p>
       </div>
       <div>
-        <div class="ft-ch">Контакты</div>
-        <ul class="ft-links">
-          <li><a href="mailto:admin@xocrew.ru">admin@xocrew.ru</a></li>
-          <li><a href="https://vk.com" target="_blank">ВКонтакте</a></li>
+        <div class="pair-item-head" style="color:rgba(255,255,255,.5);">Контакты для юрлиц</div>
+        <p class="pair-item-text" style="color:var(--white);">По вопросам оформления:<br><br><a href="mailto:info@xocrew.ru" style="color:var(--orange);">info@xocrew.ru</a><br><br>или напишите в нашу службу заботы.</p>
+      </div>
+    </div>
+  </div>
+  <!-- RIGHT: блок 17 -->
+  <div class="pair-col" style="border:1.5px solid rgba(255,255,255,.25);border-radius:6px;background:rgba(255,255,255,.07);">
+    <h2 class="pair-title" style="color:var(--orange);">СЛУЖБА ЗАБОТЫ</h2>
+    <div class="pair-body">
+      <div>
+        <div class="pair-item-head" style="color:rgba(255,255,255,.5);">Есть вопросы?</div>
+        <p class="pair-item-text" style="color:var(--white);">Мы на связи и готовы помочь с любым вопросом — от выбора тарифа до технических моментов.<br><br>Время ответа: до 24 часов в рабочие дни.</p>
+      </div>
+      <div>
+        <div class="pair-item-head" style="color:rgba(255,255,255,.5);">Как написать</div>
+        <p class="pair-item-text" style="color:var(--white);">ВКонтакте: <a href="https://vk.com/xocrew" target="_blank" rel="noopener" style="color:var(--orange);">vk.com/xocrew</a><br><br>Email: <a href="mailto:info@xocrew.ru" style="color:var(--orange);">info@xocrew.ru</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER · ТЁМНЫЙ ══════════════════════════════════════ -->
+<footer id="footer">
+  <div class="ft-top">
+    <div>
+      <div class="ft-logo">XO <span>CREW</span></div>
+      <p class="ft-desc">Крупнейшая школа брейкинга в мире.<br>Брейк-родитель — наш образовательный проект<br>для семей брейкеров.</p>
+    </div>
+    <ul class="ft-links" style="text-align:right;">
+      <li><a href="#what">Что такое интенсив?</a></li>
+      <li><a href="#program">Программа</a></li>
+      <li><a href="#pricing">Стоимость</a></li>
+      <li><a href="#support">Служба заботы</a></li>
+    </ul>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2026 XO Crew. Все права защищены.</span>
+    <span style="color:#444;">ИП Перук Артём Викторович · ИНН 602714737784 · ОГРНИП 318602700010715</span>
+    <div class="ft-docs">
+      <a href="offer.html">Договор оферты</a>
+      <a href="privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ MODAL · БЕЛЫЙ ════════════════════════════════════════ -->
+<div class="modal-bg" id="modalBg" onclick="bgClick(event)">
+  <div class="modal-box">
+    <button class="m-close" onclick="closeModal()" aria-label="Закрыть">×</button>
+    <div class="m-title">ВЫБЕРИ ТАРИФ</div>
+    <div class="m-sub">Старт 1 июля 2026</div>
+    <div class="m-opts">
+      <div class="m-opt" id="opt-base" onclick="pickTariff('base')">
+        <div class="m-opt-name">БАЗА</div>
+        <div class="m-opt-price">20 000 ₽</div>
+        <ul class="m-opt-features">
+          <li>Общий чат участников</li>
+          <li>Все материалы интенсива</li>
+          <li>Записи на 6 месяцев</li>
+        </ul>
+      </div>
+      <div class="m-opt" id="opt-ext" onclick="pickTariff('extended')">
+        <div class="m-opt-name">РАСШИРЕННЫЙ</div>
+        <div class="m-opt-price">30 000 ₽</div>
+        <ul class="m-opt-features">
+          <li>Общий чат участников</li>
+          <li>Все материалы интенсива</li>
+          <li>Записи на 1 год</li>
+          <li>Личный разбор с Кириллом</li>
         </ul>
       </div>
     </div>
-    <div class="ft-bot">
-      <span class="ft-copy">© 2025 XO Crew. Все права защищены.</span>
-      <span class="ft-copy">ИП Перук Артём Викторович &nbsp;·&nbsp; ИНН 602714737784 &nbsp;·&nbsp; ОГРНИП 318602700010715</span>
+    <label class="m-inst">
+      <input type="checkbox" id="chkInst">
+      <div class="m-chk"><div class="m-chk-tick"></div></div>
+      <span>Хочу оформить рассрочку</span>
+    </label>
+    <div class="m-legal">
+      Нажимая кнопку, вы соглашаетесь с <a href="offer.html">договором оферты</a>,
+      <a href="privacy.html">политикой конфиденциальности</a> и обработкой персональных данных.
     </div>
-  </footer>
+    <button class="m-submit" onclick="goToBot()">ПЕРЕЙТИ К ОПЛАТЕ →</button>
+  </div>
+</div>
 
-  <script>
-    const obs = new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); }
-    }), { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.r').forEach(el => obs.observe(el));
-    document.querySelectorAll('.hero-l .r, .hero-r .r').forEach(el => el.classList.add('v'));
+<!-- ══ SCRIPTS ═══════════════════════════════════════════════ -->
+<script>
+  // ── Hero height — точный расчёт под любой экран ────────────
+  function setHeroHeight() {
+    const ticker = document.querySelector('.ticker');
+    const navEl  = document.querySelector('nav');
+    const hero   = document.getElementById('hero');
+    if (!hero) return;
+    const offset = (ticker ? ticker.offsetHeight : 0) + (navEl ? navEl.offsetHeight : 0);
+    hero.style.height = (window.innerHeight - offset) + 'px';
+  }
+  setHeroHeight();
+  window.addEventListener('resize', setHeroHeight);
 
-    document.querySelectorAll('.fq').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.fi');
-        const ans = item.querySelector('.fa');
-        const open = item.classList.contains('open');
-        document.querySelectorAll('.fi').forEach(i => { i.classList.remove('open'); i.querySelector('.fa').style.maxHeight = '0'; });
-        if (!open) { item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
-      });
-    });
-  </script>
+  // ── Countdown ─────────────────────────────────────────────
+  const START = new Date('2026-07-01T00:00:00');
+  function tick() {
+    const diff = START - Date.now();
+    const pad = n => String(n).padStart(2, '0');
+    if (diff <= 0) {
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    document.getElementById('cd-d').textContent = pad(Math.floor(diff / 86400000));
+    document.getElementById('cd-h').textContent = pad(Math.floor(diff % 86400000 / 3600000));
+    document.getElementById('cd-m').textContent = pad(Math.floor(diff % 3600000 / 60000));
+    document.getElementById('cd-s').textContent = pad(Math.floor(diff % 60000 / 1000));
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ── Topics accordion ──────────────────────────────────────
+  function toggleTopic(el) {
+    const open = el.classList.contains('open');
+    document.querySelectorAll('.topic').forEach(t => t.classList.remove('open'));
+    if (!open) el.classList.add('open');
+  }
+
+  // ── Modal ─────────────────────────────────────────────────
+  // TODO: заменить на реальную ссылку VK-сообщества
+  const VK_BOT = 'https://vk.com/im?sel=-XXXXXXX';
+  let tariff = null;
+
+  function openModal(t) {
+    if (t) pickTariff(t);
+    document.getElementById('modalBg').classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('modalBg').classList.remove('on');
+    document.body.style.overflow = '';
+  }
+  function bgClick(e) {
+    if (e.target === document.getElementById('modalBg')) closeModal();
+  }
+  function pickTariff(t) {
+    tariff = t;
+    document.getElementById('opt-base').classList.toggle('sel', t === 'base');
+    document.getElementById('opt-ext').classList.toggle('sel',  t === 'extended');
+  }
+  function goToBot() {
+    if (!tariff) {
+      document.getElementById('opt-base').style.borderColor = 'rgba(255,255,255,.5)';
+      setTimeout(() => document.getElementById('opt-base').style.borderColor = '', 800);
+      return;
+    }
+    closeModal();
+    window.open(VK_BOT, '_blank');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
 </body>
 </html>
