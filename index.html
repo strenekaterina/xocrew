@@ -1043,6 +1043,11 @@
       /* Убираем вертикальное центрирование и фиксируем min-height на мобилке */
       .why-sec { min-height: auto !important; }
       .why-sec .what-content { justify-content: flex-start !important; }
+      /* ДЛЯ КОГО? — то же самое + даём сетке карточек нормальную высоту */
+      #for-whom { min-height: auto !important; }
+      #for-whom .what-content { justify-content: flex-start !important; }
+      #for-whom .what-photo { max-height: none; height: auto; }
+      #for-whom .what-photo > div { height: auto; }
 
       /* ── HOW SECTION ─────────────────────────────────── */
       .how-sec { padding: 32px 0 56px; }
