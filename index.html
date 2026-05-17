@@ -305,7 +305,7 @@
     /* .hero-eyebrow — удалён */
 
     /* Wilson title — SVG логотип */
-    .wilson-wrap { position: relative; display: block; cursor: default; width: 100%; }
+    .wilson-wrap { position: relative; display: block; cursor: default; width: 100%; padding: 24px 0; }
     .hero-title-svg {
       display: block;
       width: 100%;
@@ -1848,8 +1848,9 @@
     // Хранит { el, rot, timerId } для каждой активной карточки
     let pool = [], idx = 0, lastX = 0, lastY = 0, zTop = 20;
 
-    const hero = document.querySelector('.hero-top');
-    if (!hero) return;
+    const hero    = document.querySelector('.hero-top');   // контейнер для img
+    const trigger = document.querySelector('.wilson-wrap'); // зона триггера
+    if (!hero || !trigger) return;
 
     // Предзагрузка
     IMGS.forEach(src => { const i = new Image(); i.src = src; });
@@ -1863,8 +1864,8 @@
       setTimeout(() => el.remove(), 380);
     }
 
-    hero.addEventListener('mousemove', function(e) {
-      const r = hero.getBoundingClientRect();
+    trigger.addEventListener('mousemove', function(e) {
+      const r = hero.getBoundingClientRect(); // координаты относительно hero-top
       const x = e.clientX - r.left;
       const y = e.clientY - r.top;
       if (Math.hypot(x - lastX, y - lastY) < DIST) return;
@@ -1917,8 +1918,8 @@
       }
     });
 
-    // Очистка при уходе курсора
-    hero.addEventListener('mouseleave', function() {
+    // Очистка при уходе курсора с заголовка
+    trigger.addEventListener('mouseleave', function() {
       pool.forEach(entry => dismiss(entry));
       pool = []; zTop = 20;
     });
