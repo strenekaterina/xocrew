@@ -89,6 +89,9 @@
     .t-star img { width: 14px; height: 14px; display: block; }
     @keyframes roll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
+    /* мобильные переносы строк — скрыты на десктопе */
+    br.mob { display: none; }
+
     /* ── NAV ─────────────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 500;
@@ -1237,6 +1240,8 @@
         padding: 28px 20px !important;
       }
 
+      /* мобильные переносы строк — включаются на мобилке */
+      br.mob { display: inline; }
       /* what-quote: prevent single-line overflow */
       .what-quote { white-space: normal !important; }
 
@@ -1415,10 +1420,10 @@
     <div class="what-paragraphs">
       <div class="star-p">
         <img src="star.svg" class="star-icon" alt="">
-        <p>Сегодня родителям становится всё сложнее ориентироваться в брейкинге, как в явлении и даже целой индустрии.</p>
+        <p>Сегодня родителям становится<br class="mob">всё сложнее ориентироваться<br class="mob">в брейкинге, как в явлении<br class="mob">и даже целой индустрии.</p>
       </div>
     </div>
-    <p class="what-quote">Ребёнку нужен взрослый рядом, <span>который понимает, что происходит.</span></p>
+    <p class="what-quote">Ребёнку нужен взрослый<br class="mob">рядом, <span>который понимает,<br class="mob">что происходит.</span></p>
   </div>
 </section>
 
