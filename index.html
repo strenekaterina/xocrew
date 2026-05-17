@@ -1040,6 +1040,9 @@
       .what-quote { margin-top: 28px; }
       .dark-sec .what-photo  { border-top-color: rgba(255,255,255,.1); }
       .why-sec  .what-photo  { border-top-color: rgba(0,0,0,.2); }
+      /* Убираем вертикальное центрирование и фиксируем min-height на мобилке */
+      .why-sec { min-height: auto !important; }
+      .why-sec .what-content { justify-content: flex-start !important; }
 
       /* ── HOW SECTION ─────────────────────────────────── */
       .how-sec { padding: 32px 0 56px; }
