@@ -1179,17 +1179,20 @@
         width: 100% !important;
       }
 
-      /* Section 11: ЧТОБЫ ЧТО? — 2×2 cards stay 2×2 but use full width */
+      /* Section 11: ЧТОБЫ ЧТО? — 2×2 → одна колонка как эталонные карточки */
       .what-photo > div[style*="grid-template-rows"] {
         height: auto !important;
         min-height: auto !important;
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto !important;
       }
       .what-photo > div[style*="grid-template-rows"] > div {
-        padding: 20px 16px !important;
-        min-height: 38vw !important;
+        padding: 24px 20px !important;
+        min-height: auto !important;
+        border-right: none !important;
       }
       .what-photo > div[style*="grid-template-rows"] > div > div[style*="font-family"] {
-        font-size: clamp(15px, 4vw, 22px) !important;
+        font-size: 18px !important;
       }
 
       /* Team list col: 2×2 → single column */
