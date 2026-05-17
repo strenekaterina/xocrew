@@ -1836,6 +1836,78 @@
     window.open(VK_BOT_BASE + '?start=' + tariff, '_blank');
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ── Hero cursor gallery ───────────────────────────────────
+  (function() {
+    const IMGS = Array.from({length:19}, (_,i) => `img/gallery/g${i+1}.jpg`);
+    const MAX  = 12;   // максимум одновременных карточек
+    const DIST = 90;   // минимальное расстояние курсора для новой карточки
+    const W = 200, H = 288; // размер карточки (вертикальный формат)
+
+    let pool = [], idx = 0, lastX = 0, lastY = 0, zTop = 20;
+
+    const hero = document.querySelector('.hero-top');
+    if (!hero) return;
+
+    // Предзагрузка
+    IMGS.forEach(src => { const i = new Image(); i.src = src; });
+
+    hero.addEventListener('mousemove', function(e) {
+      const r = hero.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      if (Math.hypot(x - lastX, y - lastY) < DIST) return;
+      lastX = x; lastY = y;
+
+      const el = document.createElement('img');
+      el.src = IMGS[idx % IMGS.length];
+      idx++;
+
+      const rot = (Math.random() - 0.5) * 22; // случайный наклон ±11°
+      const ox  = (Math.random() - 0.5) * 24; // небольшой горизонтальный разброс
+      el.style.cssText = [
+        'position:absolute',
+        `left:${x - W/2 + ox}px`,
+        `top:${y - H/2}px`,
+        `width:${W}px`,
+        `height:${H}px`,
+        'object-fit:cover',
+        'border-radius:8px',
+        'pointer-events:none',
+        `z-index:${zTop++}`,
+        'opacity:0',
+        `transform:rotate(${rot}deg) scale(0.82)`,
+        'transition:opacity .18s ease,transform .28s cubic-bezier(.34,1.45,.64,1)',
+        'will-change:transform,opacity',
+        'box-shadow:0 12px 40px rgba(0,0,0,.45)',
+      ].join(';');
+
+      hero.appendChild(el);
+      pool.push(el);
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        el.style.opacity = '1';
+        el.style.transform = `rotate(${rot}deg) scale(1)`;
+      }));
+
+      // Убираем самую старую карточку если превышен лимит
+      if (pool.length > MAX) {
+        const old = pool.shift();
+        old.style.opacity = '0';
+        old.style.transform = old.style.transform.replace('scale(1)', 'scale(0.9)');
+        setTimeout(() => old.remove(), 250);
+      }
+    });
+
+    // Очистка при уходе курсора
+    hero.addEventListener('mouseleave', function() {
+      pool.forEach(el => {
+        el.style.opacity = '0';
+        setTimeout(() => el.remove(), 280);
+      });
+      pool = []; zTop = 20;
+    });
+  })();
 </script>
 </body>
 </html>
