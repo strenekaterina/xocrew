@@ -1060,11 +1060,23 @@
         font-size: 13px !important;
         line-height: 1.4 !important;
       }
-      /* ДЛЯ КОГО? — то же самое + даём сетке карточек нормальную высоту */
+      /* ДЛЯ КОГО? — то же самое + карточки в одну колонку как эталон */
       #for-whom { min-height: auto !important; }
       #for-whom .what-content { justify-content: flex-start !important; }
       #for-whom .what-photo { max-height: none; height: auto; }
-      #for-whom .what-photo > div { height: auto; }
+      #for-whom .what-photo > div {
+        height: auto;
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto !important;
+      }
+      #for-whom .what-photo > div > div {
+        border-right: none !important;
+        padding: 24px 20px !important;
+        justify-content: flex-start !important;
+        gap: 14px !important;
+      }
+      #for-whom .what-photo > div > div span { font-size: 22px !important; }
+      #for-whom .what-photo > div > div p  { font-size: 13px !important; }
 
       /* ── HOW SECTION ─────────────────────────────────── */
       .how-sec { padding: 32px 0 56px; }
