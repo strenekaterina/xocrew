@@ -985,21 +985,38 @@
     @media (max-width: 820px) {
 
       /* ── NAV ─────────────────────────────────────────── */
-      nav { padding: 0 16px; }
+      nav { padding: 0 0 0 16px; } /* кнопка вплотную к правому краю */
       .nav-links { display: none; }
-      .nav-cta { padding: 0 18px; font-size: 10px; letter-spacing: .08em; }
+      .nav-cta { padding: 0 20px; font-size: 10px; letter-spacing: .08em; }
 
       /* ── HERO ────────────────────────────────────────── */
       #hero { height: auto; min-height: auto; }
       .hero-top { padding: 28px 16px 24px; }
       .hero-sub { margin-top: 24px; font-size: clamp(11px, 3.2vw, 15px); }
       .hero-bottom { grid-template-columns: 1fr; height: auto; }
-      .hb-cell { border-right: none; border-bottom: 1px solid var(--line-light); padding: 18px 16px; }
+
+      /* мини-блоки: лейбл слева по центру — данные справа */
+      .hb-cell {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-right: none;
+        border-bottom: 1px solid var(--line-light);
+        padding: 18px 16px;
+      }
       .hb-cell:last-child { border-bottom: none; }
+      .hb-label { flex-shrink: 0; max-width: 44%; }
+
       .hb-btn { min-height: 72px; font-size: clamp(16px, 4.5vw, 22px); }
-      .cd-n { font-size: clamp(24px, 7vw, 44px); }
-      .cd-sep { font-size: clamp(20px, 6vw, 36px); }
-      .start-date { font-size: clamp(20px, 5.5vw, 36px); white-space: normal; }
+
+      /* дата — вправо, чуть компактнее */
+      .start-date { font-size: clamp(18px, 5vw, 30px); white-space: nowrap; text-align: right; }
+
+      /* отсчёт — вправо */
+      .cd-row { margin-left: auto; }
+      .cd-n   { font-size: clamp(18px, 5.2vw, 30px); }
+      .cd-sep { font-size: clamp(16px, 4.8vw, 26px); }
+      .cd-u   { font-size: 8px; }
 
       /* ── SECTION HEADER / BODY ───────────────────────── */
       .sec-hd { padding: 32px 16px 0; flex-wrap: wrap; gap: 6px; }
