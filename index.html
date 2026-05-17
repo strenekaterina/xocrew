@@ -286,9 +286,6 @@
     ══════════════════════════════════════════════════════ */
     #hero {
       background: var(--blue);
-      background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
-      background-size: 56px 56px;
       display: flex; flex-direction: column;
       /* 100vh минус тикер (~32px) и навбар (58px) */
       height: calc(100vh - 90px);
@@ -301,6 +298,9 @@
       border-bottom: 1px solid var(--line-light);
       position: relative; overflow: hidden;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
+      background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+      background-size: 56px 56px;
     }
     /* .hero-eyebrow — удалён */
 
