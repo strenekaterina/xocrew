@@ -448,6 +448,7 @@
       font-size: clamp(15px, 1.5vw, 17px);
       font-weight: 700; line-height: 1.55;
       color: var(--dark);
+      text-transform: uppercase;
     }
     .what-quote {
       font-size: clamp(18px, 2.2vw, 30px);
@@ -1196,6 +1197,10 @@
 
       /* what-quote: prevent single-line overflow */
       .what-quote { white-space: normal !important; }
+
+      /* ЧТО? section: smaller body text on mobile */
+      .star-p p { font-size: 13px; }
+      .star-p-light p { font-size: 13px; }
     }
   </style>
 </head>
@@ -1943,6 +1948,20 @@
     trigger.addEventListener('mouseleave', function() {
       pool.forEach(entry => dismiss(entry));
       pool = []; zTop = 20;
+    });
+  })();
+
+  // ── Висячие предлоги ──────────────────────────────────────
+  (function() {
+    // Вставляем неразрывный пробел после однобуквенных и коротких предлогов/союзов
+    const PREPS = /\s(в|и|а|к|с|я|о|у|на|не|ни|но|до|за|из|их|ко|об|от|по|со|что|как|так|для|или|же|бы|то|чем|уже|его|её|её|это|эти|там|тут|при|под|про|над|без)\s/gi;
+    const SELECTORS = '.star-p p, .what-quote, .t-body, .pair-item-text, .team-desc-text';
+    document.querySelectorAll(SELECTORS).forEach(function(el) {
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+      var node;
+      while ((node = walker.nextNode())) {
+        node.nodeValue = node.nodeValue.replace(PREPS, ' $1 ');
+      }
     });
   })();
 </script>
