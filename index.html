@@ -431,7 +431,7 @@
       line-height: .88; letter-spacing: -.01em;
       color: var(--blue);
     }
-    .what-paragraphs { display: flex; flex-direction: column; gap: 28px; margin-top: 56px; }
+    .what-paragraphs { display: flex; flex-direction: column; gap: 28px; margin-top: 40px; }
     /* абзацы со SVG-звёздочкой */
     .star-p {
       display: flex; align-items: flex-start; gap: 14px;
@@ -497,7 +497,7 @@
     .how-body {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 28px;
       margin-top: 120px;
       width: 100%;
       max-width: 560px;
@@ -542,7 +542,7 @@
       color: var(--blue);
       white-space: nowrap;
     }
-    .pair-body { display: flex; flex-direction: column; gap: 32px; margin-top: 40px; }
+    .pair-body { display: flex; flex-direction: column; gap: 28px; margin-top: 40px; }
     .pair-item-head {
       font-size: 11px;
       font-weight: 700; text-transform: uppercase;
@@ -587,7 +587,7 @@
     /* ── ПОЧЕМУ? — оранжевые оверрайды ──────────────────── */
     .why-sec .what-title  { color: var(--dark); }
     .why-sec .what-photo  { border-left-color: rgba(0,0,0,.2); }
-    .why-sec .what-paragraphs { gap: 28px; margin-top: 56px; }
+    .why-sec .what-paragraphs { gap: 28px; margin-top: 40px; }
     .why-sec .star-p p    { color: rgba(0,0,0,.85); }
     .why-sec .star-icon   { filter: brightness(0) opacity(.75); }
     .why-sec .slist li    { color: rgba(0,0,0,.8); border-color: rgba(0,0,0,.15); font-weight: 700; }
@@ -614,7 +614,7 @@
     }
     .team-title {
       font-family: var(--f-head);
-      font-size: clamp(80px, 12vw, 160px);
+      font-size: clamp(52px, 7.5vw, 96px);
       font-weight: 900; text-transform: uppercase;
       line-height: .88; letter-spacing: -.01em;
       color: var(--orange);
@@ -662,7 +662,7 @@
       color: rgba(255,255,255,.92);
       border-top: none;
       border-bottom: none;
-      padding: 10px 0;
+      padding: 12px 0;
       align-items: center;
     }
     .team-list-col .slist li::before {
@@ -827,10 +827,10 @@
        TWO-COL GRID (юрлица / забота)
     ══════════════════════════════════════════════════════ */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; }
-    .tcol { padding: 44px 36px; border-right: 1px solid var(--line-mid); }
+    .tcol { padding: 44px 48px; border-right: 1px solid var(--line-mid); }
     .tcol:last-child { border-right: none; }
     .tcol-head { font-family: var(--f-head); font-size: 20px; text-transform: uppercase; font-weight: 900; color: var(--blue); letter-spacing: .04em; margin-bottom: 18px; }
-    .tcol-text { font-size: 14px; line-height: 1.75; color: #555; }
+    .tcol-text { font-size: clamp(15px, 1.5vw, 17px); line-height: 1.75; color: #555; }
     .tcol-text a { color: var(--dark); text-decoration: underline; text-underline-offset: 3px; }
     .tcol-text a:hover { color: var(--orange); }
 
@@ -841,7 +841,7 @@
       font-family: var(--f-head);
       font-size: clamp(32px, 5vw, 68px);
       font-weight: 900; text-transform: uppercase;
-      line-height: .95; padding: 52px 32px;
+      line-height: .95; padding: 52px 48px;
     }
     .s-orange .statement { color: var(--dark); }
     .s-blue   .statement { color: var(--white); }
@@ -1285,19 +1285,19 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;height:100%;width:100%;flex:1;">
         <div style="padding:36px 40px;border-right:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
           <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
-          <p style="font-size:clamp(14px,1.3vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Многолетний (почти 25 лет) опыт воспитания детей в культуре брейкинга</p>
+          <p style="font-size:clamp(15px,1.5vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Многолетний (почти 25 лет) опыт воспитания детей в культуре брейкинга</p>
         </div>
         <div style="padding:36px 40px;border-bottom:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
           <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
-          <p style="font-size:clamp(14px,1.3vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Работа с начинающими и профессиональными танцорами</p>
+          <p style="font-size:clamp(15px,1.5vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Работа с начинающими и профессиональными танцорами</p>
         </div>
         <div style="padding:36px 40px;border-right:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
           <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
-          <p style="font-size:clamp(14px,1.3vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Организация мероприятий, батлов и образовательных проектов</p>
+          <p style="font-size:clamp(15px,1.5vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Организация мероприятий, батлов и образовательных проектов</p>
         </div>
         <div style="padding:36px 40px;display:flex;flex-direction:column;gap:20px;justify-content:center;">
           <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
-          <p style="font-size:clamp(14px,1.3vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Понимание брейкинга не только как танца, но и как культурной среды, спорта и образа жизни</p>
+          <p style="font-size:clamp(15px,1.5vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Понимание брейкинга не только как танца, но и как культурной среды, спорта и образа жизни</p>
         </div>
       </div>
     </div>
@@ -1380,7 +1380,7 @@
   </div>
   <div class="what-content" style="justify-content:center;">
     <h2 class="what-title">ДЛЯ КОГО?</h2>
-    <p class="what-quote" style="margin-top:5vh;color:var(--orange);">ВОЗРАСТНЫХ ОГРАНИЧЕНИЙ НЕТ</p>
+    <p class="what-quote" style="margin-top:40px;color:var(--orange);">ВОЗРАСТНЫХ ОГРАНИЧЕНИЙ НЕТ</p>
   </div>
 </section>
 
@@ -1576,15 +1576,15 @@
   </div>
   <div class="what-content">
     <h2 class="what-title">ЧТОБЫ ЧТО?</h2>
-    <p class="what-quote" style="margin-top:5vh;">И чтобы рядом с ребёнком был взрослый,<br><span>который действительно понимает этот путь.</span></p>
+    <p class="what-quote" style="margin-top:40px;">И чтобы рядом с ребёнком был взрослый,<br><span>который действительно понимает этот путь.</span></p>
   </div>
 </section>
 
 <!-- ══ 12+13 · ГДЕ? + КОГДА? · СИНИЙ ════════════════════════ -->
 <section class="pair-sec s-blue" id="where" style="border-bottom-color:rgba(255,255,255,.12);min-height:auto;">
   <!-- LEFT: ГДЕ? -->
-  <div class="pair-col" style="border-left:none;padding-top:10vh;padding-bottom:10vh;">
-    <h2 class="pair-title" style="color:var(--orange);font-size:clamp(72px,11vw,140px);">ГДЕ?</h2>
+  <div class="pair-col" style="border-left:none;padding-top:64px;padding-bottom:64px;">
+    <h2 class="pair-title" style="color:var(--orange);font-size:clamp(68px,10vw,130px);">ГДЕ?</h2>
     <div class="pair-body">
       <div>
         <div class="pair-item-head" style="color:rgba(255,255,255,.45);">Формат</div>
@@ -1597,8 +1597,8 @@
     </div>
   </div>
   <!-- RIGHT: КОГДА? -->
-  <div class="pair-col" id="when" style="border-left-color:rgba(255,255,255,.12);padding-top:10vh;padding-bottom:0;">
-    <h2 class="pair-title" style="color:var(--orange);font-size:clamp(72px,11vw,140px);">КОГДА?</h2>
+  <div class="pair-col" id="when" style="border-left-color:rgba(255,255,255,.12);padding-top:64px;padding-bottom:0;">
+    <h2 class="pair-title" style="color:var(--orange);font-size:clamp(68px,10vw,130px);">КОГДА?</h2>
     <div class="pair-body" style="flex:1;justify-content:space-between;">
       <!-- описание сверху — отступ совпадает с высотой .pair-item-head слева -->
       <div style="padding-top:28px;">
