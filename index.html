@@ -1235,7 +1235,10 @@
 <div id="hero">
   <div class="hero-top">
     <div class="wilson-wrap">
-      <img src="брейк-родитель.svg" alt="БРЕЙК-РОДИТЕЛЬ" class="hero-title-svg">
+      <picture>
+        <source media="(max-width: 820px)" srcset="logo-mobile.svg">
+        <img src="брейк-родитель.svg" alt="БРЕЙК-РОДИТЕЛЬ" class="hero-title-svg">
+      </picture>
     </div>
     <p class="hero-sub">
       <strong>Первый в мире</strong> онлайн-интенсив для самых вдумчивых родителей,
@@ -1856,6 +1859,7 @@
 
   // ── Hero cursor gallery ───────────────────────────────────
   (function() {
+    if (window.matchMedia('(max-width: 820px)').matches) return; // отключить на мобилке
     const IMGS = Array.from({length:19}, (_,i) => `img/gallery/g${i+1}.jpg`);
     const MAX      = 12;   // максимум одновременных карточек
     const DIST     = 90;   // минимальное расстояние курсора для новой карточки
