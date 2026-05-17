@@ -1043,6 +1043,23 @@
       /* Убираем вертикальное центрирование и фиксируем min-height на мобилке */
       .why-sec { min-height: auto !important; }
       .why-sec .what-content { justify-content: flex-start !important; }
+      /* Карточки ПОЧЕМУ? — вертикальный layout как эталон (только мобилка) */
+      .why-sec .what-photo { max-height: none; height: auto; }
+      .why-sec .what-photo > div { height: auto; }
+      .why-sec .what-photo > div > div {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 24px 20px !important;
+        gap: 14px !important;
+        flex: 0 0 auto !important;
+      }
+      .why-sec .what-photo > div > div span {
+        font-size: 22px !important;
+      }
+      .why-sec .what-photo > div > div p {
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+      }
       /* ДЛЯ КОГО? — то же самое + даём сетке карточек нормальную высоту */
       #for-whom { min-height: auto !important; }
       #for-whom .what-content { justify-content: flex-start !important; }
@@ -1385,7 +1402,7 @@
         <p>Сегодня родителям становится всё сложнее ориентироваться в брейкинге, как в явлении и даже целой индустрии.</p>
       </div>
     </div>
-    <p class="what-quote">Ребёнку нужен взрослый рядом,<br><span>который понимает, что происходит.</span></p>
+    <p class="what-quote">Ребёнку нужен взрослый рядом, <span>который понимает, что происходит.</span></p>
   </div>
 </section>
 
