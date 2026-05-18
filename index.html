@@ -1203,6 +1203,8 @@
       }
 
       /* Section 11: ЧТОБЫ ЧТО? — 2×2 → одна колонка как эталонные карточки */
+      /* снимаем max-height с .what-photo — иначе 4 карточки обрезаются */
+      .what-sec.s-off .what-photo { max-height: none !important; height: auto !important; }
       .what-photo > div[style*="grid-template-rows"] {
         height: auto !important;
         min-height: auto !important;
@@ -1213,6 +1215,10 @@
         padding: 24px 20px !important;
         min-height: auto !important;
         border-right: none !important;
+        border-bottom: 2px solid rgba(128,128,128,.2) !important;
+      }
+      .what-photo > div[style*="grid-template-rows"] > div:last-child {
+        border-bottom: none !important;
       }
       .what-photo > div[style*="grid-template-rows"] > div > div[style*="font-family"] {
         font-size: 18px !important;
