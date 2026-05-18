@@ -1127,6 +1127,8 @@
       .pc-body { padding: 28px 20px; }
 
       /* ── PAIR SECTIONS ───────────────────────────────── */
+      /* скрываем десктопный br в ГДЕ? чтобы не дублировал mob-br */
+      #where .pair-item-text br:not(.mob) { display: none; }
       .pair-sec { flex-direction: column; height: auto; }
       .pair-sec.pair-full { height: auto; }
       .pair-col { padding: 36px 16px; }
@@ -1689,11 +1691,11 @@
     <div class="pair-body">
       <div>
         <div class="pair-item-head" style="color:rgba(255,255,255,.45);">Формат</div>
-        <p class="pair-item-text" style="color:var(--white);">Онлайн. Закрытый канал VK с последующим<br>доступом ко всем материалам.</p>
+        <p class="pair-item-text" style="color:var(--white);">Онлайн. Закрытый канал VK<br class="mob"> с последующим<br>доступом<br class="mob"> ко всем материалам.</p>
       </div>
       <div>
         <div class="pair-item-head" style="color:rgba(255,255,255,.45);">Доступность</div>
-        <p class="pair-item-text" style="color:var(--white);">Участвовать можно из <span style="color:var(--orange);">любой точки мира.</span></p>
+        <p class="pair-item-text" style="color:var(--orange);">Участвовать можно<br class="mob"> из любой точки мира.</p>
       </div>
     </div>
   </div>
