@@ -1151,6 +1151,18 @@
 
       /* ── INLINE STYLE OVERRIDES (requires !important) ── */
 
+      /* Section 06: 9 ТЕМ — left-align description, trim SVG padding */
+      #program > div:first-child {
+        padding: 36px 16px 12px !important;
+      }
+      #program > div:first-child p {
+        text-align: left !important;
+      }
+      #program > div:last-child {
+        padding-top: 20px !important;
+        padding-bottom: 40px !important;
+      }
+
       /* Section 07: КАК ПРОХОДИТ — remove full-height, fix header layout */
       #format { height: auto !important; }
       #format > div:first-child {
@@ -2003,6 +2015,18 @@
   })();
 
   // ── Висячие предлоги ──────────────────────────────────────
+  // ── 9-ТЕМ: zoom SVG diagram on mobile ─────────────
+  (function() {
+    var svg = document.querySelector('#program svg');
+    if (!svg) return;
+    function updateViewBox() {
+      svg.setAttribute('viewBox',
+        window.innerWidth <= 820 ? '155 12 690 385' : '0 0 1000 420');
+    }
+    updateViewBox();
+    window.addEventListener('resize', updateViewBox);
+  })();
+
   (function() {
     // Вставляем неразрывный пробел после однобуквенных и коротких предлогов/союзов
     const PREPS = /\s(в|и|а|к|с|я|о|у|на|не|ни|но|до|за|из|их|ко|об|от|по|со|что|как|так|для|или|же|бы|то|чем|уже|его|её|её|это|эти|там|тут|при|под|про|над|без)\s/gi;
