@@ -1133,6 +1133,11 @@
       .pair-sec.pair-full { height: auto; }
       .pair-col { padding: 36px 16px; }
       .pair-col + .pair-col { border-left: none; border-top: 2px solid var(--dark); }
+      /* КОГДА? — равномерные отступы, даты не прижаты ко дну */
+      #when { padding: 36px 16px !important; }
+      #when .pair-body { flex: none !important; justify-content: flex-start !important; gap: 32px !important; }
+      #when .pair-body > div:first-child { padding-top: 0 !important; }
+      #when .pair-body > div:last-child > div { padding-bottom: 0 !important; }
       .pair-title { white-space: normal; font-size: clamp(36px, 10vw, 68px); }
       .pair-full .pair-title { font-size: clamp(48px, 13vw, 88px); }
 
