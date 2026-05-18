@@ -1089,9 +1089,12 @@
 
       /* ── HOW SECTION ─────────────────────────────────── */
       .how-sec { padding: 32px 0 56px; }
-      .how-content { width: 94%; padding: 32px 0; }
+      .how-content { width: 100%; padding: 32px 16px; }
       .how-title { font-size: clamp(60px, 16vw, 88px); white-space: normal; word-break: break-word; }
       .how-body { margin-top: 44px; }
+      /* убираем звёзды — текст выравнивается по левому краю с отступами секции */
+      #how .how-item .star-icon { display: none; }
+      #how .how-item { gap: 0; }
 
       /* ── TEAM SECTION ────────────────────────────────── */
       .team-top { padding: 36px 16px; min-height: auto; align-items: flex-start; }
