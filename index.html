@@ -1261,6 +1261,7 @@
         align-items: stretch !important;
         gap: 12px !important;
         padding: 4px 16px 16px 20px !important;
+        scroll-padding-left: 20px !important;
       }
       #pricing > div[style*="grid-template-columns"]::-webkit-scrollbar { display: none; }
       #pricing > div[style*="grid-template-columns"] > .pc {
@@ -1269,6 +1270,9 @@
         scroll-snap-align: start !important;
         border: 1.5px solid rgba(255,255,255,.25) !important;
         border-radius: 6px !important;
+      }
+      #pricing > div[style*="grid-template-columns"] > .pc:first-child {
+        margin-left: 20px !important;
       }
 
       /* Section 15: Final statement — remove full-height */
