@@ -1141,8 +1141,8 @@
       #when .pair-body > div:first-child { padding-top: 0 !important; }
       /* Сетка с датами выходит в край (bleeding) */
       #when .pair-body > div:last-child { margin: 0 -16px !important; }
-      /* Ячейки дат: симметричный отступ сверху/снизу = 20px (как у mini-header) */
-      #when .pair-body > div:last-child > div { padding: 20px 16px !important; }
+      /* Ячейки дат: верх 24px, низ 48px — даты визуально ниже и органичнее */
+      #when .pair-body > div:last-child > div { padding: 24px 16px 48px !important; }
       /* Правая ячейка: сохранить внутренний отступ */
       #when .pair-body > div:last-child > div:last-child { padding-left: 20px !important; }
       .pair-title { white-space: normal; font-size: clamp(36px, 10vw, 68px); }
@@ -1729,7 +1729,7 @@
     <div class="pair-body" style="flex:1;justify-content:space-between;">
       <!-- описание сверху — отступ совпадает с высотой .pair-item-head слева -->
       <div style="padding-top:28px;">
-        <p class="pair-item-text" style="color:rgba(255,255,255,.85);">1 месяц погружения, практики и переосмысления<br>роли родителя в брейкинге.</p>
+        <p class="pair-item-text" style="color:rgba(255,255,255,.85);">1 месяц погружения, практики и переосмысления роли родителя в брейкинге.</p>
       </div>
       <!-- даты сеткой — прижаты к низу -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(255,255,255,.15);">
