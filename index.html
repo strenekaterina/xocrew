@@ -1097,6 +1097,8 @@
       #how .how-item { gap: 0; }
 
       /* ── TEAM SECTION ────────────────────────────────── */
+      /* скрываем десктопный br в описании организаторов */
+      #team .team-desc-text br { display: none; }
       .team-top { padding: 36px 16px; min-height: auto; align-items: flex-start; }
       .team-list-head { margin-top: 32px !important; }
       .team-title { font-size: clamp(52px, 14vw, 88px); }
@@ -1131,6 +1133,8 @@
       .pair-sec.pair-full { height: auto; }
       .pair-col { padding: 36px 16px; }
       .pair-col + .pair-col { border-left: none; border-top: 2px solid var(--dark); }
+      /* ГДЕ? — перебиваем inline padding-top/bottom:64px */
+      #where > .pair-col:first-child { padding: 36px 16px !important; }
       /* КОГДА? — даты до края, симметричные отступы */
       #when { padding: 36px 16px !important; }
       #when .pair-body { flex: none !important; justify-content: flex-start !important; gap: 32px !important; }
@@ -1400,7 +1404,7 @@
       </div>
     </div>
     <p class="what-quote">
-      Интенсив поможет разобраться в этой системе <span>спокойно, глубоко и без хаоса.</span>
+      Интенсив поможет разобраться<br class="mob"> в этой системе <span>спокойно,<br class="mob"> глубоко и без хаоса.</span>
     </p>
   </div>
 </section>
@@ -1667,7 +1671,7 @@
       <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Могли поддерживать<br class="mob"> ребёнка экологично.</p></div>
       <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Не терялись в информации<br class="mob"> и индустрии.</p></div>
     </div>
-    <p class="what-quote" style="white-space:nowrap;">Чтобы знать, поддерживать <span>и не мешать.</span></p>
+    <p class="what-quote" style="white-space:nowrap;">Чтобы знать,<br class="mob"> поддерживать <span>и не мешать.</span></p>
   </div>
 </section>
 
