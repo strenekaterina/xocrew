@@ -1158,6 +1158,10 @@
       .ft-top { flex-direction: column; gap: 28px; }
       .ft-bottom { flex-direction: column; gap: 12px; text-align: center; }
       .ft-docs { flex-wrap: wrap; gap: 16px; justify-content: center; }
+      .ft-logo span { color: var(--white) !important; }
+      footer .ft-desc br:not(.mob) { display: none; }
+      .ft-links { text-align: left !important; }
+      .desk { display: none; }
 
       /* ── MODAL ───────────────────────────────────────── */
       .modal-box { padding: 32px 20px; }
@@ -1817,7 +1821,7 @@
   <div class="ft-top">
     <div>
       <div class="ft-logo">XO <span>CREW</span></div>
-      <p class="ft-desc">Крупнейшая школа брейкинга в мире.<br>Брейк-родитель — наш образовательный проект<br>для семей брейкеров.</p>
+      <p class="ft-desc">Крупнейшая школа<br class="mob"> брейкинга в мире.<br><br class="mob"><br class="mob">Брейк-родитель — наш<br class="mob"> образовательный проект<br class="mob"> для семей брейкеров.</p>
     </div>
     <ul class="ft-links" style="text-align:right;">
       <li><a href="#what">Что такое интенсив?</a></li>
@@ -1828,7 +1832,7 @@
   </div>
   <div class="ft-bottom">
     <span>© 2026 XO Crew. Все права защищены.</span>
-    <span style="color:#444;">ИП Перук Артём Викторович · ИНН 602714737784 · ОГРНИП 318602700010715</span>
+    <span style="color:#444;">ИП Перук Артём Викторович<span class="desk"> · </span><br class="mob">ИНН 602714737784<span class="desk"> · </span><br class="mob">ОГРНИП 318602700010715</span>
     <div class="ft-docs">
       <a href="offer.html">Договор оферты</a>
       <a href="privacy.html">Политика конфиденциальности</a>
