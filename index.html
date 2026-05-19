@@ -1122,8 +1122,6 @@
 
       /* ── PRICING ─────────────────────────────────────── */
       .pricing-grid { grid-template-columns: 1fr; }
-      .pc { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
-      .pc:last-child { border-bottom: none; }
       .pc-body { padding: 28px 20px; }
 
       /* ── PAIR SECTIONS ───────────────────────────────── */
@@ -1250,11 +1248,27 @@
         border-bottom: none !important;
       }
 
-      /* Section 14: Pricing — single column, reduce padding */
-      #pricing { padding: 16px !important; gap: 16px !important; }
-      #pricing > h2 { padding: 24px 0 8px !important; font-size: clamp(56px, 15vw, 100px) !important; }
+      /* Section 14: Pricing — swipeable carousel */
+      #pricing { padding: 16px 0 32px !important; gap: 0 !important; }
+      #pricing > h2 { padding: 24px 16px 16px !important; font-size: clamp(56px, 15vw, 100px) !important; }
       #pricing > div[style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: scroll !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+        padding: 4px 16px 16px !important;
+      }
+      #pricing > div[style*="grid-template-columns"]::-webkit-scrollbar { display: none; }
+      #pricing > div[style*="grid-template-columns"] > .pc {
+        flex: 0 0 85vw !important;
+        width: 85vw !important;
+        scroll-snap-align: start !important;
+        border: 1.5px solid rgba(255,255,255,.25) !important;
+        border-radius: 6px !important;
       }
 
       /* Section 15: Final statement — remove full-height */
