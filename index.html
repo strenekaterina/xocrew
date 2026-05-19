@@ -1137,13 +1137,13 @@
       /* ГДЕ? — перебиваем inline padding-top/bottom:64px */
       #where > .pair-col:first-child { padding: 36px 16px !important; }
       /* КОГДА? — даты до края, симметричные отступы */
-      #when { padding: 36px 16px !important; }
+      #when { padding: 36px 16px 0 !important; }
       #when .pair-body { flex: none !important; justify-content: flex-start !important; gap: 32px !important; }
       #when .pair-body > div:first-child { padding-top: 0 !important; }
       /* Сетка с датами выходит в край (bleeding) */
       #when .pair-body > div:last-child { margin: 0 -16px !important; }
-      /* Ячейки дат: верх 24px, низ 48px — даты визуально ниже и органичнее */
-      #when .pair-body > div:last-child > div { padding: 24px 16px 48px !important; }
+      /* Ячейки дат: верх 20px, низ 32px — баланс без лишнего пустого пространства */
+      #when .pair-body > div:last-child > div { padding: 20px 16px 32px !important; }
       /* Правая ячейка: сохранить внутренний отступ */
       #when .pair-body > div:last-child > div:last-child { padding-left: 20px !important; }
       .pair-title { white-space: normal; font-size: clamp(36px, 10vw, 68px); }
