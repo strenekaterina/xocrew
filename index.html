@@ -466,27 +466,26 @@
     }
     /* «КАК ПОНЯТЬ:» — крупный лейбл с SVG-подчёркиванием */
     .why-label-wrap {
-      display: inline-block;
       position: relative;
-      margin-bottom: 12px;
+      display: block;       /* блочный контейнер — без inline-block эффектов */
+      margin-bottom: 20px;
     }
     .why-label-text {
       font-family: var(--f-head);
-      /* 2.5× от body clamp(18px,1.8vw,20px) */
       font-size: clamp(45px, 4.5vw, 50px);
       font-weight: 900; text-transform: uppercase;
       color: var(--dark); line-height: 1;
-      display: block;
+      display: inline-block; /* shrink-to-content, чтобы SVG не шире текста */
       position: relative; z-index: 1;
     }
     .why-label-line {
-      /* Фиксированная высота → ширина считается из viewBox 701:104 */
-      display: block;
-      height: 52px;   /* → автоширина ≈ 350px, 3 компактных штриха */
+      /* Абсолютно под текстом — все 3 штриха видны */
+      position: absolute;
+      top: 0; left: -8px;
+      height: 60px;   /* viewBox 701:104 → автоширина ≈ 404px */
       width: auto;
-      margin-top: -18px; /* перекрываем низ текста — как маркер */
-      margin-left: -6px;
-      position: relative; z-index: 0;
+      z-index: 0;
+      pointer-events: none;
     }
     .why-list-item {
       display: flex; align-items: flex-start; gap: 16px;
