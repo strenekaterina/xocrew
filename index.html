@@ -1312,13 +1312,8 @@
       }
       .nav-logo img { height: 42px; }
       .nav-links { display: none; }
-      /* Кнопка CTA — компактная, короткий текст через ::after */
-      .nav-cta { padding: 0 16px; font-size: 0; letter-spacing: .08em; }
-      .nav-cta::after {
-        content: "Купить";
-        font-size: 11px; font-weight: 900;
-        letter-spacing: .08em; text-transform: uppercase;
-      }
+      /* Кнопка CTA — компактная, текст влезает */
+      .nav-cta { padding: 0 12px; font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
 
       /* ── TICKER ──────────────────────────────────────── */
       .ticker-item { font-size: 9px; padding: 0 16px; }
