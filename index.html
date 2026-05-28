@@ -500,6 +500,7 @@
       position: relative;
       display: block;       /* блочный контейнер — без inline-block эффектов */
       margin-bottom: 20px;
+      overflow: visible;    /* SVG выходит за пределы wrap влево */
     }
     .why-label-text {
       font-family: var(--f-head);
@@ -510,10 +511,10 @@
       position: relative; z-index: 1;
     }
     .why-label-line {
-      /* Абсолютно под текстом — все 3 штриха видны */
+      /* Абсолютно под текстом; left пробивает padding карточки (40px) + 16px блид */
       position: absolute;
-      top: 0; left: -8px;
-      height: 60px;   /* viewBox 701:104 → автоширина ≈ 404px */
+      top: -4px; left: -56px;
+      height: 68px;   /* чуть выше текста (~50px) чтобы охватить выше и ниже */
       width: auto;
       z-index: 0;
       pointer-events: none;
