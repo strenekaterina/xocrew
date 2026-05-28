@@ -40,17 +40,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue:    #1929C2;
-      --blue-dk: #0F1A8F;
-      --orange:  #FF5200;
-      --orange2: #CC4100;
-      --dark:    #0D0D0D;
-      --white:   #ffffff;
-      --offwhite:#F4F3EF;
-      --gray:    #888;
+      --blue:    #01277C;
+      --blue-dk: #011C5A;
+      --orange:  #FF6600;
+      --orange2: #CC5200;
+      --dark:    #020202;
+      --white:   #D1D1D1;
+      --offwhite:#C0C0C0;
+      --gray:    #D1D1D1;
       --line-light: rgba(255,255,255,.14);
       --line-dark:  rgba(0,0,0,.12);
-      --line-mid:   #DDDBD6;
+      --line-mid:   #B8B8B8;
 
       --f-head: 'Sprite Graffiti', 'Anton', 'Impact', sans-serif;
       --f-body: 'Neutral Face', 'Inter', sans-serif;
@@ -1276,7 +1276,7 @@
     }
     .m-chk-tick {
       width: 10px; height: 10px;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l3 3 5-6' stroke='white' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23D1D1D1' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
       background-size: contain; background-repeat: no-repeat; opacity: 0;
       transition: opacity .15s;
     }
@@ -1870,7 +1870,7 @@
     <svg viewBox="0 0 1000 420" width="100%" style="display:block;" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
-          <polygon points="0 0, 9 3.5, 0 7" fill="#FF5200"></polygon>
+          <polygon points="0 0, 9 3.5, 0 7" fill="#FF6600"></polygon>
         </marker>
         <!-- Clip = full viewBox rect MINUS circle around head center →
              arrows are geometrically cut off at head boundary, no lines visible inside silhouette -->
@@ -1880,35 +1880,35 @@
       </defs>
 
       <!-- 1. BODY — drawn first so arrows render on top of torso -->
-      <path transform="translate(406,174) scale(0.915)" fill="#FF5200" d="M74.3817 125.766C74.9147 125.884 80.2727 129.4 81.293 129.96C99.9507 140.202 121.648 138.052 138.647 125.706C154.927 131.027 170.652 139.096 184.989 148.413C188.42 150.643 191.982 152.9 195.124 155.529C198.176 158.081 200.95 161.205 202.737 164.784C207.712 174.752 212.11 203.57 213.119 215.561C213.433 219.299 212.662 222.934 210.166 225.834C208.898 227.309 207.327 228.414 205.571 229.229C202.127 230.826 198.124 231.644 194.422 232.454C179.378 235.741 163.989 236.854 148.661 237.921C141.909 238.111 135.149 238.549 128.397 238.719C109.503 239.181 90.5992 239.011 71.7165 238.214C57.1315 237.541 42.5325 236.551 28.0927 234.186C21.5992 233.121 13.4125 231.656 7.32072 229.094C4.30147 227.824 1.84214 225.046 0.752468 221.921C0.256693 220.486 0.00246786 218.979 0.000142856 217.461C-0.0121071 214.186 0.766268 209.561 1.25942 206.175C3.14954 193.572 5.00822 180.685 8.87272 168.511C11.8992 158.977 19.9667 153.782 27.8765 148.637C42.3595 139.097 57.9835 131.413 74.3817 125.766Z"/>
+      <path transform="translate(406,174) scale(0.915)" fill="#FF6600" d="M74.3817 125.766C74.9147 125.884 80.2727 129.4 81.293 129.96C99.9507 140.202 121.648 138.052 138.647 125.706C154.927 131.027 170.652 139.096 184.989 148.413C188.42 150.643 191.982 152.9 195.124 155.529C198.176 158.081 200.95 161.205 202.737 164.784C207.712 174.752 212.11 203.57 213.119 215.561C213.433 219.299 212.662 222.934 210.166 225.834C208.898 227.309 207.327 228.414 205.571 229.229C202.127 230.826 198.124 231.644 194.422 232.454C179.378 235.741 163.989 236.854 148.661 237.921C141.909 238.111 135.149 238.549 128.397 238.719C109.503 239.181 90.5992 239.011 71.7165 238.214C57.1315 237.541 42.5325 236.551 28.0927 234.186C21.5992 233.121 13.4125 231.656 7.32072 229.094C4.30147 227.824 1.84214 225.046 0.752468 221.921C0.256693 220.486 0.00246786 218.979 0.000142856 217.461C-0.0121071 214.186 0.766268 209.561 1.25942 206.175C3.14954 193.572 5.00822 180.685 8.87272 168.511C11.8992 158.977 19.9667 153.782 27.8765 148.637C42.3595 139.097 57.9835 131.413 74.3817 125.766Z"/>
 
       <!-- 2. ARROWS — clipped: invisible inside head circle (r=78 from 500,233) -->
       <g clip-path="url(#headMask)">
         <!-- inner r=110 from new center (500,233) -->
-        <line x1="405" y1="288" x2="340" y2="326" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-        <line x1="390" y1="233" x2="315" y2="233" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-        <line x1="405" y1="178" x2="340" y2="140" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-        <line x1="445" y1="138" x2="408" y2="73"  stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-        <line x1="500" y1="123" x2="500" y2="48"  stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-        <line x1="555" y1="138" x2="593" y2="73"  stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-        <line x1="595" y1="178" x2="660" y2="140" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-        <line x1="610" y1="233" x2="685" y2="233" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-        <line x1="595" y1="288" x2="660" y2="326" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="405" y1="288" x2="340" y2="326" stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="390" y1="233" x2="315" y2="233" stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="405" y1="178" x2="340" y2="140" stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="445" y1="138" x2="408" y2="73"  stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="500" y1="123" x2="500" y2="48"  stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="555" y1="138" x2="593" y2="73"  stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="595" y1="178" x2="660" y2="140" stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="610" y1="233" x2="685" y2="233" stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="595" y1="288" x2="660" y2="326" stroke="#FF6600" stroke-width="2.5" marker-end="url(#arrowhead)"/>
       </g>
 
       <!-- 3. HEAD — drawn last, always fully visible on top of arrows -->
-      <path transform="translate(406,174) scale(0.915)" fill="#FF5200" d="M103.775 0.09C117.233 -0.69 130.491 3.63 140.908 12.18C153.114 22.35 160.27 37.24 161.689 52.97C163.599 72.94 157.513 92.86 144.765 108.36C135.727 119.12 123.872 126.63 109.693 127.88C98.156 129.57 83.963 122.93 75.469 115.53C48.697 92.2 41.931 46.13 65.885 18.46C75.803 7 88.786 1.08 103.775 0.09Z"/>
+      <path transform="translate(406,174) scale(0.915)" fill="#FF6600" d="M103.775 0.09C117.233 -0.69 130.491 3.63 140.908 12.18C153.114 22.35 160.27 37.24 161.689 52.97C163.599 72.94 157.513 92.86 144.765 108.36C135.727 119.12 123.872 126.63 109.693 127.88C98.156 129.57 83.963 122.93 75.469 115.53C48.697 92.2 41.931 46.13 65.885 18.46C75.803 7 88.786 1.08 103.775 0.09Z"/>
 
       <!-- Labels (everything shifted -25 in y; СООБЩЕСТВО/КАРЬЕРА next to arrow tips) -->
-      <text x="305" y="346" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ТРЕНЕР</text>
-      <text x="270" y="238" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ИНДУСТРИЯ</text>
-      <text x="305" y="120" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ЗДОРОВЬЕ</text>
-      <text x="395" y="62"  text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">СООБЩЕСТВО</text>
-      <text x="500" y="18"  text-anchor="middle" font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">РОДИТЕЛЬСКИЙ БРЕЙК</text>
-      <text x="608" y="62"  text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">КАРЬЕРА</text>
-      <text x="695" y="120" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ДЕНЬГИ</text>
-      <text x="730" y="238" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ОБРАЗОВАНИЕ</text>
-      <text x="695" y="346" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">СЕМЬЯ</text>
+      <text x="305" y="346" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ТРЕНЕР</text>
+      <text x="270" y="238" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ИНДУСТРИЯ</text>
+      <text x="305" y="120" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ЗДОРОВЬЕ</text>
+      <text x="395" y="62"  text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">СООБЩЕСТВО</text>
+      <text x="500" y="18"  text-anchor="middle" font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">РОДИТЕЛЬСКИЙ БРЕЙК</text>
+      <text x="608" y="62"  text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">КАРЬЕРА</text>
+      <text x="695" y="120" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ДЕНЬГИ</text>
+      <text x="730" y="238" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ОБРАЗОВАНИЕ</text>
+      <text x="695" y="346" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">СЕМЬЯ</text>
     </svg>
   </div>
 </section>
