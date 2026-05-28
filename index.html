@@ -1330,7 +1330,7 @@
       .hero-top { padding: 28px 16px 24px; background-size: 28px 28px; }
       /* Заголовок — поднять описание ближе */
       .wilson-wrap { padding: 12px 0 2px; }
-      .hero-sub { margin-top: 8px; font-size: clamp(12px, 3.4vw, 14px); letter-spacing: .03em; }
+      .hero-sub { margin-top: 8px; font-size: clamp(14px, 4.2vw, 16px); letter-spacing: .025em; }
       /* Countdown — метки в одну строку сверху (order!), цифры снизу */
       .hero-bottom {
         flex-direction: row;
@@ -1356,13 +1356,28 @@
       .cd-wrap {
         order: 3;
         flex: 0 0 100%;
-        align-items: center;
+        align-items: stretch;
         gap: 4px;
         padding-top: 10px;
       }
-      /* Размер чисел — меньше чтобы не уходить за край на 375px */
-      .cd-n   { font-size: clamp(34px, 9.5vw, 48px); min-width: auto; }
-      .cd-sep { font-size: clamp(34px, 9.5vw, 48px); }
+      /* cd-row на всю ширину с space-between — заполняет до краёв */
+      .cd-row {
+        width: 100%;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .cd-col {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+      }
+      .cd-sep { flex-shrink: 0; padding: 0 1px; }
+      /* Шрифт цифр — крупнее, подходит к краям */
+      .cd-n   { font-size: clamp(42px, 13.5vw, 58px); min-width: auto; }
+      .cd-sep { font-size: clamp(42px, 13.5vw, 58px); }
+      /* Подписи под цифрами — выравниваются по колонкам */
+      .cd-labels { padding: 0; width: 100%; }
       .cd-u   { font-size: 9px; }
 
       /* мобильные <br class="mob"> — включаются */
