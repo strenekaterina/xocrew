@@ -106,7 +106,7 @@
       display: flex; align-items: center;
     }
     .nav-logo img {
-      height: 60px; width: auto; display: block;
+      height: 52px; width: auto; display: block;
     }
     .nav-links {
       display: flex; gap: 28px; list-style: none;
@@ -313,10 +313,11 @@
     /* .hero-eyebrow — удалён */
 
     /* Wilson title — SVG логотип */
-    .wilson-wrap { position: relative; display: block; cursor: default; width: 100%; padding: 24px 0; }
+    .wilson-wrap { position: relative; display: flex; justify-content: center; cursor: default; width: 100%; padding: 24px 0; }
     .hero-title-svg {
       display: block;
       width: 100%;
+      max-width: 640px;
       height: auto;
       user-select: none;
     }
@@ -1310,7 +1311,7 @@
         height: 64px;
         grid-template-columns: auto 1fr auto;
       }
-      .nav-logo img { height: 42px; }
+      .nav-logo img { height: 40px; }
       .nav-links { display: none; }
       /* Кнопка CTA — компактная, текст влезает */
       .nav-cta { padding: 0 12px; font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
@@ -1321,27 +1322,39 @@
       /* ── HERO ────────────────────────────────────────── */
       #hero { height: auto; min-height: auto; }
       .hero-top { padding: 28px 16px 24px; background-size: 28px 28px; }
-      .hero-sub { margin-top: 16px; font-size: clamp(14px, 4.2vw, 18px); letter-spacing: .03em; }
-      /* Countdown — вертикальный стек, цифры крупные */
+      .hero-sub { margin-top: 16px; font-size: clamp(12px, 3.4vw, 14px); letter-spacing: .03em; }
+      /* Countdown — метки в одну строку сверху, цифры внизу */
       .hero-bottom {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
-        padding: 20px 16px 24px;
-        gap: 6px;
+        padding: 14px 24px 20px;
         min-height: auto;
+        gap: 0;
       }
+      /* Метки — левая и правая — в одну строку */
       .hb-side {
-        flex: none; width: 100%;
-        align-items: center; justify-content: center;
-        text-align: center;
+        flex: 1 !important;
+        width: auto !important;
+        justify-content: flex-start;
+        text-align: left;
       }
-      .hb-side.right { align-items: center; text-align: center; }
-      .hb-label { font-size: 10px; letter-spacing: .12em; }
-      .start-date { font-size: clamp(12px, 4vw, 18px); white-space: nowrap; text-align: center; }
-      .cd-wrap { align-items: center; gap: 4px; }
-      .cd-n   { font-size: clamp(52px, 15vw, 80px); }
-      .cd-sep { font-size: clamp(52px, 15vw, 80px); }
+      .hb-side.right {
+        justify-content: flex-end;
+        align-items: flex-end;
+        text-align: right;
+      }
+      .hb-label { font-size: 10px; letter-spacing: .1em; line-height: 1.3; }
+      .start-date { font-size: 10px; letter-spacing: .1em; white-space: nowrap; text-align: right; line-height: 1.3; }
+      /* Цифры — на всю ширину под метками */
+      .cd-wrap {
+        flex: 0 0 100%;
+        align-items: center;
+        gap: 4px;
+        padding-top: 8px;
+      }
+      .cd-n   { font-size: clamp(50px, 14vw, 80px); }
+      .cd-sep { font-size: clamp(50px, 14vw, 80px); }
       .cd-u   { font-size: 9px; }
 
       /* мобильные <br class="mob"> — включаются */
@@ -1582,7 +1595,7 @@
 
 <!-- ══ NAV ══════════════════════════════════════════════════ -->
 <nav>
-  <div class="nav-logo"><img src="logo-new.svg" alt="XO Crew"></div>
+  <div class="nav-logo"><img src="logo-f.svg" alt="XO Crew"></div>
   <ul class="nav-links">
     <li><a href="#what">Что?</a></li>
     <li><a href="#team">Организаторы</a></li>
@@ -1603,11 +1616,11 @@
 <div id="hero">
   <div class="hero-top">
     <div class="wilson-wrap">
-      <img src="zagolovok.svg" alt="БРЕЙК-РОДИТЕЛЬ" class="hero-title-svg">
+      <img src="logo-new.svg" alt="БРЕЙК-РОДИТЕЛЬ" class="hero-title-svg">
     </div>
     <p class="hero-sub">
-      ПЕРВЫЙ В МИРЕ ОНЛАЙН-ИНТЕНСИВ ДЛЯ САМЫХ ВДУМЧИВЫХ РОДИТЕЛЕЙ,<br>
-      ДЕТИ КОТОРЫХ ЗАНИМАЮТСЯ БРЕЙКИНГОМ И ХОТЯТ В ЭТОМ ПРЕУСПЕТЬ
+      ПЕРВЫЙ В МИРЕ ОНЛАЙН-ИНТЕНСИВ<br class="mob"> ДЛЯ САМЫХ ВДУМЧИВЫХ РОДИТЕЛЕЙ,<br>
+      ДЕТИ КОТОРЫХ ЗАНИМАЮТСЯ<br class="mob"> БРЕЙКИНГОМ И ХОТЯТ В ЭТОМ<br class="mob"> ПРЕУСПЕТЬ
     </p>
   </div>
   <div class="hero-bottom">
