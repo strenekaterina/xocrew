@@ -97,7 +97,9 @@
       position: sticky; top: 0; z-index: 500;
       background: var(--dark);
       border-bottom: 2px solid rgba(255,255,255,.08);
-      display: flex; align-items: stretch; justify-content: space-between;
+      display: grid;
+      grid-template-columns: auto 1fr 360px;
+      align-items: stretch;
       padding: 0 0 0 48px; height: 88px;
     }
     .nav-logo {
@@ -107,22 +109,24 @@
       height: 52px; width: auto; display: block;
     }
     .nav-links {
-      position: absolute; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 32px; list-style: none;
+      display: flex; gap: 28px; list-style: none;
       height: 100%; align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      overflow: hidden;
     }
     .nav-links a {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(255,255,255,.7); transition: color .15s;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      color: rgba(255,255,255,.6); transition: color .15s;
     }
     .nav-links a:hover { color: var(--white); }
     .nav-cta {
       background: var(--orange); color: var(--dark);
-      font-size: 18px; font-weight: 900;
+      font-size: 24px; font-weight: 900;
       letter-spacing: .06em; text-transform: uppercase;
-      padding: 0 52px; align-self: stretch;
-      display: flex; align-items: center;
+      padding: 0; align-self: stretch;
+      display: flex; align-items: center; justify-content: center;
       transition: background .15s; border: none; cursor: pointer;
       border-left: 2px solid rgba(255,255,255,.08);
     }
@@ -298,7 +302,7 @@
     }
     .hero-top {
       flex: 1; min-height: 0;
-      padding: 40px 40px 28px;
+      padding: 20px 40px 120px;
       border-bottom: 1px solid var(--line-light);
       position: relative; overflow: hidden;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -349,12 +353,12 @@
     }
     .hb-side.right { align-items: flex-end; text-align: right; }
     .hb-label {
-      font-size: clamp(11px, 1vw, 14px); font-weight: 800;
+      font-size: clamp(16px, 1.5vw, 21px); font-weight: 800;
       letter-spacing: .12em; text-transform: uppercase;
       color: var(--dark); line-height: 1.3;
     }
     .start-date {
-      font-size: clamp(11px, 1vw, 14px); font-weight: 800;
+      font-size: clamp(16px, 1.5vw, 21px); font-weight: 800;
       letter-spacing: .12em; text-transform: uppercase;
       color: var(--dark); line-height: 1.3;
       white-space: nowrap;
@@ -375,6 +379,11 @@
       font-size: clamp(52px, 7vw, 100px);
       font-weight: 900; line-height: 1;
       color: var(--blue);
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      display: inline-block;
+      min-width: 1.9ch;
+      text-align: center;
     }
     .cd-sep {
       font-family: var(--f-body);
@@ -401,7 +410,6 @@
     /* ── ЧТО? SECTION ───────────────────────────────────── */
     .what-sec {
       display: flex; flex-direction: row;
-      min-height: 100vh;
       border-bottom: 2px solid var(--dark);
     }
     /* Левая половина — синяя с сеткой (размер сетки ставится JS) */
@@ -414,14 +422,15 @@
       padding: 64px; /* обновляется JS */
       display: flex;
     }
-    /* Серая карточка — растёт по контенту */
+    /* Серая карточка — по контенту, не растягивается */
     .what-card {
       background: #EDEDED;
       border-radius: 16px;
-      padding: 48px 40px 32px; /* сверху 48px, бока 40px, снизу скорректировано на line-height заголовка */
-      flex: 1;
+      padding: 48px 40px 50px; /* сверху 48px, бока 40px, снизу 50px */
+      align-self: flex-start; /* не растягивается на весь flex-родитель */
       display: flex; flex-direction: column;
       justify-content: flex-start;
+      width: 100%; /* заполняет ширину, но не высоту */
     }
     .what-title {
       font-family: var(--f-head);
@@ -457,12 +466,34 @@
     }
     /* убираем старые стили */
     .what-content { display: none; }
-    .what-title.what-title-md { font-size: clamp(54px, 7.8vw, 106px); }
+    .what-title.what-title-md { font-size: clamp(68px, 9.5vw, 120px); }
+    #chto-chto .what-title { white-space: nowrap; } /* размер ставит JS — fitChtoTitle */
+
+    /* ── STAR-P — строки со звёздочкой ─────────────────────── */
+    .star-p {
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .star-p .star-icon {
+      width: 24px; height: 24px; flex-shrink: 0; margin-top: 3px;
+    }
+    .star-p p {
+      font-size: clamp(18px, 1.8vw, 20px); /* = .what-paragraphs p */
+      font-weight: 500; line-height: 1.55;
+      color: var(--dark); text-transform: uppercase;
+    }
+    /* Финальная цитата в карточке — тёмный цвет, тот же размер что список */
+    .what-quote {
+      font-size: clamp(18px, 1.8vw, 20px);
+      font-weight: 800; line-height: 1.35;
+      color: var(--dark); text-transform: uppercase;
+      margin-top: 40px;
+    }
+    .what-quote span { color: var(--dark); }
 
     /* ── ПОЧЕМУ? numbered list inside card ────────────────── */
     .why-list {
       display: flex; flex-direction: column;
-      gap: 20px; margin-top: 28px;
+      gap: 20px; margin-top: 50px; /* отступ от описания до списка = 50px */
     }
     /* «КАК ПОНЯТЬ:» — крупный лейбл с SVG-подчёркиванием */
     .why-label-wrap {
@@ -506,12 +537,41 @@
       letter-spacing: 0;
     }
 
-    /* ── dark-sec — тёмный вариант what-sec ─────────────── */
+    /* ── dark-sec — старый тёмный вариант (не удалять, используется в других местах) */
     .dark-sec .what-title  { color: var(--orange); }
     .dark-sec .what-photo  { border-left-color: rgba(255,255,255,.1); }
     .dark-sec .star-p p    { color: var(--white); }
     .dark-sec .what-quote  { color: var(--white); }
     .dark-sec .what-quote span { color: var(--orange); }
+
+    /* ── orange-left — оранжевый фон + белая сетка + серая карточка ── */
+    .orange-left {
+      width: 60%; flex-shrink: 0;
+      background: var(--orange);
+      background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
+      background-size: 64px 64px; /* обновляется JS */
+      padding: 64px;              /* обновляется JS */
+      display: flex;
+    }
+    .orange-left .what-title { color: var(--orange); }
+    #how .why-list { margin-top: 48px; }
+
+    /* ── dark-left — чёрный фон + белая сетка + серая карточка ── */
+    .dark-left {
+      width: 60%; flex-shrink: 0;
+      background: var(--dark);
+      background-image: linear-gradient(rgba(255,255,255,.08) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(255,255,255,.08) 2px, transparent 2px);
+      background-size: 64px 64px; /* обновляется JS */
+      padding: 64px;              /* обновляется JS */
+      display: flex;
+    }
+    /* цвета внутри карточки на тёмном фоне */
+    .dark-left .what-title  { color: var(--blue); }
+    .dark-left .star-p p    { color: var(--dark); }
+    .dark-left .what-quote  { color: var(--dark); margin-top: 40px; font-weight: 800; }
+    .dark-left .what-quote span { color: var(--dark); }
 
     /* ── КАК? — блок 09, центрированный ────────────────── */
     .how-sec {
@@ -565,6 +625,51 @@
     }
     .how-body .t-body { font-weight: 800; font-size: clamp(17px, 2vw, 22px); line-height: 1; }
 
+    /* ── ГДЕ? + КОГДА? — два серых блока на синей сетке ─── */
+    .where-sec {
+      background: var(--blue);
+      background-image: linear-gradient(rgba(255,255,255,.13) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(255,255,255,.13) 2px, transparent 2px);
+      background-size: 64px 64px; /* обновляется JS */
+      padding: 80px 48px;
+      border-bottom: 2px solid var(--dark);
+      display: flex;
+      gap: 28px;
+    }
+    .where-card {
+      flex: 1;
+      background: #EDEDED;
+      border-radius: 16px;
+      padding: 48px 40px 50px;
+      display: flex;
+      flex-direction: column;
+    }
+    .where-card .what-title { color: var(--blue); }
+    .where-card .why-list   { margin-top: 50px; gap: 28px; flex: 1; display: flex; flex-direction: column; }
+    /* типографика по токенам — как .wli-text в остальных карточках */
+    .where-card .pair-item-head {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(0,0,0,.4); margin-bottom: 10px;
+    }
+    .where-card .pair-item-text {
+      font-size: clamp(18px, 1.8vw, 20px);
+      font-weight: 500; line-height: 1.55;
+      color: var(--dark); text-transform: uppercase;
+    }
+    /* даты внутри КОГДА? */
+    .date-label {
+      font-size: 17px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 8px;
+    }
+    .date-value {
+      font-family: var(--f-head);
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 900; text-transform: uppercase;
+      color: var(--orange); line-height: 1;
+    }
+
     /* ── БЛОКИ 16+17 — два в одном экране ───────────────── */
     .pair-sec {
       display: flex;
@@ -606,6 +711,24 @@
     .pair-item-text a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(25,41,194,.3); }
     .pair-item-text a:hover { border-bottom-color: var(--blue); }
 
+    /* ── ЮРЛИЦА + СЛУЖБА ЗАБОТЫ — адаптация под токены ─── */
+    #legal .pair-title {
+      white-space: nowrap; /* размер ставит JS — fitLegalTitles */
+    }
+    #legal { border-bottom: none !important; overflow: visible !important; }
+    #legal .pair-col + .pair-col { border-left: 1.5px solid rgba(255,255,255,.2); }
+    #legal .pair-item-head {
+      color: rgba(255,255,255,.45);
+    }
+    #legal .pair-item-text {
+      font-size: clamp(18px, 1.8vw, 20px);
+      font-weight: 500; line-height: 1.55;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.85);
+    }
+    #legal .pair-item-text a { color: var(--orange); border-bottom: 1px solid rgba(255,82,0,.3); }
+    #legal .pair-item-text a:hover { border-bottom-color: var(--orange); }
+
     /* ── ПОЧЕМУ? — карточки справа ─────────────────────── */
     .why-cards {
       height: 100%; width: 100%;
@@ -636,85 +759,211 @@
     /* .why-sec — теперь использует паттерн card-on-grid, как .what-sec */
 
     /* ══════════════════════════════════════════════════════
-       КТО ОРГАНИЗАТОРЫ? SECTION
+       03 · ОРГАНИЗАТОРЫ SECTION
     ══════════════════════════════════════════════════════ */
     .team-sec {
-      min-height: 100vh;
       display: flex; flex-direction: column;
-      background: var(--blue);
-      border-bottom: 2px solid rgba(255,255,255,.12);
+      background: var(--dark);
     }
-    /* верх: заголовок по центру + описание по центру */
     .team-top {
       flex-shrink: 0;
-      min-height: 44vh;
-      padding: 64px 48px 32px;
-      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-      gap: 24px;
+      padding: 80px 60px 56px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 28px;
+      text-align: center;
     }
     .team-title {
       font-family: var(--f-head);
-      font-size: clamp(80px, 12vw, 160px);
+      font-size: clamp(95px, 14vw, 182px); /* = .what-title */
       font-weight: 900; text-transform: uppercase;
       line-height: .88; letter-spacing: -.01em;
       color: var(--orange);
       text-align: center;
     }
     .team-desc-text {
-      font-size: clamp(15px, 1.5vw, 17px);
-      font-weight: 700; line-height: 1.55;
-      color: rgba(255,255,255,.9);
-      text-align: left;
+      font-size: clamp(16px, 1.9vw, 27px); /* = .hero-sub */
+      font-weight: 700; line-height: 1.35;
+      color: rgba(255,255,255,.45);
+      text-align: center;
+      text-transform: uppercase;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .team-desc-text strong { color: var(--orange); }
+    /* Фото на всю ширину */
+    .team-photo-full {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      overflow: hidden;
+    }
+    .team-photo-full .ph {
+      width: 100%; height: 100%; border-radius: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       03b · ЗА ПЛЕЧАМИ КОМАНДЫ
+    ══════════════════════════════════════════════════════ */
+    .creds-sec {
+      background: var(--dark);
+      padding: 80px 40px 80px;
+    }
+    .creds-title {
+      font-family: var(--f-head);
+      font-size: clamp(95px, 14vw, 182px); /* = .team-title = .what-title */
+      font-weight: 900; text-transform: uppercase;
+      color: #EDEDED;
+      line-height: .88; letter-spacing: -.01em;
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .creds-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .cred-card {
+      background: #EDEDED;
+      border-radius: 20px;
+      padding: 56px 28px 56px 28px; /* top/bottom = 2× left → текст по центру */
+      position: relative;
+      min-height: 140px;
+      display: flex;
+      align-items: center; /* вертикальный центр */
+      justify-content: flex-start;
+    }
+    .cred-text {
+      font-size: clamp(16px, 1.9vw, 27px); /* = .team-desc-text */
+      font-weight: 700; text-transform: uppercase;
+      color: var(--blue);
+      line-height: 1.35;
+    }
+    .cred-num {
+      font-family: var(--f-head);
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 900;
+      color: var(--orange);
+      position: absolute;
+      top: 50%; right: 22px;
+      transform: translateY(-50%);
+      line-height: 1;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       КУРАТОРЫ КУРСА
+    ══════════════════════════════════════════════════════ */
+    .curators-sec {
+      background: var(--dark);
+      background-image: linear-gradient(rgba(255,255,255,.08) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(255,255,255,.08) 2px, transparent 2px);
+      background-size: 64px 64px; /* обновляется JS */
+      padding: 80px 48px;
+      border-bottom: 2px solid rgba(255,255,255,.1);
+    }
+    .curators-heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 64px;
+    }
+    .curators-heading-title {
+      font-family: var(--f-head);
+      font-size: clamp(95px, 14vw, 182px);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #EDEDED;
+      line-height: .88;
+      letter-spacing: -.01em;
+      text-align: center;
+    }
+    .curators-star {
+      font-family: var(--f-head);
+      font-size: clamp(95px, 14vw, 182px); /* = размер заголовка */
+      color: var(--orange);
+      line-height: .88;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      transform: translateY(22%); /* визуальная компенсация — гриф сидит высоко в em-box */
+    }
+    .curators-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--dark); /* перекрывает сетку секции — она только снаружи */
+    }
+    .curator-col:first-child {
+      border-right: 1px solid rgba(255,255,255,.15);
+    }
+    .curator-photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: rgba(255,255,255,.05);
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+    .curator-info {
+      padding: 32px 40px 48px;
+    }
+    .curator-name {
+      font-family: var(--f-head);
+      font-size: clamp(30px, 3.6vw, 52px);
+      color: var(--orange);
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 28px;
+    }
+    .curator-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .curator-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .curator-item-num {
+      font-family: var(--f-head);
+      font-size: clamp(14px, 1.44vw, 16px);
+      font-weight: 900;
+      color: var(--orange);
+      flex-shrink: 0;
+      min-width: 20px;
+      line-height: 1.55;
+    }
+    .curator-item-text {
+      font-size: clamp(15px, 1.6vw, 18px);
+      font-weight: 500;
+      line-height: 1.5;
+      color: #EDEDED;
       text-transform: uppercase;
     }
-    .team-desc-text strong { color: var(--white); }
-    .star-p-light p {
-      color: rgba(255,255,255,.9);
-      font-size: clamp(15px, 1.5vw, 17px);
-      font-weight: 700; line-height: 1.55;
-    }
-    /* нижняя часть: фото слева + список справа */
-    .team-split {
-      flex: 1; min-height: 300px;
+
+    /* ══════════════════════════════════════════════════════
+       СЛОГАН-БЛОК (оранжевый, Inter 900, крупный текст)
+    ══════════════════════════════════════════════════════ */
+    .slogan-sec {
+      background: var(--orange);
+      background-image: linear-gradient(rgba(255,255,255,.13) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(255,255,255,.13) 2px, transparent 2px);
+      background-size: 64px 64px; /* обновляется JS */
+      padding: 80px 48px;
+      border-bottom: 2px solid var(--dark);
       display: flex;
-      border-top: 1px solid rgba(255,255,255,.12);
+      flex-direction: column;
+      gap: 64px;
     }
-    .team-photo-col {
-      width: 50%; flex-shrink: 0;
-      border-right: 1px solid rgba(255,255,255,.12);
-    }
-    .team-photo-col .ph {
-      height: 100%; width: 100%; border-radius: 0;
-    }
-    .team-list-col {
-      flex: 1;
-      padding: 0;
-      display: flex; flex-direction: column;
-    }
-    .team-list-head {
-      font-size: 11px;
-      font-weight: 700;
-      color: rgba(255,255,255,.55);
-      text-transform: uppercase; letter-spacing: .1em;
-      margin-bottom: 4px;
-    }
-    .team-list-col .slist li {
-      font-weight: 700;
-      color: rgba(255,255,255,.92);
-      border-top: none;
-      border-bottom: none;
-      padding: 12px 0;
-      align-items: center;
-    }
-    .team-list-col .slist li::before {
-      content: '';
-      display: inline-block;
-      background-image: url('star.svg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      width: 28px; height: 28px;
-      flex-shrink: 0;
+    .slogan-text {
+      font-family: var(--f-body);
+      font-size: clamp(52px, 7.5vw, 96px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.0;
+      color: var(--blue);
+      width: 100%;
     }
 
     /* ══════════════════════════════════════════════════════
@@ -752,8 +1001,26 @@
     }
     .topic.open .t-desc { display: block; }
 
+    /* ══ 07 · КАК ПРОХОДИТ — карточки (как .creds-grid) ══════ */
+    #format {
+      background-image: linear-gradient(rgba(255,255,255,.08) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(255,255,255,.08) 2px, transparent 2px);
+      background-size: 64px 64px;
+    }
+    /* Равные отступы: блок→заголовок = заголовок→описание = описание→карточки */
+    #format .creds-title {
+      margin-bottom: 80px; /* = padding-top секции */
+    }
+    #format .fmt-desc {
+      margin-top: 0;
+      margin-bottom: 80px; /* = gap выше */
+      text-align: center;
+      max-width: none;
+      width: 100%;
+    }
+
     /* ══════════════════════════════════════════════════════
-       FORMAT GRID
+       FORMAT GRID (старый, оставляем для обратной совместимости)
     ══════════════════════════════════════════════════════ */
     .fmt-grid {
       display: grid;
@@ -787,17 +1054,21 @@
     .pricing-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 24px;
     }
     .pc {
       display: flex;
       flex-direction: column;
-      border-right: 1px solid rgba(255,255,255,.1);
+      border: 1.5px solid rgba(255,255,255,.25);
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--dark); /* сплошной фон — сетка секции не просвечивает */
     }
-    .pc:last-child { border-right: none; }
-    /* Весь контент карточки — в обёртке с паддингами */
+    .pc:last-child { border-right: 1.5px solid rgba(255,255,255,.25); }
+    /* Весь контент карточки — в обёртке с паддингами (по токенам) */
     .pc-body {
       flex: 1;
-      padding: 36px 40px 40px;
+      padding: 48px 40px 50px; /* top 48px · sides 40px · bottom 50px */
     }
     /* Кнопка вне обёртки — сама занимает полную ширину */
     .pc .btn {
@@ -805,9 +1076,12 @@
       flex-shrink: 0;
       justify-content: center;
       height: clamp(86px, 12vh, 140px);
-      font-size: clamp(14px,1.6vw,20px);
+      font-size: clamp(16px, 1.8vw, 22px);
       letter-spacing: .14em;
       font-weight: 800;
+      color: var(--dark);
+      border-top: 1.5px solid rgba(255,255,255,.15);
+      border-radius: 0; /* overflow:hidden на .pc обрезает углы */
     }
 
     .pc-tag {
@@ -922,22 +1196,26 @@
     }
     .modal-bg.on { opacity: 1; pointer-events: all; }
     .modal-box {
-      background: #fff;
+      background: var(--dark);
+      background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+      border: 1px solid rgba(255,255,255,.12);
       border-radius: 20px;
       padding: 48px 48px 44px; max-width: 760px; width: 100%;
       position: relative;
       transform: translateY(24px);
       transition: transform .3s cubic-bezier(.34,1.2,.64,1);
-      box-shadow: 0 24px 80px rgba(0,0,0,.35);
+      box-shadow: 0 24px 80px rgba(0,0,0,.7);
     }
     .modal-bg.on .modal-box { transform: translateY(0); }
     .m-close {
       position: absolute; top: 18px; right: 22px;
       background: none; border: none;
-      font-size: 26px; color: rgba(0,0,0,.35); line-height: 1; cursor: pointer;
+      font-size: 26px; color: rgba(255,255,255,.3); line-height: 1; cursor: pointer;
       transition: color .15s;
     }
-    .m-close:hover { color: rgba(0,0,0,.8); }
+    .m-close:hover { color: rgba(255,255,255,.8); }
     .m-title {
       font-family: var(--f-head); font-size: clamp(32px, 5vw, 42px);
       font-weight: 900; text-transform: uppercase;
@@ -945,23 +1223,23 @@
     }
     .m-sub {
       font-size: 11px; font-weight: 700; letter-spacing: .16em;
-      text-transform: uppercase; color: rgba(0,0,0,.35);
+      text-transform: uppercase; color: rgba(255,255,255,.3);
       margin-bottom: 24px;
     }
     .m-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
     .m-opt {
-      background: #f5f5f5;
-      border: 2px solid #e0e0e0;
+      background: #1a1a1a;
+      border: 1.5px solid rgba(255,255,255,.15);
       border-radius: 10px;
       padding: 22px 20px; cursor: pointer;
       transition: border-color .2s, background .2s;
       display: flex; flex-direction: column;
     }
-    .m-opt:hover { border-color: #bbb; }
-    .m-opt.sel   { border-color: var(--orange); background: rgba(255,82,0,.06); }
+    .m-opt:hover { border-color: rgba(255,255,255,.3); background: #222; }
+    .m-opt.sel   { border-color: var(--orange); background: #1f1208; }
     .m-opt-name {
       font-size: 10px; font-weight: 800; letter-spacing: .18em;
-      text-transform: uppercase; color: rgba(0,0,0,.45); margin-bottom: 6px;
+      text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px;
     }
     .m-opt-price {
       font-family: var(--f-head); font-size: clamp(28px, 4vw, 36px);
@@ -971,7 +1249,7 @@
       list-style: none; display: flex; flex-direction: column; gap: 6px; flex: 1;
     }
     .m-opt-features li {
-      font-size: 12px; font-weight: 700; color: rgba(0,0,0,.65);
+      font-size: 12px; font-weight: 700; color: rgba(255,255,255,.6);
       display: flex; align-items: flex-start; gap: 7px; line-height: 1.3;
     }
     .m-opt-features li::before {
@@ -982,14 +1260,14 @@
     /* Custom checkbox */
     .m-inst {
       display: flex; align-items: center; gap: 12px;
-      font-size: 13px; font-weight: 700; color: rgba(0,0,0,.6);
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,.5);
       margin-bottom: 16px; cursor: pointer; user-select: none;
     }
     .m-inst input[type="checkbox"] { display: none; }
     .m-chk {
       width: 20px; height: 20px; flex-shrink: 0;
-      border: 1.5px solid rgba(0,0,0,.2); border-radius: 5px;
-      background: rgba(255,255,255,.8);
+      border: 1.5px solid rgba(255,255,255,.25); border-radius: 5px;
+      background: rgba(255,255,255,.06);
       display: flex; align-items: center; justify-content: center;
       transition: border-color .2s, background .2s;
     }
@@ -1004,10 +1282,10 @@
     }
     .m-inst input:checked ~ .m-chk .m-chk-tick { opacity: 1; }
     .m-legal {
-      font-size: 10px; font-weight: 600; color: rgba(0,0,0,.35);
+      font-size: 10px; font-weight: 600; color: rgba(255,255,255,.25);
       line-height: 1.5; text-align: center; margin-bottom: 12px;
     }
-    .m-legal a { color: rgba(0,0,0,.45); text-decoration: underline; }
+    .m-legal a { color: rgba(255,255,255,.35); text-decoration: underline; }
     .m-submit {
       width: 100%; background: var(--orange); color: var(--white); border: none;
       padding: 19px; font-family: var(--f-head); font-size: 20px; font-weight: 900;
@@ -1115,7 +1393,7 @@
       .team-top { padding: 36px 16px; min-height: auto; align-items: flex-start; }
       .team-desc-text { line-height: 1.75 !important; }
       .team-list-head { margin-top: 32px !important; }
-      .team-title { font-size: clamp(52px, 14vw, 88px); }
+      .team-title { font-size: clamp(52px, 14vw, 100px); }
       .team-split { flex-direction: column; }
       .team-photo-col {
         width: 100%; height: 70vw;
@@ -1137,7 +1415,7 @@
       .fmt-icon { font-size: 28px !important; }
 
       /* ── PRICING ─────────────────────────────────────── */
-      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
       .pc-body { padding: 28px 20px; }
 
       /* ── PAIR SECTIONS ───────────────────────────────── */
@@ -1199,21 +1477,9 @@
         padding: 20px 16px 40px !important;
       }
 
-      /* Section 07: КАК ПРОХОДИТ — remove full-height, fix header layout */
-      #format { height: auto !important; }
-      #format > div:first-child {
-        padding: 32px 16px !important;
-        flex-direction: column !important;
-        gap: 20px !important;
-        align-items: flex-start !important;
-      }
-      #format > div:first-child > h2 {
-        max-width: 100% !important;
-        font-size: clamp(52px, 14vw, 88px) !important;
-      }
-      #format > div:first-child > div {
-        width: 100% !important;
-      }
+      /* Section 07: КАК ПРОХОДИТ — mobile */
+      #format { padding: 40px 16px !important; }
+      #format .fmt-desc { margin-bottom: 32px !important; }
 
       /* Section 09: 30-40 МИН — stack photo + text vertically */
       #how .how-content > div[style] {
@@ -1327,6 +1593,71 @@
       .star-p p { font-size: 13px; }
       .star-p-light p { font-size: 13px; }
     }
+    /* ══════════════════════════════════════════════════════
+       06b · ТЕМЫ ДЕТАЛЬНО — карточки расшифровки
+    ══════════════════════════════════════════════════════ */
+    .topics-sec {
+      padding: 48px;
+    }
+    .topics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .topic-card {
+      background: #EDEDED;
+      border-radius: 20px;
+      padding: 48px 44px 48px 44px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .topic-card-wide {
+      grid-column: 1 / -1;
+    }
+    .topic-num {
+      display: none;
+    }
+    .topic-head {
+      font-size: clamp(20px, 2vw, 29px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--orange);
+      line-height: 1.2;
+      padding-right: 72px;
+    }
+    .topic-desc {
+      font-size: clamp(18px, 1.7vw, 24px);
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--blue);
+      line-height: 1.6;
+    }
+    .topic-items {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 48px;
+      margin-top: 4px;
+      list-style: none;
+      padding: 0;
+    }
+    .topic-item {
+      font-size: clamp(17px, 1.6vw, 23px);
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--blue);
+      line-height: 1.35;
+      padding-left: 18px;
+      position: relative;
+    }
+    .topic-item::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+    }
   </style>
 </head>
 <body>
@@ -1338,9 +1669,16 @@
   <div class="nav-logo"><img src="logo-f.svg" alt="XO Crew"></div>
   <ul class="nav-links">
     <li><a href="#what">Что?</a></li>
+    <li><a href="#team">Организаторы</a></li>
     <li><a href="#why">Почему?</a></li>
+    <li><a href="#for-whom">Для кого?</a></li>
     <li><a href="#program">Программа</a></li>
-    <li><a href="#pricing">Стоимость</a></li>
+    <li><a href="#format">Как?</a></li>
+    <li><a href="#why-join">Зачем?</a></li>
+    <li><a href="#chto-chto">Чтобы что?</a></li>
+    <li><a href="#where">Где?</a></li>
+    <li><a href="#when">Когда?</a></li>
+    <li><a href="#pricing">Сколько?</a></li>
   </ul>
   <button class="nav-cta" onclick="openModal()">Присоединиться</button>
 </nav>
@@ -1399,40 +1737,41 @@
   </div>
   <!-- ПРАВАЯ ЧАСТЬ: фото -->
   <div class="what-photo">
-    <div class="ph" style="background:#1a1a2e url() center/cover no-repeat;"></div>
+    <div class="ph" style="background:#1a1a2e url('what-photo.webp') center/cover no-repeat;"></div>
   </div>
 </section>
 
-<!-- ══ 03 · КТО ОРГАНИЗАТОРЫ? · СИНИЙ ══════════════════════ -->
+<!-- ══ 03 · ОРГАНИЗАТОРЫ · ТЁМНЫЙ ════════════════════════════ -->
 <section class="team-sec" id="team">
   <div class="team-top">
     <h2 class="team-title">ОРГАНИЗАТОРЫ</h2>
-    <p class="team-desc-text">Интенсив создан командой <strong>XO&nbsp;Crew</strong> — крупнейшей школой брейкинга в мире <br>и одной из главных точек развития брейкинг-культуры в России.</p>
-    <p class="team-list-head" style="margin-bottom:0;margin-top:auto;">За плечами команды:</p>
+    <p class="team-desc-text">Интенсив создан командой <strong>XO&nbsp;Crew</strong> — крупнейшей школой брейкинга в мире и одной из главных точек развития брейкинг-культуры в России.</p>
   </div>
-  <div class="team-split">
-    <div class="team-photo-col">
-      <div style="width:100%;height:100%;background:rgba(255,255,255,.07);"></div>
+  <!-- Фото на всю ширину -->
+  <div class="team-photo-full">
+    <img src="team-photo.webp" alt="Команда XO Crew" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+  </div>
+</section>
+
+<!-- ══ 03b · ЗА ПЛЕЧАМИ КОМАНДЫ ════════════════════════════ -->
+<section class="creds-sec">
+  <h2 class="creds-title">ЗА ПЛЕЧАМИ КОМАНДЫ</h2>
+  <div class="creds-grid">
+    <div class="cred-card">
+      <p class="cred-text">Многолетний (почти 25 лет)<br>опыт воспитания детей<br>в культуре брейкинга</p>
+      <span class="cred-num">1</span>
     </div>
-    <div class="team-list-col">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;height:100%;width:100%;flex:1;">
-        <div style="padding:36px 40px;border-right:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
-          <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
-          <p style="font-size:clamp(15px,1.5vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Многолетний (почти 25 лет) опыт воспитания детей в культуре брейкинга</p>
-        </div>
-        <div style="padding:36px 40px;border-bottom:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
-          <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
-          <p style="font-size:clamp(15px,1.5vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Работа с начинающими и профессиональными танцорами</p>
-        </div>
-        <div style="padding:36px 40px;border-right:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:20px;justify-content:center;">
-          <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
-          <p style="font-size:clamp(15px,1.5vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Организация мероприятий, батлов и образовательных проектов</p>
-        </div>
-        <div style="padding:36px 40px;display:flex;flex-direction:column;gap:20px;justify-content:center;">
-          <img src="star.svg" style="width:32px;height:32px;opacity:.9;" alt="">
-          <p style="font-size:clamp(15px,1.5vw,17px);font-weight:700;line-height:1.35;color:rgba(255,255,255,.92);">Понимание брейкинга не только как танца, но и как культурной среды, спорта и образа жизни</p>
-        </div>
-      </div>
+    <div class="cred-card">
+      <p class="cred-text">Работа с начинающими<br>и профессиональными<br>танцорами</p>
+      <span class="cred-num">3</span>
+    </div>
+    <div class="cred-card">
+      <p class="cred-text">Организация мероприятий,<br>батлов и образовательных<br>проектов</p>
+      <span class="cred-num">2</span>
+    </div>
+    <div class="cred-card">
+      <p class="cred-text">Понимание брейкинга не только<br>как танца, но и как культурной<br>среды, спорта и образа жизни</p>
+      <span class="cred-num">4</span>
     </div>
   </div>
 </section>
@@ -1481,348 +1820,493 @@
   </div>
   <!-- ПРАВАЯ ЧАСТЬ: плейсхолдер фото -->
   <div class="what-photo">
-    <div class="ph" style="background:#1a1a2e center/cover no-repeat;"></div>
+    <div class="ph" style="background:#1a1a2e url('why-photo.webp') center/cover no-repeat;"></div>
   </div>
 </section>
 
-<!-- ══ 05 · ДЛЯ КОГО? · БЕЛЫЙ ══════════════════════════════ -->
-<section class="what-sec s-white" id="for-whom" style="min-height:760px;">
-  <div class="what-photo" style="padding:0;overflow:hidden;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;">
-      <!-- Card 1 -->
-      <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid rgba(0,0,0,.08);border-bottom:2px solid rgba(0,0,0,.08);">
-        <span style="font-family:var(--f-head);font-size:22px;font-weight:900;color:var(--orange);line-height:1;">01</span>
-        <p style="font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;color:var(--dark);letter-spacing:.03em;line-height:1.35;">Родителей детей, которые уже занимаются брейкингом</p>
+<!-- ══ 05 · ДЛЯ КОГО? ════════════════════════════════════════ -->
+<section class="what-sec why-sec" id="for-whom">
+  <!-- ЛЕВАЯ ЧАСТЬ: синий фон + сетка + серая карточка -->
+  <div class="why-left">
+    <div class="what-card">
+      <h2 class="what-title">ДЛЯ КОГО?</h2>
+      <div class="what-paragraphs">
+        <p>Возрастных ограничений нет.</p>
       </div>
-      <!-- Card 2 -->
-      <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-bottom:2px solid rgba(0,0,0,.08);">
-        <span style="font-family:var(--f-head);font-size:22px;font-weight:900;color:var(--orange);line-height:1;">02</span>
-        <p style="font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;color:var(--dark);letter-spacing:.03em;line-height:1.35;">Родителей, чьи дети только начинают путь</p>
-      </div>
-      <!-- Card 3 -->
-      <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid rgba(0,0,0,.08);">
-        <span style="font-family:var(--f-head);font-size:22px;font-weight:900;color:var(--orange);line-height:1;">03</span>
-        <p style="font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;color:var(--dark);letter-spacing:.03em;line-height:1.35;">Семей, которые хотят глубже понять культуру и индустрию</p>
-      </div>
-      <!-- Card 4 -->
-      <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;">
-        <span style="font-family:var(--f-head);font-size:22px;font-weight:900;color:var(--orange);line-height:1;">04</span>
-        <p style="font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;color:var(--dark);letter-spacing:.03em;line-height:1.35;">Тех, кто хочет выстроить здоровое и долгосрочное развитие ребёнка в хип-хоп индустрии в целом</p>
+      <div class="why-list">
+        <div class="why-list-item">
+          <span class="wli-num">01</span>
+          <span class="wli-text">Родителей детей, которые уже занимаются брейкингом</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">02</span>
+          <span class="wli-text">Родителей, чьи дети только начинают путь</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">03</span>
+          <span class="wli-text">Семей, которые хотят глубже понять культуру и индустрию</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">04</span>
+          <span class="wli-text">Тех, кто хочет выстроить здоровое и долгосрочное развитие ребёнка в хип-хоп&nbsp;индустрии в целом</span>
+        </div>
       </div>
     </div>
   </div>
-  <div class="what-content" style="justify-content:center;">
-    <h2 class="what-title">ДЛЯ КОГО?</h2>
-    <p class="what-quote" style="margin-top:40px;color:var(--orange);">ВОЗРАСТНЫХ ОГРАНИЧЕНИЙ НЕТ</p>
+  <!-- ПРАВАЯ ЧАСТЬ: плейсхолдер фото -->
+  <div class="what-photo">
+    <div class="ph" style="background:#1a1a2e url('for-whom-photo.webp') center/cover no-repeat;"></div>
   </div>
 </section>
 
 <!-- ══ 06 · 9 ТЕМ · СИНИЙ ═══════════════════════════════════ -->
-<section class="s-blue" id="program" style="display:flex;flex-direction:column;border-bottom:2px solid rgba(255,255,255,.12);overflow:hidden;background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:56px 56px;">
+<section class="s-blue" id="program" style="display:flex;flex-direction:column;border-bottom:2px solid rgba(255,255,255,.12);overflow:hidden;background-image:linear-gradient(rgba(255,255,255,.12) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.12) 2px,transparent 2px);background-size:56px 56px;">
   <div style="padding:110px 48px 16px;flex-shrink:0;text-align:center;">
-    <h2 style="font-family:var(--f-head);font-size:clamp(52px,7.5vw,96px);font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.01em;color:var(--orange);">ЧЕМУ БУДЕТ ПОСВЯЩЕН<br>ЭТОТ ИНТЕНСИВ?</h2>
-    <p style="margin-top:36px;font-size:clamp(15px,1.5vw,17px);font-weight:700;color:rgba(255,255,255,.8);line-height:1.6;">Обучение построено вокруг <br class="mob"><strong style="color:var(--white);">9 ключевых тем</strong>, через <br class="mob">которые <br>проходит практически <br class="mob">каждая семья в брейкинге.</p>
+    <h2 id="program-title" style="font-family:var(--f-head);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--orange);"><span id="program-line1" style="white-space:nowrap;">ЧЕМУ БУДЕТ ПОСВЯЩЕН</span><br>ЭТОТ ИНТЕНСИВ?</h2>
+    <p style="margin-top:36px;font-size:clamp(16px,1.9vw,27px);font-weight:700;color:#D1D1D1;line-height:1.35;text-transform:uppercase;width:100%;">Обучение построено вокруг <strong style="color:#D1D1D1;">9 ключевых тем</strong>,<br>через которые проходит практически каждая семья в брейкинге.</p>
   </div>
-  <div style="padding-top:60px;padding-bottom:120px;">
-    <!-- head center: (500,258) · inner r=62 · outer r=178 · text r=212 -->
+  <div style="padding-top:120px;padding-bottom:120px;">
+    <!-- head center: (500,233) · person+system shifted up 25px · clipPath masks arrows at head -->
     <svg viewBox="0 0 1000 420" width="100%" style="display:block;" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
           <polygon points="0 0, 9 3.5, 0 7" fill="#FF5200"></polygon>
         </marker>
+        <!-- Clip = full viewBox rect MINUS circle around head center →
+             arrows are geometrically cut off at head boundary, no lines visible inside silhouette -->
+        <clipPath id="headMask">
+          <path fill-rule="evenodd" d="M0,0 H1000 V420 H0 Z M500,233 m-78,0 a78,78 0 1,0 156,0 a78,78 0 1,0 -156,0"/>
+        </clipPath>
       </defs>
 
-      <!-- Person SVG (214×239, head center ≈103,64) scaled 0.61 → translate(434,222) → head at (500,258) -->
-      <g transform="translate(434,222) scale(0.61)" fill="#FF5200">
-        <path d="M74.3817 125.766C74.9147 125.884 80.2727 129.4 81.293 129.96C99.9507 140.202 121.648 138.052 138.647 125.706C154.927 131.027 170.652 139.096 184.989 148.413C188.42 150.643 191.982 152.9 195.124 155.529C198.176 158.081 200.95 161.205 202.737 164.784C207.712 174.752 212.11 203.57 213.119 215.561C213.433 219.299 212.662 222.934 210.166 225.834C208.898 227.309 207.327 228.414 205.571 229.229C202.127 230.826 198.124 231.644 194.422 232.454C179.378 235.741 163.989 236.854 148.661 237.921C141.909 238.111 135.149 238.549 128.397 238.719C109.503 239.181 90.5992 239.011 71.7165 238.214C57.1315 237.541 42.5325 236.551 28.0927 234.186C21.5992 233.121 13.4125 231.656 7.32072 229.094C4.30147 227.824 1.84214 225.046 0.752468 221.921C0.256693 220.486 0.00246786 218.979 0.000142856 217.461C-0.0121071 214.186 0.766268 209.561 1.25942 206.175C3.14954 193.572 5.00822 180.685 8.87272 168.511C11.8992 158.977 19.9667 153.782 27.8765 148.637C42.3595 139.097 57.9835 131.413 74.3817 125.766Z"></path>
-        <path d="M103.775 0.09C117.233 -0.69 130.491 3.63 140.908 12.18C153.114 22.35 160.27 37.24 161.689 52.97C163.599 72.94 157.513 92.86 144.765 108.36C135.727 119.12 123.872 126.63 109.693 127.88C98.156 129.57 83.963 122.93 75.469 115.53C48.697 92.2 41.931 46.13 65.885 18.46C75.803 7 88.786 1.08 103.775 0.09Z"></path>
+      <!-- 1. BODY — drawn first so arrows render on top of torso -->
+      <path transform="translate(406,174) scale(0.915)" fill="#FF5200" d="M74.3817 125.766C74.9147 125.884 80.2727 129.4 81.293 129.96C99.9507 140.202 121.648 138.052 138.647 125.706C154.927 131.027 170.652 139.096 184.989 148.413C188.42 150.643 191.982 152.9 195.124 155.529C198.176 158.081 200.95 161.205 202.737 164.784C207.712 174.752 212.11 203.57 213.119 215.561C213.433 219.299 212.662 222.934 210.166 225.834C208.898 227.309 207.327 228.414 205.571 229.229C202.127 230.826 198.124 231.644 194.422 232.454C179.378 235.741 163.989 236.854 148.661 237.921C141.909 238.111 135.149 238.549 128.397 238.719C109.503 239.181 90.5992 239.011 71.7165 238.214C57.1315 237.541 42.5325 236.551 28.0927 234.186C21.5992 233.121 13.4125 231.656 7.32072 229.094C4.30147 227.824 1.84214 225.046 0.752468 221.921C0.256693 220.486 0.00246786 218.979 0.000142856 217.461C-0.0121071 214.186 0.766268 209.561 1.25942 206.175C3.14954 193.572 5.00822 180.685 8.87272 168.511C11.8992 158.977 19.9667 153.782 27.8765 148.637C42.3595 139.097 57.9835 131.413 74.3817 125.766Z"/>
+
+      <!-- 2. ARROWS — clipped: invisible inside head circle (r=78 from 500,233) -->
+      <g clip-path="url(#headMask)">
+        <!-- inner r=110 from new center (500,233) -->
+        <line x1="405" y1="288" x2="340" y2="326" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="390" y1="233" x2="315" y2="233" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="405" y1="178" x2="340" y2="140" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="445" y1="138" x2="408" y2="73"  stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="500" y1="123" x2="500" y2="48"  stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="555" y1="138" x2="593" y2="73"  stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="595" y1="178" x2="660" y2="140" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="610" y1="233" x2="685" y2="233" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+        <line x1="595" y1="288" x2="660" y2="326" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"/>
       </g>
 
-      <!-- 9 arrows · 240° arc · from 150° to 30° CW through 270°(top) · step 30° · inner r=42 · outer r=185 -->
-      <!-- head center (500,258) -->
-      <!-- 150°  ТРЕНЕР        lower-left  -->
-      <line x1="464" y1="279" x2="340" y2="351" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
-      <!-- 180°  ИНДУСТРИЯ     left        -->
-      <line x1="458" y1="258" x2="315" y2="258" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
-      <!-- 210°  ЗДОРОВЬЕ      upper-left  -->
-      <line x1="464" y1="237" x2="340" y2="165" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
-      <!-- 240°  СООБЩЕСТВО    near-top-left -->
-      <line x1="479" y1="222" x2="408" y2="98" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
-      <!-- 270°  РОДИТЕЛЬСКИЙ БРЕЙК  top   -->
-      <line x1="500" y1="216" x2="500" y2="73" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
-      <!-- 300°  КАРЬЕРА       near-top-right -->
-      <line x1="521" y1="222" x2="593" y2="98" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
-      <!-- 330°  ДЕНЬГИ        upper-right -->
-      <line x1="536" y1="237" x2="660" y2="165" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
-      <!-- 0°    ОБРАЗОВАНИЕ   right       -->
-      <line x1="542" y1="258" x2="685" y2="258" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
-      <!-- 30°   СЕМЬЯ         lower-right -->
-      <line x1="536" y1="279" x2="660" y2="351" stroke="#FF5200" stroke-width="2.5" marker-end="url(#arrowhead)"></line>
+      <!-- 3. HEAD — drawn last, always fully visible on top of arrows -->
+      <path transform="translate(406,174) scale(0.915)" fill="#FF5200" d="M103.775 0.09C117.233 -0.69 130.491 3.63 140.908 12.18C153.114 22.35 160.27 37.24 161.689 52.97C163.599 72.94 157.513 92.86 144.765 108.36C135.727 119.12 123.872 126.63 109.693 127.88C98.156 129.57 83.963 122.93 75.469 115.53C48.697 92.2 41.931 46.13 65.885 18.46C75.803 7 88.786 1.08 103.775 0.09Z"/>
 
-      <!-- Labels · r=225 from (500,258) -->
-      <text x="305" y="371" text-anchor="end" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">ТРЕНЕР</text>
-      <text x="270" y="263" text-anchor="end" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">ИНДУСТРИЯ</text>
-      <text x="305" y="145" text-anchor="end" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">ЗДОРОВЬЕ</text>
-      <text x="387" y="63" text-anchor="end" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">СООБЩЕСТВО</text>
-      <text x="500" y="33" text-anchor="middle" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">РОДИТЕЛЬСКИЙ БРЕЙК</text>
-      <text x="613" y="63" text-anchor="start" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">КАРЬЕРА</text>
-      <text x="695" y="145" text-anchor="start" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">ДЕНЬГИ</text>
-      <text x="730" y="263" text-anchor="start" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">ОБРАЗОВАНИЕ</text>
-      <text x="695" y="371" text-anchor="start" font-family="'Anton','Inter',sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1.5">СЕМЬЯ</text>
+      <!-- Labels (everything shifted -25 in y; СООБЩЕСТВО/КАРЬЕРА next to arrow tips) -->
+      <text x="305" y="346" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ТРЕНЕР</text>
+      <text x="270" y="238" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ИНДУСТРИЯ</text>
+      <text x="305" y="120" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ЗДОРОВЬЕ</text>
+      <text x="395" y="62"  text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">СООБЩЕСТВО</text>
+      <text x="500" y="18"  text-anchor="middle" font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">РОДИТЕЛЬСКИЙ БРЕЙК</text>
+      <text x="608" y="62"  text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">КАРЬЕРА</text>
+      <text x="695" y="120" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ДЕНЬГИ</text>
+      <text x="730" y="238" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">ОБРАЗОВАНИЕ</text>
+      <text x="695" y="346" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="white" letter-spacing="2">СЕМЬЯ</text>
     </svg>
   </div>
 </section>
 
-<!-- ══ 07 · КАК ПРОХОДИТ? · БЕЛЫЙ ═══════════════════════════ -->
-<section class="s-white" id="format" style="height:100vh;display:flex;flex-direction:column;border-bottom:2px solid var(--dark);">
-  <!-- шапка с паддингами -->
-  <div style="padding:80px 48px;flex-shrink:0;display:flex;gap:48px;align-items:center;">
-    <h2 style="font-family:var(--f-head);font-size:clamp(68px,10vw,130px);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--blue);flex-shrink:0;max-width:52%;">КАК ПРОХОДИТ<br>ОБУЧЕНИЕ?</h2>
-    <div style="display:flex;flex-direction:column;gap:28px;flex:1;">
-      <div class="star-p">
-        <img src="star.svg" class="star-icon" alt="">
-        <p>Интенсив длится <strong>1 месяц</strong>. <br class="mob">Каждой теме посвящено <br class="mob"><strong>3 дня</strong> погружения, практики <br class="mob">и обсуждений.</p>
-      </div>
-      <div class="star-p">
-        <img src="star.svg" class="star-icon" alt="">
-        <p>Все материалы и записи <br class="mob">сохраняются — используй <br class="mob">как личную библиотеку <br class="mob">брейк-родителя.</p>
-      </div>
+<!-- ══ 06b · ТЕМЫ ДЕТАЛЬНО ════════════════════════════════ -->
+<section class="s-blue topics-sec" style="background-image:linear-gradient(rgba(255,255,255,.12) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.12) 2px,transparent 2px);background-size:56px 56px;border-bottom:2px solid rgba(255,255,255,.12);">
+  <div class="topics-grid">
+
+    <!-- 1 -->
+    <div class="topic-card">
+      <span class="topic-num">1</span>
+      <p class="topic-head">Родительский брейк</p>
+      <p class="topic-desc">Как меняется роль родителя в танцевальном пути ребёнка. И какими базовыми знаниями, умениями и навыками брейкинга должен обладать родитель, чтоб обеспечить ребёнка нужной поддержкой и мотивацией.</p>
     </div>
+
+    <!-- 2 -->
+    <div class="topic-card">
+      <span class="topic-num">2</span>
+      <p class="topic-head">Карьера</p>
+      <p class="topic-desc">Как может развиваться профессиональный путь ребёнка в хип-хоп индустрии. Спорт, культура, профессия, бизнес и визионерство, умноженные на международные возможности и перспективы.</p>
+    </div>
+
+    <!-- 3 -->
+    <div class="topic-card">
+      <span class="topic-num">3</span>
+      <p class="topic-head">Деньги</p>
+      <p class="topic-desc">Расходы, турниры, поездки, экипировка, инвестиции в развитие ребёнка и финансовое планирование.</p>
+    </div>
+
+    <!-- 4 -->
+    <div class="topic-card">
+      <span class="topic-num">4</span>
+      <p class="topic-head">Образование</p>
+      <p class="topic-desc">Как совмещать брейкинг со школой, кружками, секциями и обычной жизнью ребёнка.</p>
+    </div>
+
+    <!-- 5 -->
+    <div class="topic-card">
+      <span class="topic-num">5</span>
+      <p class="topic-head">Семья</p>
+      <p class="topic-desc">Как принимать решения о воспитании внутри семьи. Как договариваться между собой и сохранять баланс.</p>
+    </div>
+
+    <!-- 6 -->
+    <div class="topic-card">
+      <span class="topic-num">6</span>
+      <p class="topic-head">Сообщество</p>
+      <p class="topic-desc">Как выстраивать отношения с другими родителями, детьми, командами и окружением.</p>
+    </div>
+
+    <!-- 7 -->
+    <div class="topic-card">
+      <span class="topic-num">7</span>
+      <p class="topic-head">Тренер</p>
+      <p class="topic-desc">Как строить здоровые взаимоотношения с тренером. Ключевые условия доверия, коммуникация, ожидания и ответственности сторон.</p>
+    </div>
+
+    <!-- 9 -->
+    <div class="topic-card">
+      <span class="topic-num">9</span>
+      <p class="topic-head">Здоровье</p>
+      <p class="topic-desc">Физическое и эмоциональное состояние ребёнка. Нагрузки, восстановление, психология и профилактика выгорания.</p>
+    </div>
+
+    <!-- 8 · ИНДУСТРИЯ — на всю ширину, пункты в 4 колонки -->
+    <div class="topic-card topic-card-wide">
+      <span class="topic-num">8</span>
+      <p class="topic-head">Индустрия</p>
+      <p class="topic-desc">Что такое современная индустрия брейкинга:</p>
+      <ul class="topic-items">
+        <li class="topic-item">Федерации</li>
+        <li class="topic-item">Рейтинги и оценки</li>
+        <li class="topic-item">Ключевые команды и сообщества</li>
+        <li class="topic-item">История и развитие</li>
+        <li class="topic-item">Структура</li>
+        <li class="topic-item">Судейство</li>
+        <li class="topic-item">Соревнования</li>
+        <li class="topic-item">Как устроен мир брейкинга изнутри</li>
+      </ul>
+    </div>
+
   </div>
-  <!-- грид от края до края, растягивается на остаток -->
-  <div class="fmt-grid">
-    <div class="fmt-item"><div class="fmt-icon">▶</div><div class="fmt-label">Видеоуроки</div></div>
-    <div class="fmt-item"><div class="fmt-icon">◉</div><div class="fmt-label">Живые эфиры</div></div>
-    <div class="fmt-item"><div class="fmt-icon">◈</div><div class="fmt-label">Практические задания</div></div>
-    <div class="fmt-item"><div class="fmt-icon">◎</div><div class="fmt-label">Доп. материалы</div></div>
-    <div class="fmt-item"><div class="fmt-icon">✳</div><div class="fmt-label">Разборы ситуаций</div></div>
-    <div class="fmt-item"><div class="fmt-icon">◐</div><div class="fmt-label">Общий чат</div></div>
-    <div class="fmt-item"><div class="fmt-icon">◑</div><div class="fmt-label">Ответы на вопросы</div></div>
-    <div class="fmt-item"><div class="fmt-icon">◻</div><div class="fmt-label">Доступ к записям</div></div>
+</section>
+
+<!-- ══ 07 · КАК ПРОХОДИТ? ════════════════════════════════════ -->
+<section class="creds-sec" id="format">
+  <h2 class="creds-title">КАК ПРОХОДИТ<br>ОБУЧЕНИЕ?</h2>
+  <p class="team-desc-text fmt-desc">Интенсив длится 1 месяц.<br><br>Каждой теме посвящено 3 дня погружения, практики и обсуждений.<br>Все материалы и записи сохраняются — используй<br>как личную библиотеку брейк-родителя.</p>
+  <div class="creds-grid">
+    <div class="cred-card"><span class="cred-num">1</span><span class="cred-text">Видеоуроки</span></div>
+    <div class="cred-card"><span class="cred-num">2</span><span class="cred-text">Живые эфиры</span></div>
+    <div class="cred-card"><span class="cred-num">3</span><span class="cred-text">Практические задания</span></div>
+    <div class="cred-card"><span class="cred-num">4</span><span class="cred-text">Доп. материалы</span></div>
+    <div class="cred-card"><span class="cred-num">5</span><span class="cred-text">Разборы ситуаций</span></div>
+    <div class="cred-card"><span class="cred-num">6</span><span class="cred-text">Общий чат</span></div>
+    <div class="cred-card"><span class="cred-num">7</span><span class="cred-text">Ответы на вопросы</span></div>
+    <div class="cred-card"><span class="cred-num">8</span><span class="cred-text">Доступ к записям</span></div>
   </div>
 </section>
 
 <!-- ══ 08 · ПО КАЖДОЙ ТЕМЕ · ТЁМНЫЙ ════════════════════════ -->
-<section class="what-sec dark-sec s-dark">
-  <div class="what-photo">
-    <div style="width:100%;height:100%;background:rgba(255,255,255,.06);"></div>
-  </div>
-  <div class="what-content">
-    <h2 class="what-title what-title-md">ПО КАЖДОЙ ТЕМЕ<br>ВЫ ПОЛУЧИТЕ:</h2>
-    <div class="what-paragraphs">
-      <div class="star-p">
-        <img src="star.svg" class="star-icon" alt="">
-        <p>Знания и опыт от приглашённых экспертов.</p>
+<section class="what-sec" id="per-topic">
+  <!-- ЛЕВАЯ ЧАСТЬ: чёрный фон + белая сетка + серая карточка -->
+  <div class="dark-left">
+    <div class="what-card">
+      <h2 class="what-title what-title-md">ПО КАЖДОЙ ТЕМЕ<br>ВЫ ПОЛУЧИТЕ:</h2>
+      <div class="why-list">
+        <div class="why-list-item">
+          <span class="wli-num">01</span>
+          <span class="wli-text">Знания и опыт от приглашённых экспертов.</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">02</span>
+          <span class="wli-text">Практические рекомендации и живой опыт.</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">03</span>
+          <span class="wli-text">Советы от звёздных брейк-родителей, которые уже прошли этот путь вместе со своими детьми.</span>
+        </div>
       </div>
-      <div class="star-p">
-        <img src="star.svg" class="star-icon" alt="">
-        <p>Практические рекомендации и живой опыт.</p>
-      </div>
-      <div class="star-p">
-        <img src="star.svg" class="star-icon" alt="">
-        <p>Советы от звёздных брейк-родителей, которые уже прошли этот путь вместе со своими детьми.</p>
-      </div>
+      <p class="what-quote">Это не теория «из интернета».<br><span>Это реальный опыт семей, тренеров и людей внутри индустрии.</span></p>
     </div>
-    <p class="what-quote">Это не теория <br class="mob">«из интернета».<br class="mob"><span>Это реальный опыт <br class="mob">семей, тренеров и людей <br class="mob">внутри индустрии.</span></p>
+  </div>
+  <!-- ПРАВАЯ ЧАСТЬ: тёмный плейсхолдер -->
+  <div class="what-photo" style="border-left-color:rgba(255,255,255,.1);background:var(--dark);">
+    <div class="ph" style="background:#1a1a2e url('per-topic-photo.webp') center/cover no-repeat;"></div>
   </div>
 </section>
 
 <!-- ══ 09 · 30-40 МИНУТ · ОРАНЖЕВЫЙ ═══════════════════════════ -->
-<section class="how-sec s-orange" id="how">
-  <div class="how-content">
-    <h2 class="how-title">30–40 МИНУТ <br class="mob">В ДЕНЬ</h2>
-    <div style="display:flex;gap:48px;margin-top:120px;align-items:stretch;width:100%;">
-      <div style="flex:0 0 48%;border-radius:4px;overflow:hidden;min-height:200px;background:rgba(0,0,0,.1);"></div>
-      <div class="how-body" style="flex:1;margin-top:0;max-width:none;">
-        <div class="how-item">
-          <img src="star.svg" class="star-icon" alt="">
-          <p class="t-body">Формат устроен так, <br class="mob">чтобы родители могли <br class="mob">учиться без перегруза.</p>
+<section class="what-sec" id="how">
+  <!-- ЛЕВАЯ ЧАСТЬ: оранжевый фон + белая сетка + серая карточка -->
+  <div class="orange-left">
+    <div class="what-card">
+      <h2 class="what-title what-title-md" id="how-title">30–40 МИНУТ<br>В ДЕНЬ</h2>
+      <div class="why-list">
+        <div class="why-list-item">
+          <span class="wli-num">01</span>
+          <span class="wli-text">Формат устроен так, чтобы родители могли учиться без перегруза.</span>
         </div>
-        <div class="how-item">
-          <img src="star.svg" class="star-icon" alt="">
-          <p class="t-body">При этом материалов <br class="mob">будет значительно <br class="mob">больше — интенсив <br class="mob">можно будет <br class="mob">использовать как <br class="mob">полноценную <br class="mob"><strong>библиотеку знаний</strong> <br class="mob">и «шпаргалку» <br class="mob">по брейк-воспитанию <br class="mob">ребёнка.</p>
+        <div class="why-list-item">
+          <span class="wli-num">02</span>
+          <span class="wli-text">При этом материалов будет значительно больше — интенсив можно будет использовать как полноценную библиотеку знаний и «шпаргалку» по брейк-воспитанию ребёнка.</span>
         </div>
-        <div class="how-item">
-          <img src="star.svg" class="star-icon" alt="">
-          <p class="t-body">Это система ориентиров, <br class="mob">к которой мы очень <br class="mob">рекомендуем возвращаться <br class="mob">снова, снова и снова.</p>
+        <div class="why-list-item">
+          <span class="wli-num">03</span>
+          <span class="wli-text">Это система ориентиров, к которой мы очень рекомендуем возвращаться снова, снова и снова.</span>
         </div>
       </div>
     </div>
   </div>
-</section>
-
-<!-- ══ 10 · ЗАЧЕМ? · БЕЛЫЙ ════════════════════════════════════ -->
-<section class="what-sec s-white" id="why-join">
+  <!-- ПРАВАЯ ЧАСТЬ: плейсхолдер фото -->
   <div class="what-photo">
-    <div style="width:100%;height:100%;background:rgba(0,0,0,.07);"></div>
-  </div>
-  <div class="what-content">
-    <h2 class="what-title">ЗАЧЕМ?</h2>
-    <div class="what-paragraphs">
-      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Понимали, как устроен современный брейкинг.</p></div>
-      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Умели принимать <br class="mob">грамотные решения.</p></div>
-      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Лучше ориентировались <br class="mob">в соревнованиях, тренировках <br class="mob">и развитии.</p></div>
-      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Могли поддерживать <br class="mob">ребёнка экологично.</p></div>
-      <div class="star-p"><img src="star.svg" class="star-icon" alt=""><p>Не терялись в информации <br class="mob">и индустрии.</p></div>
-    </div>
-    <p class="what-quote" style="white-space:nowrap;">Чтобы знать, <br class="mob">поддерживать <span>и не мешать.</span></p>
+    <div class="ph" style="background:#1a1a2e url('how-photo.webp') center/cover no-repeat;"></div>
   </div>
 </section>
 
-<!-- ══ 11 · ЧТОБЫ ЧТО? · ОФФБЕЛЫЙ ═══════════════════════════ -->
-<section class="what-sec s-off">
-  <div class="what-photo" style="padding:0;overflow:hidden;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;">
-      <!-- Card 1 — БОЛЕЕ ОСОЗНАННЫМ -->
-      <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid rgba(0,0,0,.08);border-bottom:2px solid rgba(0,0,0,.08);">
-        <span style="font-family:var(--f-head);font-size:22px;font-weight:900;color:var(--orange);line-height:1;">01</span>
-        <p style="font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;color:var(--dark);letter-spacing:.03em;line-height:1.35;">Более осознанным</p>
-      </div>
-      <!-- Card 2 — БОЛЕЕ ЗДОРОВЫМ -->
-      <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-bottom:2px solid rgba(0,0,0,.08);">
-        <span style="font-family:var(--f-head);font-size:22px;font-weight:900;color:var(--orange);line-height:1;">02</span>
-        <p style="font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;color:var(--dark);letter-spacing:.03em;line-height:1.35;">Более здоровым</p>
-      </div>
-      <!-- Card 3 — БОЛЕЕ ДОЛГОСРОЧНЫМ -->
-      <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid rgba(0,0,0,.08);">
-        <span style="font-family:var(--f-head);font-size:22px;font-weight:900;color:var(--orange);line-height:1;">03</span>
-        <p style="font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;color:var(--dark);letter-spacing:.03em;line-height:1.35;">Более долгосрочным</p>
-      </div>
-      <!-- Card 4 — БЕЗ ДАВЛЕНИЯ И ХАОСА -->
-      <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;">
-        <span style="font-family:var(--f-head);font-size:22px;font-weight:900;color:var(--orange);line-height:1;">04</span>
-        <p style="font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;color:var(--dark);letter-spacing:.03em;line-height:1.35;">Без давления и хаоса</p>
+<!-- ══ 09b · КУРАТОРЫ КУРСА ═════════════════════════════════ -->
+<section class="curators-sec" id="curators">
+  <div class="curators-heading">
+    <span class="curators-star">*</span>
+    <h2 class="curators-heading-title">КУРАТОРЫ КУРСА</h2>
+    <span class="curators-star">*</span>
+  </div>
+  <div class="curators-grid">
+    <!-- Куратор 1 -->
+    <div class="curator-col">
+      <div class="curator-photo" style="background:url('kirill-photo.webp') top center/cover no-repeat;"></div>
+      <div class="curator-info">
+        <h3 class="curator-name">КИРИЛЛ «ЗЕЛЁНЫЙ» КОЗНЕВ</h3>
+        <div class="curator-list">
+          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text">Ректор крупнейшей школы брейкинга XO Crew</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Брейк-тренер более чем с 15-летним опытом</span></div>
+          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Призёр и победитель бесчисленного множества чемпионатов мира</span></div>
+          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text">Создатель уникальной методики преподавания и лидерства брейк-атлетов</span></div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="what-content">
-    <h2 class="what-title">ЧТОБЫ ЧТО?</h2>
-    <p class="what-quote" style="margin-top:40px;">И чтобы рядом с ребёнком был взрослый,<br><span>который действительно понимает этот путь.</span></p>
+    <!-- Куратор 2 -->
+    <div class="curator-col">
+      <div class="curator-photo" style="background:url('artem-photo.webp') top center/cover no-repeat;"></div>
+      <div class="curator-info">
+        <h3 class="curator-name">АРТЁМ ПЕРУК</h3>
+        <div class="curator-list">
+          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text">Основатель команды XO Crew</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более 20 лет брейк-опыта</span></div>
+          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Воспитал сотни учеников — от новичков до профессиональных танцоров</span></div>
+          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text">Понимает брейкинг как культурную среду, спорт и образ жизни</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══ 12+13 · ГДЕ? + КОГДА? · СИНИЙ ════════════════════════ -->
-<section class="pair-sec s-blue" id="where" style="border-bottom-color:rgba(255,255,255,.12);min-height:auto;">
-  <!-- LEFT: ГДЕ? -->
-  <div class="pair-col" style="border-left:none;padding-top:64px;padding-bottom:64px;">
-    <h2 class="pair-title" style="color:var(--orange);font-size:clamp(68px,10vw,130px);">ГДЕ?</h2>
-    <div class="pair-body">
-      <div>
-        <div class="pair-item-head" style="color:rgba(255,255,255,.45);">Формат</div>
-        <p class="pair-item-text" style="color:var(--white);">Онлайн. Закрытый канал VK <br class="mob">с последующим доступом <br class="mob">ко всем материалам.</p>
+<!-- ══ 09c · СЛОГАН ══════════════════════════════════════════ -->
+<section class="slogan-sec" id="slogan">
+  <p class="slogan-text">РЕБЁНКУ НУЖЕН<br>ВЗРОСЛЫЙ РЯДОМ,<br>КОТОРЫЙ ПОНИМАЕТ,<br>ЧТО ПРОИСХОДИТ.</p>
+  <p class="slogan-text">ИМЕННО ДЛЯ ЭТОГО<br>И БЫЛ СОЗДАН ИНТЕНСИВ<br>БРЕЙК-РОДИТЕЛЬ.</p>
+</section>
+
+<!-- ══ 10 · ЗАЧЕМ? ════════════════════════════════════════════ -->
+<section class="what-sec" id="why-join">
+  <!-- ЛЕВАЯ ЧАСТЬ: синий фон + сетка + серая карточка -->
+  <div class="what-left">
+    <div class="what-card">
+      <h2 class="what-title">ЗАЧЕМ?</h2>
+      <div class="why-list">
+        <div class="why-list-item">
+          <span class="wli-num">01</span>
+          <span class="wli-text">Понимали, как устроен современный брейкинг.</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">02</span>
+          <span class="wli-text">Умели принимать грамотные решения.</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">03</span>
+          <span class="wli-text">Лучше ориентировались в соревнованиях, тренировках и развитии.</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">04</span>
+          <span class="wli-text">Могли поддерживать ребёнка экологично.</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">05</span>
+          <span class="wli-text">Не терялись в информации и индустрии.</span>
+        </div>
       </div>
-      <div>
-        <div class="pair-item-head" style="color:rgba(255,255,255,.45);">Доступность</div>
-        <p class="pair-item-text" style="color:var(--orange);">Участвовать можно <br class="mob">из любой точки мира.</p>
+      <p class="what-quote">Чтобы знать, поддерживать <span>и не мешать.</span></p>
+    </div>
+  </div>
+  <!-- ПРАВАЯ ЧАСТЬ: плейсхолдер фото -->
+  <div class="what-photo">
+    <div class="ph" style="background:#1a1a2e url('why-join-photo.webp') center/cover no-repeat;"></div>
+  </div>
+</section>
+
+<!-- ══ 11 · ЧТОБЫ ЧТО? ═══════════════════════════════════════ -->
+<section class="what-sec" id="chto-chto">
+  <!-- ЛЕВАЯ ЧАСТЬ: синий фон + сетка + серая карточка -->
+  <div class="what-left">
+    <div class="what-card">
+      <h2 class="what-title">ЧТОБЫ ЧТО?</h2>
+      <div class="why-list">
+        <div class="why-list-item">
+          <span class="wli-num">01</span>
+          <span class="wli-text">Более осознанным</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">02</span>
+          <span class="wli-text">Более здоровым</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">03</span>
+          <span class="wli-text">Более долгосрочным</span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">04</span>
+          <span class="wli-text">Без давления и хаоса</span>
+        </div>
+      </div>
+      <p class="what-quote">И чтобы рядом с ребёнком был взрослый,<br><span>который действительно понимает этот путь.</span></p>
+    </div>
+  </div>
+  <!-- ПРАВАЯ ЧАСТЬ: плейсхолдер фото -->
+  <div class="what-photo">
+    <div class="ph" style="background:#1a1a2e url('chto-chto-photo.webp') center/cover no-repeat;"></div>
+  </div>
+</section>
+
+<!-- ══ 12 · ГДЕ? ════════════════════════════════════════════ -->
+<section class="what-sec" id="where">
+  <div class="what-left">
+    <div class="what-card">
+      <h2 class="what-title">ГДЕ?</h2>
+      <div class="why-list">
+        <p class="wli-text">Онлайн. Закрытый канал VK с последующим доступом ко всем материалам.</p>
+        <p class="wli-text">Участвовать можно из любой точки мира.</p>
       </div>
     </div>
   </div>
-  <!-- RIGHT: КОГДА? -->
-  <div class="pair-col" id="when" style="border-left-color:rgba(255,255,255,.12);padding-top:64px;padding-bottom:0;">
-    <h2 class="pair-title" style="color:var(--orange);font-size:clamp(68px,10vw,130px);">КОГДА?</h2>
-    <div class="pair-body" style="flex:1;justify-content:space-between;">
-      <!-- описание сверху — отступ совпадает с высотой .pair-item-head слева -->
-      <div style="padding-top:28px;">
-        <p class="pair-item-text" style="color:rgba(255,255,255,.85);">1 месяц погружения, практики и переосмысления роли родителя в брейкинге.</p>
+  <div class="what-photo">
+    <div class="ph" style="background:#1a1a2e url('where-photo.webp') center/cover no-repeat;"></div>
+  </div>
+</section>
+
+<!-- ══ 13 · КОГДА? ══════════════════════════════════════════ -->
+<section class="what-sec" id="when">
+  <div class="what-left">
+    <div class="what-card">
+      <h2 class="what-title">КОГДА?</h2>
+      <div class="why-list">
+        <p class="wli-text">1 месяц погружения, практики и переосмысления роли родителя в брейкинге.</p>
       </div>
-      <!-- даты сеткой — прижаты к низу -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(255,255,255,.15);">
-        <!-- старт -->
-        <div style="padding:20px 0 32px;border-right:1px solid rgba(255,255,255,.15);">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;">Старт</div>
-          <div style="font-family:var(--f-head);font-size:clamp(36px,4vw,56px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:1;">1 Июля</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:48px;">
+        <div>
+          <div class="date-label">Старт</div>
+          <div class="date-value">1 Июля</div>
         </div>
-        <!-- завершение -->
-        <div style="padding:20px 0 32px 24px;">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;">Завершение</div>
-          <div style="font-family:var(--f-head);font-size:clamp(36px,4vw,56px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:1;">1 Августа</div>
+        <div style="text-align:right;">
+          <div class="date-label">Конец</div>
+          <div class="date-value">1 Августа</div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="what-photo">
+    <div class="ph" style="background:#1a1a2e url('when-photo.webp') center/cover no-repeat;"></div>
   </div>
 </section>
 
 <!-- ══ 14 · СКОЛЬКО? · ТЁМНЫЙ ═══════════════════════════════ -->
-<section class="s-dark" id="pricing" style="border-bottom:2px solid rgba(255,255,255,.1);padding:24px;display:flex;flex-direction:column;gap:24px;">
-  <h2 style="font-family:'Sprite Graffiti Shadow','Anton',sans-serif;font-size:clamp(80px,12vw,160px);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--orange);text-align:center;width:100%;padding:40px 0 16px;">СКОЛЬКО?</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+<section class="curators-sec" id="pricing" style="border-bottom:none;">
+  <div class="curators-heading">
+    <h2 class="curators-heading-title" style="color:var(--orange);">СКОЛЬКО?</h2>
+  </div>
+  <div class="pricing-grid">
     <!-- БАЗА -->
-    <div class="pc" style="border:1.5px solid rgba(255,255,255,.25);border-radius:6px;background:rgba(255,255,255,.05);overflow:hidden;">
+    <div class="pc">
       <div class="pc-body">
-        <div class="pc-tag"><img src="star.svg" style="width:14px;height:14px;vertical-align:middle;margin-right:6px;margin-top:-2px;"> Тариф</div>
+        <div class="pc-tag">Тариф</div>
         <div class="pc-name">БАЗА</div>
         <div class="pc-price">20 000 <span style="font-family:'Inter',sans-serif;font-size:.55em;font-weight:900;letter-spacing:0;position:relative;top:-.05em;">р.</span></div>
         <div class="pc-inst"><span style="display:inline-block;border:1px solid rgba(255,255,255,.3);padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);">Доступна рассрочка</span></div>
-        <ul class="pc-features">
-          <li>Общий чат участников</li>
-          <li>Доступ ко всем материалам</li>
-          <li>Доступ к записям на 6 месяцев</li>
-        </ul>
+        <div class="curator-list" style="margin-top:24px;">
+          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text">Общий чат участников</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Доступ ко всем материалам</span></div>
+          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Доступ к записям на 6 месяцев</span></div>
+        </div>
       </div>
-      <button class="btn btn-orange" onclick="openModal()" style="border-top:1.5px solid rgba(255,255,255,.15);">ВЫБРАТЬ ТАРИФ →</button>
+      <button class="btn btn-orange" onclick="openModal()">ВЫБРАТЬ ТАРИФ</button>
     </div>
     <!-- РАСШИРЕННЫЙ -->
-    <div class="pc" style="border:1.5px solid rgba(255,255,255,.25);border-radius:6px;background:rgba(255,255,255,.05);overflow:hidden;">
+    <div class="pc">
       <div class="pc-body">
-        <div class="pc-tag"><img src="star.svg" style="width:14px;height:14px;vertical-align:middle;margin-right:6px;margin-top:-2px;"> Тариф · Рекомендуем</div>
+        <div class="pc-tag">Тариф · Рекомендуем</div>
         <div class="pc-name">РАСШИРЕННЫЙ</div>
         <div class="pc-price">30 000 <span style="font-family:'Inter',sans-serif;font-size:.55em;font-weight:900;letter-spacing:0;position:relative;top:-.05em;">р.</span></div>
         <div class="pc-inst"><span style="display:inline-block;border:1px solid rgba(255,255,255,.3);padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);">Доступна рассрочка</span></div>
-        <ul class="pc-features">
-          <li>Общий чат участников</li>
-          <li>Доступ ко всем материалам</li>
-          <li>Доступ к записям на 1 год</li>
-          <li>Дополнительные материалы</li>
-          <li>Личный разбор вопросов с Кириллом Кочневым</li>
-        </ul>
+        <div class="curator-list" style="margin-top:24px;">
+          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text">Общий чат участников</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Доступ ко всем материалам</span></div>
+          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Доступ к записям на 1 год</span></div>
+          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text">Дополнительные материалы</span></div>
+          <div class="curator-item"><span class="curator-item-num">5</span><span class="curator-item-text">Личный разбор вопросов с Кириллом Кочневым</span></div>
+        </div>
       </div>
-      <button class="btn btn-orange" onclick="openModal()" style="border-top:1.5px solid rgba(255,255,255,.15);">ВЫБРАТЬ ТАРИФ →</button>
+      <button class="btn btn-orange" onclick="openModal()">ВЫБРАТЬ ТАРИФ</button>
     </div>
   </div>
 </section>
 
-<!-- ══ 15 · ФИНАЛЬНЫЙ СТЕЙТМЕНТ · СИНИЙ ═════════════════════ -->
-<section class="s-blue" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px;border-bottom:2px solid rgba(255,255,255,.12);background-image:linear-gradient(rgba(255,255,255,.10) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.10) 2px,transparent 2px);background-size:72px 72px;">
-  <p class="statement" style="text-align:center;max-width:1100px;font-size:clamp(32px,5.2vw,68px);color:var(--white);">
-    БРЕЙК-РОДИТЕЛЬ —<br>
-    ЭТО НЕ ПРОСТО ОНЛАЙН-КУРС.<br>
-    ЭТО ПЕРВАЯ В СВОЁМ РОДЕ ВОЗМОЖНОСТЬ
-    <span style="color:var(--orange);">СТАТЬ НАСТОЯЩЕЙ ОПОРОЙ</span>
-    ДЛЯ РЕБЁНКА.
-  </p>
-</section>
+<!-- ══ 15+16+17 · СТЕЙТМЕНТ + ЮРЛИЦА + ЗАБОТА · СИНИЙ ════════ -->
+<section class="s-blue" style="background-image:linear-gradient(rgba(255,255,255,.10) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.10) 2px,transparent 2px);background-size:72px 72px;border-bottom:2px solid rgba(255,255,255,.1);">
 
-<!-- ══ 16+17 · ЮРЛИЦА + ЗАБОТА · БЕЛЫЙ ══════════════════════ -->
-<!-- ══ 16+17 · ДЛЯ ЮРЛИЦ + СЛУЖБА ЗАБОТЫ · БЕЛЫЙ ════════════ -->
-<section class="pair-sec s-blue" id="legal" style="gap:24px;padding:24px;border-bottom-color:rgba(255,255,255,.12);">
-  <!-- LEFT: блок 16 -->
-  <div class="pair-col" id="support" style="border:1.5px solid rgba(255,255,255,.25);border-radius:6px;background:rgba(255,255,255,.07);">
-    <h2 class="pair-title" style="color:var(--orange);">ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ</h2>
-    <div class="pair-body">
-      <div>
-        <div class="pair-item-head" style="color:rgba(255,255,255,.5);">Договор и документы</div>
-        <p class="pair-item-text" style="color:var(--white);">Если вы оплачиваете участие как юридическое лицо, мы предоставим полный пакет документов: договор, счёт, акт выполненных работ.<br><br>Для оформления — напишите нам напрямую.</p>
+  <!-- 15: Финальный стейтмент -->
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px;">
+    <p class="statement" style="text-align:center;max-width:1100px;font-size:clamp(38px,6.24vw,82px);color:var(--white);">
+      БРЕЙК-РОДИТЕЛЬ —<br>
+      ЭТО НЕ ПРОСТО ОНЛАЙН-КУРС.<br>
+      ЭТО ПЕРВАЯ В СВОЁМ РОДЕ ВОЗМОЖНОСТЬ
+      <span style="color:var(--orange);">СТАТЬ НАСТОЯЩЕЙ ОПОРОЙ</span>
+      ДЛЯ РЕБЁНКА.
+    </p>
+  </div>
+
+  <!-- 16+17: ДЛЯ ЮРЛИЦ + СЛУЖБА ЗАБОТЫ -->
+  <div class="pair-sec" id="legal" style="gap:24px;padding:24px;border-top:none;border-bottom:none;">
+    <!-- LEFT: блок 16 -->
+    <div class="pair-col" id="support" style="border:1.5px solid rgba(255,255,255,.25);border-radius:16px;background:linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)),var(--blue);position:relative;z-index:1;">
+      <h2 class="pair-title" style="color:var(--orange);">ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ</h2>
+      <div class="pair-body">
+        <div>
+          <div class="pair-item-head">Договор и документы</div>
+          <p class="pair-item-text">Если вы оплачиваете участие как юридическое лицо, мы предоставим полный пакет документов: договор, счёт, акт выполненных работ.<br><br>Для оформления — напишите нам напрямую.</p>
+        </div>
+        <div>
+          <div class="pair-item-head">Контакты для юрлиц</div>
+          <p class="pair-item-text">По вопросам оформления:<br><br><a href="mailto:info@xocrew.ru">info@xocrew.ru</a><br><br>или напишите в нашу службу заботы.</p>
+        </div>
       </div>
-      <div>
-        <div class="pair-item-head" style="color:rgba(255,255,255,.5);">Контакты для юрлиц</div>
-        <p class="pair-item-text" style="color:var(--white);">По вопросам оформления:<br><br><a href="mailto:info@xocrew.ru" style="color:var(--orange);">info@xocrew.ru</a><br><br>или напишите в нашу службу заботы.</p>
+    </div>
+    <!-- RIGHT: блок 17 -->
+    <div class="pair-col" style="border:1.5px solid rgba(255,255,255,.25);border-radius:16px;background:linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)),var(--blue);position:relative;z-index:1;">
+      <h2 class="pair-title" style="color:var(--orange);">СЛУЖБА ЗАБОТЫ</h2>
+      <div class="pair-body">
+        <div>
+          <div class="pair-item-head">Есть вопросы?</div>
+          <p class="pair-item-text">Мы на связи и готовы помочь с любым вопросом — от выбора тарифа до технических моментов.<br><br>Время ответа: до 24 часов в рабочие дни.</p>
+        </div>
+        <div>
+          <div class="pair-item-head">Как написать</div>
+          <p class="pair-item-text">ВКонтакте: <a href="https://vk.com/xocrew" target="_blank" rel="noopener">vk.com/xocrew</a><br><br>Email: <a href="mailto:info@xocrew.ru">info@xocrew.ru</a></p>
+        </div>
       </div>
     </div>
   </div>
-  <!-- RIGHT: блок 17 -->
-  <div class="pair-col" style="border:1.5px solid rgba(255,255,255,.25);border-radius:6px;background:rgba(255,255,255,.07);">
-    <h2 class="pair-title" style="color:var(--orange);">СЛУЖБА ЗАБОТЫ</h2>
-    <div class="pair-body">
-      <div>
-        <div class="pair-item-head" style="color:rgba(255,255,255,.5);">Есть вопросы?</div>
-        <p class="pair-item-text" style="color:var(--white);">Мы на связи и готовы помочь с любым вопросом — от выбора тарифа до технических моментов.<br><br>Время ответа: до 24 часов в рабочие дни.</p>
-      </div>
-      <div>
-        <div class="pair-item-head" style="color:rgba(255,255,255,.5);">Как написать</div>
-        <p class="pair-item-text" style="color:var(--white);">ВКонтакте: <a href="https://vk.com/xocrew" target="_blank" rel="noopener" style="color:var(--orange);">vk.com/xocrew</a><br><br>Email: <a href="mailto:info@xocrew.ru" style="color:var(--orange);">info@xocrew.ru</a></p>
-      </div>
-    </div>
-  </div>
+
 </section>
 
 <!-- ══ FOOTER · ТЁМНЫЙ ══════════════════════════════════════ -->
@@ -1877,7 +2361,7 @@
         </ul>
       </div>
     </div>
-    <p style="text-align:center;font-size:13px;font-weight:700;color:rgba(0,0,0,.5);margin-bottom:16px;">Можно оформить в рассрочку</p>
+    <p style="text-align:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:16px;text-decoration:underline;">Можно оформить в рассрочку</p>
     <div class="m-legal">
       Нажимая кнопку, вы соглашаетесь с <a href="offer.html">договором оферты</a>,
       <a href="privacy.html">политикой конфиденциальности</a> и обработкой персональных данных.
@@ -1890,15 +2374,112 @@
 <script>
   // ── Grid alignment — 20 точных ячеек в .what-left / .why-left ─
   function alignWhatGrid() {
-    document.querySelectorAll('.what-left, .why-left').forEach(el => {
+    document.querySelectorAll('.what-left, .why-left, .dark-left, .orange-left').forEach(el => {
       const w = el.offsetWidth;
       const cell = w / 20; // 20 колонок → ячейка = 1/20 ширины
       el.style.backgroundSize = `${cell}px ${cell}px`;
       el.style.padding = `${cell}px`; // отступ = 1 ячейка (= 1/20 ширины)
     });
+    // КУРАТОРЫ КУРСА — сетка только снаружи, padding не трогаем
+    document.querySelectorAll('.curators-sec').forEach(el => {
+      const cell = el.offsetWidth / 20;
+      el.style.backgroundSize = `${cell}px ${cell}px`;
+    });
+    // СЛОГАН — полный оранжевый блок, только backgroundSize
+    document.querySelectorAll('.slogan-sec').forEach(el => {
+      const cell = el.offsetWidth / 20;
+      el.style.backgroundSize = `${cell}px ${cell}px`;
+    });
+    // ГДЕ? + КОГДА? — синий фон с сеткой (делим на 33 чтобы ячейка = той же что у .what-left 60%/20)
+    document.querySelectorAll('.where-sec').forEach(el => {
+      const cell = el.offsetWidth / 33;
+      el.style.backgroundSize = `${cell}px ${cell}px`;
+    });
   }
   alignWhatGrid();
   window.addEventListener('resize', alignWhatGrid);
+
+  // ── ЧТОБЫ ЧТО? — шрифт растягивается до ширины карточки ───
+  function fitChtoTitle() {
+    const el = document.querySelector('#chto-chto .what-title');
+    if (!el) return;
+    const card = el.closest('.what-card');
+    if (!card) return;
+    const available = card.clientWidth - 80; // 40px padding с каждой стороны
+    el.style.fontSize = '200px'; // стартуем с максимума
+    let lo = 30, hi = 200;
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      el.style.fontSize = mid + 'px';
+      if (el.scrollWidth <= available) lo = mid;
+      else hi = mid;
+    }
+    el.style.fontSize = lo + 'px';
+  }
+  fitChtoTitle();
+  window.addEventListener('resize', fitChtoTitle);
+
+  // ── ЮРЛИЦА + ЗАБОТА — оба заголовка одинакового размера (по меньшему) ─
+  function fitLegalTitles() {
+    const cols = document.querySelectorAll('#legal .pair-col');
+    let minSize = Infinity;
+    // Проход 1: вычислить оптимальный размер для каждой колонки
+    cols.forEach(function(col) {
+      const el = col.querySelector('.pair-title');
+      if (!el) return;
+      const padH = parseFloat(getComputedStyle(col).paddingLeft) + parseFloat(getComputedStyle(col).paddingRight);
+      const available = col.clientWidth - padH;
+      el.style.whiteSpace = 'nowrap';
+      let lo = 20, hi = 200;
+      while (hi - lo > 1) {
+        const mid = Math.floor((lo + hi) / 2);
+        el.style.fontSize = mid + 'px';
+        if (el.scrollWidth <= available) lo = mid;
+        else hi = mid;
+      }
+      if (lo < minSize) minSize = lo;
+    });
+    // Проход 2: применить минимальный размер ко всем (= ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ)
+    if (minSize !== Infinity) {
+      cols.forEach(function(col) {
+        const el = col.querySelector('.pair-title');
+        if (el) el.style.fontSize = minSize + 'px';
+      });
+    }
+  }
+  fitLegalTitles();
+  window.addEventListener('resize', fitLegalTitles);
+
+  // ── ЧЕМУ БУДЕТ ПОСВЯЩЕН — первая строка точно в ширину секции ─
+  function fitProgramTitle() {
+    const h2 = document.getElementById('program-title');
+    const line1 = document.getElementById('program-line1');
+    if (!h2 || !line1) return;
+    const sec = h2.closest('section');
+    if (!sec) return;
+    // Доступная ширина = секция минус горизонтальный padding (48px × 2) − 4px запас
+    const available = sec.clientWidth - 96 - 4;
+    // Меряем сам span в DOM — реальный шрифт, реальные метрики
+    let lo = 40, hi = 300;
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      h2.style.fontSize = mid + 'px';
+      if (line1.offsetWidth <= available) lo = mid;
+      else hi = mid;
+    }
+    h2.style.fontSize = lo + 'px';
+  }
+  fitProgramTitle();
+  window.addEventListener('resize', fitProgramTitle);
+
+  // fitHowTitle removed — size now set via .what-title-md CSS
+
+  // Перезапуск после загрузки шрифтов (Sprite Graffiti может загрузиться позже)
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function() {
+      fitProgramTitle();
+    });
+  }
 
   // ── Hero height — точный расчёт под любой экран ────────────
   function setHeroHeight() {
@@ -1979,8 +2560,8 @@
     // Хранит { el, rot, timerId } для каждой активной карточки
     let pool = [], idx = 0, lastX = 0, lastY = 0, zTop = 20;
 
-    const hero    = document.querySelector('.hero-top');   // контейнер для img
-    const trigger = document.querySelector('.wilson-wrap'); // зона триггера
+    const hero    = document.querySelector('.hero-top');      // контейнер для img
+    const trigger = document.querySelector('.hero-title-svg'); // зона триггера = сам SVG-заголовок
     if (!hero || !trigger) return;
 
     // Предзагрузка
