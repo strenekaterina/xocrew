@@ -1446,13 +1446,16 @@
         width: 100%;
         text-align: left;
       }
-      /* Описание: компактнее + word-wrap чтобы не вылезало за правый край */
+      /* Описание: центрирован, ограничен шириной контейнера */
       .team-desc-text {
         font-size: 15px !important;
         line-height: 1.5 !important;
-        text-align: left !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
         word-wrap: break-word;
         overflow-wrap: break-word;
+        box-sizing: border-box;
       }
       #team .team-desc-text br { display: none; }
       /* Фото организаторов — меньше высота */
