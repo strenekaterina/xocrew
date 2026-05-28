@@ -106,7 +106,7 @@
       display: flex; align-items: center;
     }
     .nav-logo img {
-      height: 52px; width: auto; display: block;
+      height: 60px; width: auto; display: block;
     }
     .nav-links {
       display: flex; gap: 28px; list-style: none;
@@ -1310,32 +1310,44 @@
         height: 64px;
         grid-template-columns: auto 1fr auto;
       }
-      .nav-logo img { height: 40px; }
+      .nav-logo img { height: 42px; }
       .nav-links { display: none; }
-      .nav-cta { padding: 0 20px; font-size: 10px; letter-spacing: .08em; }
+      /* Кнопка CTA — компактная, короткий текст через ::after */
+      .nav-cta { padding: 0 16px; font-size: 0; letter-spacing: .08em; }
+      .nav-cta::after {
+        content: "Купить";
+        font-size: 11px; font-weight: 900;
+        letter-spacing: .08em; text-transform: uppercase;
+      }
 
       /* ── TICKER ──────────────────────────────────────── */
       .ticker-item { font-size: 9px; padding: 0 16px; }
 
       /* ── HERO ────────────────────────────────────────── */
       #hero { height: auto; min-height: auto; }
-      .hero-top { padding: 28px 16px 24px; }
-      .hero-sub { margin-top: 20px; font-size: clamp(11px, 3.2vw, 15px); }
-      .hero-bottom { grid-template-columns: 1fr; height: auto; }
-      .hb-cell {
-        flex-direction: row; align-items: center;
-        justify-content: space-between;
-        border-right: none; border-bottom: 1px solid var(--line-light);
-        padding: 18px 16px;
+      .hero-top { padding: 28px 16px 24px; background-size: 28px 28px; }
+      .hero-sub { margin-top: 16px; font-size: clamp(14px, 4.2vw, 18px); letter-spacing: .03em; }
+      /* Countdown — вертикальный стек, цифры крупные */
+      .hero-bottom {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 16px 24px;
+        gap: 6px;
+        min-height: auto;
       }
-      .hb-cell:last-child { border-bottom: none; }
-      .hb-label { flex-shrink: 0; max-width: 44%; font-size: 10px; }
-      .hb-btn { min-height: 72px; font-size: clamp(16px, 4.5vw, 22px); }
-      .start-date { font-size: clamp(16px, 4.8vw, 26px); white-space: nowrap; text-align: right; }
-      .cd-row { margin-left: auto; }
-      .cd-n   { font-size: clamp(18px, 5.2vw, 30px); }
-      .cd-sep { font-size: clamp(16px, 4.8vw, 26px); }
-      .cd-u   { font-size: 8px; }
+      .hb-side {
+        flex: none; width: 100%;
+        align-items: center; justify-content: center;
+        text-align: center;
+      }
+      .hb-side.right { align-items: center; text-align: center; }
+      .hb-label { font-size: 10px; letter-spacing: .12em; }
+      .start-date { font-size: clamp(12px, 4vw, 18px); white-space: nowrap; text-align: center; }
+      .cd-wrap { align-items: center; gap: 4px; }
+      .cd-n   { font-size: clamp(52px, 15vw, 80px); }
+      .cd-sep { font-size: clamp(52px, 15vw, 80px); }
+      .cd-u   { font-size: 9px; }
 
       /* мобильные <br class="mob"> — включаются */
       br.mob { display: inline; }
@@ -1575,7 +1587,7 @@
 
 <!-- ══ NAV ══════════════════════════════════════════════════ -->
 <nav>
-  <div class="nav-logo"><img src="logo-f.svg" alt="XO Crew"></div>
+  <div class="nav-logo"><img src="logo-new.svg" alt="XO Crew"></div>
   <ul class="nav-links">
     <li><a href="#what">Что?</a></li>
     <li><a href="#team">Организаторы</a></li>
