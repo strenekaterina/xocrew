@@ -1436,9 +1436,16 @@
         align-items: flex-start;
         text-align: left;
       }
-      /* ОРГАНИЗАТОРЫ — заголовок до края (Sprite Graffiti ~0.43em/char × 12 = ~5.1em total)
-         16vw = 60px @ 375px → 307px ширина слова, влезает в 343px контента */
-      .team-title { font-size: clamp(50px, 16vw, 82px); }
+      /* ОРГАНИЗАТОРЫ — контейнер скрывает любой overflow */
+      .team-top { overflow: hidden; }
+      /* Заголовок: width:100% фиксирует ширину = контейнер (343px @ 375px).
+         Sprite Graffiti ~0.5em/char × 12chars = 6em total.
+         15vw @ 375px = 56px → 6em × 56 = 337px ≤ 343px — почти до края */
+      .team-title {
+        font-size: clamp(48px, 15vw, 78px);
+        width: 100%;
+        text-align: left;
+      }
       /* Описание: компактнее + word-wrap чтобы не вылезало за правый край */
       .team-desc-text {
         font-size: clamp(13px, 3.5vw, 15px) !important;
