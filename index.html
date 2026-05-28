@@ -1436,8 +1436,16 @@
         align-items: flex-start;
         text-align: left;
       }
-      .team-title { font-size: clamp(48px, 13vw, 80px); }
-      .team-desc-text { font-size: clamp(14px, 4vw, 18px) !important; line-height: 1.5 !important; text-align: left !important; }
+      /* ОРГАНИЗАТОРЫ — заголовок до края (Sprite Graffiti узкий, ~21vw) */
+      .team-title { font-size: clamp(60px, 21vw, 100px); }
+      /* Описание: компактнее + word-wrap чтобы не вылезало за правый край */
+      .team-desc-text {
+        font-size: clamp(13px, 3.5vw, 15px) !important;
+        line-height: 1.5 !important;
+        text-align: left !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
       #team .team-desc-text br { display: none; }
       /* Фото организаторов — меньше высота */
       .team-photo-full { aspect-ratio: 4 / 3; }
