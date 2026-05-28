@@ -209,7 +209,7 @@ background-size: 60px 60px;
 - Шрифт `.cd-n` / `.cd-sep`: `clamp(42px, 13.5vw, 58px)`
 
 ### Секция ОРГАНИЗАТОРЫ `#team`
-- Заголовок `.team-title`: `clamp(60px, 21vw, 100px)` — до края ширины (Sprite Graffiti узкий ~0.4em/char)
+- Заголовок `.team-title`: `clamp(50px, 16vw, 82px)` — до края ширины (Sprite Graffiti ~0.43em/char × 12 chars = ~307px @ 375px)
 - Описание `.team-desc-text`: `clamp(13px, 3.5vw, 15px) !important; word-wrap: break-word`
 
 ### Фото-плейсхолдеры `.what-photo`

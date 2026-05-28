@@ -1436,8 +1436,9 @@
         align-items: flex-start;
         text-align: left;
       }
-      /* ОРГАНИЗАТОРЫ — заголовок до края (Sprite Graffiti узкий, ~21vw) */
-      .team-title { font-size: clamp(60px, 21vw, 100px); }
+      /* ОРГАНИЗАТОРЫ — заголовок до края (Sprite Graffiti ~0.43em/char × 12 = ~5.1em total)
+         16vw = 60px @ 375px → 307px ширина слова, влезает в 343px контента */
+      .team-title { font-size: clamp(50px, 16vw, 82px); }
       /* Описание: компактнее + word-wrap чтобы не вылезало за правый край */
       .team-desc-text {
         font-size: clamp(13px, 3.5vw, 15px) !important;
