@@ -1463,11 +1463,18 @@
 
       /* ── ЗА ПЛЕЧАМИ КОМАНДЫ + КАК ПРОХОДИТ ──────────── */
       .creds-sec { padding: 40px 16px; }
-      .creds-title { font-size: clamp(40px, 11vw, 72px); margin-bottom: 28px; }
-      .cred-card { padding: 24px 16px 48px; }
+      /* Заголовок — 2-строчный, по стандарту what-title-md */
+      .creds-title { font-size: clamp(36px, 10vw, 60px); margin-bottom: 28px; }
+      /* Карточки — 1 в ряд, без overflow */
+      .creds-grid { grid-template-columns: 1fr; gap: 12px; }
+      .cred-card {
+        padding: 24px 56px 24px 24px; /* справа место под цифру */
+        min-height: auto;
+        width: 100%;
+        box-sizing: border-box;
+      }
       .cred-text { font-size: 15px; line-height: 1.4; }
-      /* 2-колоночный grid оставляем */
-      .creds-grid { gap: 10px; }
+      .cred-num { font-size: clamp(28px, 8vw, 40px); }
       /* КАК ПРОХОДИТ — override */
       #format { padding: 40px 16px !important; }
       #format .fmt-desc { margin-bottom: 28px !important; font-size: 15px !important; line-height: 1.5 !important; }
