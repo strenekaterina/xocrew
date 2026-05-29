@@ -1589,9 +1589,27 @@
       .date-value { font-size: clamp(32px, 9vw, 52px); }
 
       /* ── СКОЛЬКО? (pricing) ──────────────────────────── */
-      #pricing { padding: 32px 16px !important; }
-      #pricing .curators-heading { margin-bottom: 24px; }
-      .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
+      /* Нулевые горизонтальные отступы — слайдер блидует к краям */
+      #pricing { padding: 32px 0 40px !important; }
+      #pricing .curators-heading { margin-bottom: 24px; padding: 0 16px; }
+      /* Заголовок — как у других секций */
+      #pricing .curators-heading-title { font-size: clamp(52px, 14vw, 80px); }
+      /* Swipe-слайдер — та же логика что у кураторов */
+      .pricing-grid {
+        display: flex !important;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0 calc(9vw - 6px) 4px;
+        scroll-padding-left: calc(9vw - 6px);
+        gap: 12px;
+        align-items: stretch; /* обе карточки одной высоты */
+      }
+      .pricing-grid::-webkit-scrollbar { display: none; }
+      /* Карточка: 82vw, одинаковая высота через align-items:stretch + pc-body flex:1 */
+      .pc { flex: 0 0 82vw; scroll-snap-align: start; }
       .pc-body { padding: 24px 16px 20px; }
       .pc-name { font-size: clamp(26px, 7vw, 40px); }
       .pc-price { font-size: clamp(36px, 10vw, 56px); }
