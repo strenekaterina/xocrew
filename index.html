@@ -95,6 +95,7 @@
     /* ── NAV ─────────────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 500;
+      transform: translateZ(0); /* iOS: свой GPU-слой, без репейнта на каждый кадр */
       background: var(--dark);
       border-bottom: 2px solid rgba(255,255,255,.08);
       display: grid;
@@ -536,7 +537,6 @@
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.5s ease, transform 0.5s ease;
-      will-change: opacity, transform;
     }
     .why-list-item.visible {
       opacity: 1;
@@ -855,7 +855,6 @@
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.4s ease, transform 0.4s ease;
-      will-change: opacity, transform;
     }
     .cred-card.visible {
       opacity: 1;
@@ -931,7 +930,6 @@
       opacity: 0;
       transform: translateY(40px);
       transition: opacity 0.6s ease, transform 0.6s ease;
-      will-change: opacity, transform;
     }
     .curator-col.visible {
       opacity: 1;
@@ -1596,6 +1594,7 @@
         overflow-y: hidden; /* явно перекрываем base overflow:hidden */
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain; /* не пропускать горизонтальный оверскролл в вертикальный скролл страницы */
         scrollbar-width: none; /* Firefox */
         /* padding-left создаёт визуальный отступ.
            scroll-padding-left говорит snap-движку: "начало viewport = padding-left",
@@ -1645,6 +1644,7 @@
         overflow-y: hidden;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
         scrollbar-width: none;
         padding: 0 calc(9vw - 6px) 4px;
         scroll-padding-left: calc(9vw - 6px);
@@ -1726,7 +1726,6 @@
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.4s ease, transform 0.4s ease;
-      will-change: opacity, transform;
     }
     .topic-card.visible {
       opacity: 1;
@@ -1792,7 +1791,6 @@
       opacity: 0;
       transform: translateX(60px);
       transition: opacity 0.6s ease, transform 0.6s ease;
-      will-change: opacity, transform;
     }
     .date-end {
       opacity: 0;
@@ -1811,7 +1809,6 @@
       opacity: 0;
       transform: translateY(18px);
       transition: opacity 0.45s ease, transform 0.45s ease;
-      will-change: opacity, transform;
     }
     .slogan-line.visible {
       opacity: 1;
@@ -1823,7 +1820,6 @@
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.35s ease, transform 0.35s ease;
-      will-change: opacity, transform;
     }
     .fade-block.visible {
       opacity: 1;
