@@ -1536,25 +1536,27 @@
       .topic-item { font-size: 13px; }
 
       /* ── КУРАТОРЫ КУРСА — SWIPE SLIDER ─────────────── */
-      .curators-sec { padding: 36px 0 40px; overflow: hidden; }
+      /* Без overflow:hidden на секции — он мешает iOS Safari скроллить дочерний контейнер */
+      .curators-sec { padding: 36px 0 40px; }
       .curators-heading { gap: 16px; margin-bottom: 32px; padding: 0 16px; }
       .curators-heading-title { font-size: clamp(40px, 11vw, 72px); }
       .curators-star { font-size: clamp(40px, 11vw, 72px); }
-      /* Трек слайдера: выходит за отступы секции, скроллится горизонтально */
+      /* Трек слайдера */
       .curators-grid {
         display: flex;
         border: none; border-radius: 0;
         overflow-x: scroll;
+        overflow-y: hidden; /* явно перекрываем base overflow:hidden */
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none; /* Firefox */
-        /* 9vw - 6px = половина оставшегося пространства (18vw - 12px gap) / 2
-           → левый отступ = правый пик второй карточки */
-        padding: 0 calc(9vw - 6px) 4px;
+        padding: 0 0 4px; /* отступы — через margin на карточках, не padding (iOS Safari) */
         gap: 12px;
       }
       .curators-grid::-webkit-scrollbar { display: none; }
-      /* Каждая карточка — 82vw, вторая торчит справа */
+      /* Каждая карточка — 82vw.
+         Отступ от края — margin на первой/последней карточке:
+         iOS Safari не читает padding scroll-контейнера, но margin дочернего — да. */
       .curator-col {
         flex: 0 0 82vw;
         scroll-snap-align: start;
@@ -1562,7 +1564,11 @@
         border-radius: 12px;
         overflow: hidden;
       }
-      .curator-col:first-child { border-right: 1px solid rgba(255,255,255,.15); }
+      .curator-col:first-child {
+        margin-left: calc(9vw - 6px); /* левый отступ = правый пик второй карточки */
+        border-right: 1px solid rgba(255,255,255,.15);
+      }
+      .curator-col:last-child { margin-right: calc(9vw - 6px); }
       .curator-photo { aspect-ratio: 3/2; height: auto; }
       .curator-info { padding: 24px 20px 28px; }
       .curator-name { font-size: clamp(18px, 5vw, 26px); margin-bottom: 16px; }
