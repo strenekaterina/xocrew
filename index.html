@@ -536,6 +536,7 @@
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: opacity, transform;
     }
     .why-list-item.visible {
       opacity: 1;
@@ -854,6 +855,7 @@
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.4s ease, transform 0.4s ease;
+      will-change: opacity, transform;
     }
     .cred-card.visible {
       opacity: 1;
@@ -929,6 +931,7 @@
       opacity: 0;
       transform: translateY(40px);
       transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: opacity, transform;
     }
     .curator-col.visible {
       opacity: 1;
@@ -1479,7 +1482,7 @@
 
       /* ── КАК ПОНЯТЬ (why-label) ──────────────────────── */
       /* На мобилке card padding = 20px → блид уменьшаем */
-      .why-label-line { left: -38px; height: 44px; top: 2px; }
+      .why-label-line { left: -38px; height: 52px; top: -10px; }
       .why-label-text { font-size: clamp(30px, 8vw, 40px); }
       .why-list { gap: 12px; margin-top: 24px; }
       .wli-num { font-size: 16px; min-width: 22px; }
@@ -1723,6 +1726,7 @@
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.4s ease, transform 0.4s ease;
+      will-change: opacity, transform;
     }
     .topic-card.visible {
       opacity: 1;
@@ -1788,6 +1792,7 @@
       opacity: 0;
       transform: translateX(60px);
       transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: opacity, transform;
     }
     .date-end {
       opacity: 0;
@@ -1806,6 +1811,7 @@
       opacity: 0;
       transform: translateY(18px);
       transition: opacity 0.45s ease, transform 0.45s ease;
+      will-change: opacity, transform;
     }
     .slogan-line.visible {
       opacity: 1;
@@ -1817,6 +1823,7 @@
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.35s ease, transform 0.35s ease;
+      will-change: opacity, transform;
     }
     .fade-block.visible {
       opacity: 1;
@@ -2903,7 +2910,7 @@
 
   // ── TYPEWRITER ────────────────────────────────────────────────────────────
   (function() {
-    var TW_SPEED = 60;   // мс между символами
+    var TW_SPEED = 30;   // мс между символами
     var TW_DELAY = 140;  // мс до старта после появления в viewport
 
     function typewrite(el) {
@@ -2983,19 +2990,18 @@
     });
   })();
 
-  // ── WHY-LIST ITEMS — staggered fade-in ───────────────────────────────────
+  // ── WHY-LIST ITEMS — per-element fade-in ─────────────────────────────────
   (function() {
-    document.querySelectorAll('.why-list').forEach(function(list) {
-      var items = Array.from(list.querySelectorAll('.why-list-item'));
-      var io = new IntersectionObserver(function(entries) {
-        if (!entries[0].isIntersecting) return;
-        items.forEach(function(item, i) {
-          setTimeout(function() { item.classList.add('visible'); }, i * 130);
-        });
-        io.unobserve(list);
-      }, { threshold: 0.1 });
-      io.observe(list);
-    });
+    var items = document.querySelectorAll('.why-list-item');
+    if (!items.length) return;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px 0px 0px' });
+    items.forEach(function(item) { io.observe(item); });
   })();
 
   // ── WHEN DATES — встречное появление ─────────────────────────────────────
@@ -3037,64 +3043,60 @@
     io.observe(sec);
   })();
 
-  // ── PRICING CARDS — slide up stagger ─────────────────────────────────────
+  // ── PRICING CARDS — per-element slide up ─────────────────────────────────
   (function() {
-    var grid = document.querySelector('.pricing-grid');
-    if (!grid) return;
-    var cards = Array.from(grid.querySelectorAll('.pc'));
+    var cards = document.querySelectorAll('.pricing-grid .pc');
+    if (!cards.length) return;
     var io = new IntersectionObserver(function(entries) {
-      if (!entries[0].isIntersecting) return;
-      cards.forEach(function(card, i) {
-        setTimeout(function() { card.classList.add('visible'); }, i * 180);
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
       });
-      io.unobserve(grid);
-    }, { threshold: 0.15 });
-    io.observe(grid);
+    }, { threshold: 0.1 });
+    cards.forEach(function(card) { io.observe(card); });
   })();
 
-  // ── CURATOR COLS — slide up stagger ──────────────────────────────────────
+  // ── CURATOR COLS — per-element slide up ──────────────────────────────────
   (function() {
-    var grid = document.querySelector('#curators .curators-grid');
-    if (!grid) return;
-    var cols = Array.from(grid.querySelectorAll('.curator-col'));
+    var cols = document.querySelectorAll('#curators .curator-col');
+    if (!cols.length) return;
     var io = new IntersectionObserver(function(entries) {
-      if (!entries[0].isIntersecting) return;
-      cols.forEach(function(col, i) {
-        setTimeout(function() { col.classList.add('visible'); }, i * 180);
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
       });
-      io.unobserve(grid);
-    }, { threshold: 0.15 });
-    io.observe(grid);
+    }, { threshold: 0.1 });
+    cols.forEach(function(col) { io.observe(col); });
   })();
 
-  // ── TOPIC CARDS — staggered fade-in ──────────────────────────────────────
+  // ── TOPIC CARDS — per-element fade-in ────────────────────────────────────
   (function() {
-    document.querySelectorAll('.topics-grid').forEach(function(grid) {
-      var cards = Array.from(grid.querySelectorAll('.topic-card'));
-      var io = new IntersectionObserver(function(entries) {
-        if (!entries[0].isIntersecting) return;
-        cards.forEach(function(card, i) {
-          setTimeout(function() { card.classList.add('visible'); }, i * 150);
-        });
-        io.unobserve(grid);
-      }, { threshold: 0.1 });
-      io.observe(grid);
-    });
+    var cards = document.querySelectorAll('.topics-grid .topic-card');
+    if (!cards.length) return;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1 });
+    cards.forEach(function(card) { io.observe(card); });
   })();
 
-  // ── CRED CARDS — staggered fade-in ───────────────────────────────────────
+  // ── CRED CARDS — per-element fade-in ─────────────────────────────────────
   (function() {
-    document.querySelectorAll('.creds-grid').forEach(function(grid) {
-      var cards = Array.from(grid.querySelectorAll('.cred-card'));
-      var io = new IntersectionObserver(function(entries) {
-        if (!entries[0].isIntersecting) return;
-        cards.forEach(function(card, i) {
-          setTimeout(function() { card.classList.add('visible'); }, i * 150);
-        });
-        io.unobserve(grid);
-      }, { threshold: 0.15 });
-      io.observe(grid);
-    });
+    var cards = document.querySelectorAll('.creds-grid .cred-card');
+    if (!cards.length) return;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1 });
+    cards.forEach(function(card) { io.observe(card); });
   })();
 
   // ── FADE-IN TEXT BLOCKS ───────────────────────────────────────────────────
@@ -3119,7 +3121,7 @@
             el.classList.add('visible');
             io.unobserve(el);
           });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05, rootMargin: '0px 0px 120px 0px' });
 
         els.forEach(function(el) { io.observe(el); });
       });
