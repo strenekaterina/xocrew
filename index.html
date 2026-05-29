@@ -1447,20 +1447,23 @@
       .wli-text { font-size: 15px; line-height: 1.4; }
 
       /* ── ОРГАНИЗАТОРЫ ────────────────────────────────── */
+      /* overflow: hidden на секции — страховка от выхода за viewport */
+      #team { overflow: hidden; }
       .team-top {
         padding: 32px 16px 24px;
         min-height: auto;
         align-items: flex-start;
         text-align: left;
+        overflow: hidden;
+        gap: 20px;
       }
-      /* ОРГАНИЗАТОРЫ — контейнер скрывает любой overflow */
-      .team-top { overflow: hidden; gap: 20px; }
-      /* Заголовок: width:100% фиксирует ширину = контейнер.
-         16vw @ 360px = 57.6px → ~297px для 12 chars ≤ 328px (контент) */
+      /* Заголовок: 13vw @ 360px = 46.8px → 12 символов ~ 265px ≤ 328px (контент).
+         16vw было слишком крупно — буквы выходили за правый край. */
       .team-title {
-        font-size: clamp(52px, 16vw, 82px);
+        font-size: clamp(44px, 13vw, 72px);
         width: 100%;
         text-align: left;
+        overflow: hidden;
       }
       /* Описание: центрирован, ограничен шириной контейнера */
       .team-desc-text {
