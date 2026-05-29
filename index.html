@@ -513,18 +513,33 @@
       color: var(--dark); line-height: 1;
       display: inline-block; /* shrink-to-content, чтобы SVG не шире текста */
       position: relative; z-index: 1;
+      top: -5px;
     }
     .why-label-line {
       /* Абсолютно под текстом; left пробивает padding карточки (40px) + 16px блид */
       position: absolute;
-      top: -4px; left: -56px;
-      height: 68px;   /* чуть выше текста (~50px) чтобы охватить выше и ниже */
+      top: -13px; left: -72px;
+      height: 69px;
       width: auto;
       z-index: 0;
       pointer-events: none;
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .why-label-line.visible {
+      opacity: 1;
+      transform: translateX(0);
     }
     .why-list-item {
       display: flex; align-items: flex-start; gap: 16px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .why-list-item.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .wli-num {
       font-family: var(--f-head);
@@ -836,6 +851,13 @@
       display: flex;
       align-items: center; /* вертикальный центр */
       justify-content: flex-start;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .cred-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .cred-text {
       font-size: clamp(16px, 1.9vw, 27px); /* = .team-desc-text */
@@ -902,6 +924,15 @@
     }
     .curator-col:first-child {
       border-right: 1px solid rgba(255,255,255,.15);
+    }
+    .curator-col {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .curator-col.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .curator-photo {
       width: 100%;
@@ -1069,6 +1100,13 @@
       border-radius: 20px;
       overflow: hidden;
       background: var(--dark); /* сплошной фон — сетка секции не просвечивает */
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .pc.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .pc:last-child { border-right: 1.5px solid rgba(255,255,255,.25); }
     /* Весь контент карточки — в обёртке с паддингами (по токенам) */
@@ -1682,6 +1720,13 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .topic-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .topic-card-wide {
       grid-column: 1 / -1;
@@ -1734,6 +1779,52 @@
       display: inline;
       opacity: 0;
       transition: opacity 0.28s ease;
+    }
+    /* Скрыть до триггера скролла */
+    .tw-pending { opacity: 0; }
+
+    /* ── WHEN DATES ──────────────────────────────────── */
+    .date-start {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .date-end {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .date-start.visible,
+    .date-end.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── SLOGAN LINES ────────────────────────────────── */
+    .slogan-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .slogan-line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── FADE-IN TEXT BLOCKS ─────────────────────────── */
+    .fade-block {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .fade-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .team-desc-text.fade-block,
+    .program-desc.fade-block {
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
   </style>
 </head>
@@ -1943,7 +2034,7 @@
 <section class="s-blue" id="program" style="display:flex;flex-direction:column;border-bottom:2px solid rgba(255,255,255,.12);overflow:hidden;background-image:linear-gradient(rgba(255,255,255,.12) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.12) 2px,transparent 2px);background-size:56px 56px;">
   <div style="padding:110px 48px 16px;flex-shrink:0;text-align:center;">
     <h2 id="program-title" style="font-family:var(--f-head);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--orange);"><span id="program-line1" style="white-space:nowrap;">ЧЕМУ БУДЕТ<br class="mob"> ПОСВЯЩЕН</span><br>ЭТОТ ИНТЕНСИВ?</h2>
-    <p style="margin-top:36px;font-size:clamp(16px,1.9vw,27px);font-weight:700;color:#D1D1D1;line-height:1.35;text-transform:uppercase;width:100%;">Обучение построено вокруг <strong style="color:#D1D1D1;">9 ключевых тем</strong>,<br>через которые проходит практически каждая семья в брейкинге.</p>
+    <p class="program-desc" style="margin-top:36px;font-size:clamp(16px,1.9vw,27px);font-weight:700;color:#D1D1D1;line-height:1.35;text-transform:uppercase;width:100%;">Обучение построено вокруг <strong style="color:#D1D1D1;">9 ключевых тем</strong>,<br>через которые проходит практически каждая семья в брейкинге.</p>
   </div>
   <div style="padding-top:120px;padding-bottom:120px;">
     <!-- head center: (500,233) · person+system shifted up 25px · clipPath masks arrows at head -->
@@ -2076,7 +2167,7 @@
 <!-- ══ 07 · КАК ПРОХОДИТ? ════════════════════════════════════ -->
 <section class="creds-sec" id="format">
   <h2 class="creds-title">КАК ПРОХОДИТ<br>ОБУЧЕНИЕ?</h2>
-  <p class="team-desc-text fmt-desc">Интенсив длится <strong>1 месяц.</strong><br><br>Каждой теме посвящено <strong>3 дня</strong><br class="mob-br"> <strong>погружения,</strong> практики и<br class="mob-br"> обсуждений. <strong>Все материалы</strong><br class="mob-br"> <strong>и записи сохраняются</strong> —<br class="mob-br"> используй как личную<br class="mob-br"> библиотеку брейк-родителя.</p>
+  <p class="team-desc-text fmt-desc">Интенсив длится <strong>1 месяц.</strong><br><br>Каждой теме посвящено <strong>3 дня</strong><br class="mob-br"> <strong>погружения,</strong> практики и<br class="mob-br"> обсуждений.<br> <strong>Все материалы</strong><br class="mob-br"> <strong>и записи сохраняются</strong> —<br> используй как личную<br class="mob-br"> библиотеку брейк-родителя.</p>
   <div class="creds-grid">
     <div class="cred-card"><span class="cred-num">1</span><span class="cred-text">Видеоуроки</span></div>
     <div class="cred-card"><span class="cred-num">2</span><span class="cred-text">Живые эфиры</span></div>
@@ -2284,11 +2375,11 @@
         <p class="wli-text"><strong>1 месяц</strong> погружения, практики и <strong>переосмысления роли родителя</strong> в брейкинге.</p>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:48px;">
-        <div>
+        <div class="date-start">
           <div class="date-label">Старт</div>
           <div class="date-value">1 Июля</div>
         </div>
-        <div style="text-align:right;">
+        <div class="date-end" style="text-align:right;">
           <div class="date-label">Конец</div>
           <div class="date-value">1 Августа</div>
         </div>
@@ -2818,6 +2909,7 @@
     function typewrite(el) {
       if (el.dataset.tw) return;
       el.dataset.tw = '1';
+      el.classList.remove('tw-pending'); // снимаем скрытие — контейнер видим, символы ещё нет
 
       // Заменяем текстовые узлы на span-символы с opacity:0
       // HTML-структура (br, span, стили) не трогается
@@ -2869,7 +2961,190 @@
       });
     }, { threshold: 0.15 });
 
-    els.forEach(function(el) { io.observe(el); });
+    // Скрываем все цели до триггера
+    els.forEach(function(el) { el.classList.add('tw-pending'); io.observe(el); });
+
+    // Делаем typewrite доступным для других блоков
+    window._typewrite = typewrite;
+  })();
+
+  // ── WHY-LABEL: SVG слайд слева + typewriter на тексте ────────────────────
+  (function() {
+    document.querySelectorAll('.why-label-wrap').forEach(function(wrap) {
+      var line = wrap.querySelector('.why-label-line');
+      var text = wrap.querySelector('.why-label-text');
+      var io = new IntersectionObserver(function(entries) {
+        if (!entries[0].isIntersecting) return;
+        if (line) line.classList.add('visible');
+        if (text && window._typewrite) window._typewrite(text);
+        io.unobserve(wrap);
+      }, { threshold: 0.5 });
+      io.observe(wrap);
+    });
+  })();
+
+  // ── WHY-LIST ITEMS — staggered fade-in ───────────────────────────────────
+  (function() {
+    document.querySelectorAll('.why-list').forEach(function(list) {
+      var items = Array.from(list.querySelectorAll('.why-list-item'));
+      var io = new IntersectionObserver(function(entries) {
+        if (!entries[0].isIntersecting) return;
+        items.forEach(function(item, i) {
+          setTimeout(function() { item.classList.add('visible'); }, i * 130);
+        });
+        io.unobserve(list);
+      }, { threshold: 0.1 });
+      io.observe(list);
+    });
+  })();
+
+  // ── WHEN DATES — встречное появление ─────────────────────────────────────
+  (function() {
+    var start = document.querySelector('.date-start');
+    var end   = document.querySelector('.date-end');
+    if (!start || !end) return;
+    var io = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      start.classList.add('visible');
+      setTimeout(function() { end.classList.add('visible'); }, 150);
+      io.unobserve(entries[0].target);
+    }, { threshold: 0.5 });
+    io.observe(start.closest('div[style*="space-between"]') || start.parentNode.parentNode);
+  })();
+
+  // ── SLOGAN LINES — построчное появление ──────────────────────────────────
+  (function() {
+    var sec = document.getElementById('slogan');
+    if (!sec) return;
+
+    var allLines = [];
+    sec.querySelectorAll('.slogan-text').forEach(function(p) {
+      var parts = p.innerHTML.split(/<br\s*\/?>/i);
+      p.innerHTML = parts.map(function(part) {
+        return '<span class="slogan-line">' + part.trim() + '</span>';
+      }).join('');
+      allLines = allLines.concat(Array.from(p.querySelectorAll('.slogan-line')));
+    });
+
+    var io = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      allLines.forEach(function(line, i) {
+        setTimeout(function() { line.classList.add('visible'); }, i * 110);
+      });
+      io.unobserve(sec);
+    }, { threshold: 0.1 });
+
+    io.observe(sec);
+  })();
+
+  // ── PRICING CARDS — slide up stagger ─────────────────────────────────────
+  (function() {
+    var grid = document.querySelector('.pricing-grid');
+    if (!grid) return;
+    var cards = Array.from(grid.querySelectorAll('.pc'));
+    var io = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      cards.forEach(function(card, i) {
+        setTimeout(function() { card.classList.add('visible'); }, i * 180);
+      });
+      io.unobserve(grid);
+    }, { threshold: 0.15 });
+    io.observe(grid);
+  })();
+
+  // ── CURATOR COLS — slide up stagger ──────────────────────────────────────
+  (function() {
+    var grid = document.querySelector('#curators .curators-grid');
+    if (!grid) return;
+    var cols = Array.from(grid.querySelectorAll('.curator-col'));
+    var io = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      cols.forEach(function(col, i) {
+        setTimeout(function() { col.classList.add('visible'); }, i * 180);
+      });
+      io.unobserve(grid);
+    }, { threshold: 0.15 });
+    io.observe(grid);
+  })();
+
+  // ── TOPIC CARDS — staggered fade-in ──────────────────────────────────────
+  (function() {
+    document.querySelectorAll('.topics-grid').forEach(function(grid) {
+      var cards = Array.from(grid.querySelectorAll('.topic-card'));
+      var io = new IntersectionObserver(function(entries) {
+        if (!entries[0].isIntersecting) return;
+        cards.forEach(function(card, i) {
+          setTimeout(function() { card.classList.add('visible'); }, i * 150);
+        });
+        io.unobserve(grid);
+      }, { threshold: 0.1 });
+      io.observe(grid);
+    });
+  })();
+
+  // ── CRED CARDS — staggered fade-in ───────────────────────────────────────
+  (function() {
+    document.querySelectorAll('.creds-grid').forEach(function(grid) {
+      var cards = Array.from(grid.querySelectorAll('.cred-card'));
+      var io = new IntersectionObserver(function(entries) {
+        if (!entries[0].isIntersecting) return;
+        cards.forEach(function(card, i) {
+          setTimeout(function() { card.classList.add('visible'); }, i * 150);
+        });
+        io.unobserve(grid);
+      }, { threshold: 0.15 });
+      io.observe(grid);
+    });
+  })();
+
+  // ── FADE-IN TEXT BLOCKS ───────────────────────────────────────────────────
+  (function() {
+    var SEL = '.what-paragraphs p, .t-body, .star-p p, .what-quote, .pair-item-text, .slist li, .team-desc-text, .program-desc';
+    var els = document.querySelectorAll(SEL);
+
+    // Сначала скрываем — даём браузеру отрисовать opacity:0 до старта наблюдения
+    els.forEach(function(el) { el.classList.add('fade-block'); });
+
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        var io = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (!e.isIntersecting) return;
+            var el = e.target;
+            var siblings = Array.from(el.parentNode.children).filter(function(c) {
+              return c.classList.contains('fade-block');
+            });
+            var idx = siblings.indexOf(el);
+            el.style.transitionDelay = (idx * 90) + 'ms';
+            el.classList.add('visible');
+            io.unobserve(el);
+          });
+        }, { threshold: 0.1 });
+
+        els.forEach(function(el) { io.observe(el); });
+      });
+    });
+  })();
+
+  // ── STATEMENT LINES — line-by-line fade-in ───────────────────────────────
+  (function() {
+    var sec = document.getElementById('s-statement');
+    if (!sec) return;
+    var p = sec.querySelector('.statement');
+    if (!p) return;
+    var parts = p.innerHTML.split(/<br\s*\/?>/i);
+    p.innerHTML = parts.map(function(part) {
+      return '<span class="slogan-line">' + part.trim() + '</span>';
+    }).join('');
+    var allLines = Array.from(p.querySelectorAll('.slogan-line'));
+    var io = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      allLines.forEach(function(line, i) {
+        setTimeout(function() { line.classList.add('visible'); }, i * 130);
+      });
+      io.unobserve(sec);
+    }, { threshold: 0.15 });
+    io.observe(sec);
   })();
 
   (function() {
