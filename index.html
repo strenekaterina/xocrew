@@ -1533,7 +1533,8 @@
         width: 100% !important; box-sizing: border-box !important; overflow: hidden !important;
       }
       .topic-head { font-size: clamp(16px, 5vw, 22px) !important; padding-right: 0 !important; }
-      .topic-desc { font-size: 15px; line-height: 1.35; }
+      /* base .topic-desc стоит ПОСЛЕ media query → нужен !important */
+      .topic-desc { font-size: 15px !important; line-height: 1.35 !important; }
       .topic-items { grid-template-columns: 1fr !important; gap: 4px !important; }
       .topic-item { font-size: 13px; }
 
