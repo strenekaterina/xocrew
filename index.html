@@ -3043,31 +3043,35 @@
     io.observe(sec);
   })();
 
-  // ── PRICING CARDS — per-element slide up ─────────────────────────────────
+  // ── PRICING CARDS — slide up, root = scroll container ────────────────────
   (function() {
-    var cards = document.querySelectorAll('.pricing-grid .pc');
-    if (!cards.length) return;
+    var grid = document.querySelector('.pricing-grid');
+    if (!grid) return;
+    var cards = Array.from(grid.querySelectorAll('.pc'));
+    // root = сам контейнер слайдера, чтобы карточки справа тоже наблюдались
     var io = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
         if (!e.isIntersecting) return;
         e.target.classList.add('visible');
         io.unobserve(e.target);
       });
-    }, { threshold: 0.1 });
+    }, { root: grid, threshold: 0.05 });
     cards.forEach(function(card) { io.observe(card); });
   })();
 
-  // ── CURATOR COLS — per-element slide up ──────────────────────────────────
+  // ── CURATOR COLS — slide up, root = scroll container ─────────────────────
   (function() {
-    var cols = document.querySelectorAll('#curators .curator-col');
-    if (!cols.length) return;
+    var grid = document.querySelector('#curators .curators-grid');
+    if (!grid) return;
+    var cols = Array.from(grid.querySelectorAll('.curator-col'));
+    // root = сам контейнер слайдера
     var io = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
         if (!e.isIntersecting) return;
         e.target.classList.add('visible');
         io.unobserve(e.target);
       });
-    }, { threshold: 0.1 });
+    }, { root: grid, threshold: 0.05 });
     cols.forEach(function(col) { io.observe(col); });
   })();
 
