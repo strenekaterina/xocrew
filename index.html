@@ -317,12 +317,13 @@
     .hero-title-svg {
       display: block;
       width: 100%;
-      max-width: 640px;
       height: auto;
       user-select: none;
     }
     /* Мобильный заголовок скрыт на десктопе */
     .hero-title-mobile { display: none; }
+    /* Десктопный — на всю ширину, без ограничений */
+    .hero-title-desktop { max-width: none; }
 
     /* Wilson cards — отключены до добавления фото */
     .wilson-cards { display: none; }
@@ -1332,7 +1333,7 @@
       .hero-top { padding: 28px 16px 24px; background-size: 28px 28px; }
       /* Заголовок — мобилка: logo-new.svg вместо zagolovok.svg */
       .hero-title-desktop { display: none; }
-      .hero-title-mobile  { display: block; }
+      .hero-title-mobile  { display: block; max-width: 640px; margin: 0 auto; }
       .wilson-wrap { padding: 12px 0 2px; }
       .hero-sub { margin-top: 8px; font-size: clamp(14px, 4.2vw, 16px); letter-spacing: .025em; }
       /* Countdown — метки в одну строку сверху (order!), цифры снизу */
