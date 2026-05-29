@@ -1529,13 +1529,27 @@
       .topic-items { grid-template-columns: 1fr !important; gap: 4px !important; }
       .topic-item { font-size: 13px; }
 
-      /* ── КУРАТОРЫ КУРСА ──────────────────────────────── */
-      .curators-sec { padding: 36px 16px 40px; }
-      .curators-heading { gap: 16px; margin-bottom: 32px; }
+      /* ── КУРАТОРЫ КУРСА — SWIPE SLIDER ─────────────── */
+      .curators-sec { padding: 36px 0 40px; overflow: hidden; }
+      .curators-heading { gap: 16px; margin-bottom: 32px; padding: 0 16px; }
       .curators-heading-title { font-size: clamp(40px, 11vw, 72px); }
       .curators-star { font-size: clamp(40px, 11vw, 72px); }
-      .curators-grid { grid-template-columns: 1fr; border: none; border-radius: 0; }
+      /* Трек слайдера: выходит за отступы секции, скроллится горизонтально */
+      .curators-grid {
+        display: flex;
+        border: none; border-radius: 0;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        padding: 0 16px 4px;
+        gap: 12px;
+      }
+      .curators-grid::-webkit-scrollbar { display: none; }
+      /* Каждая карточка — 82vw, вторая торчит справа */
       .curator-col {
+        flex: 0 0 82vw;
+        scroll-snap-align: start;
         border: 1px solid rgba(255,255,255,.15);
         border-radius: 12px;
         overflow: hidden;
