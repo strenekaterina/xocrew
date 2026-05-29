@@ -1820,8 +1820,8 @@
     /* ── FADE-IN TEXT BLOCKS ─────────────────────────── */
     .fade-block {
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: translateY(22px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .fade-block.visible {
       opacity: 1;
@@ -3137,7 +3137,7 @@
 
   // ── FADE-IN TEXT BLOCKS ───────────────────────────────────────────────────
   (function() {
-    var SEL = '.what-paragraphs p, .t-body, .star-p p, .what-quote, .pair-item-text, .slist li, .team-desc-text, .program-desc';
+    var SEL = '.what-paragraphs p, .t-body, .star-p p, .what-quote, .pair-item-text, .slist li, .team-desc-text, .program-desc, .fmt-desc';
     var els = document.querySelectorAll(SEL);
 
     // Сначала скрываем — даём браузеру отрисовать opacity:0 до старта наблюдения
@@ -3157,7 +3157,7 @@
             el.classList.add('visible');
             io.unobserve(el);
           });
-        }, { threshold: 0.05, rootMargin: '0px 0px 120px 0px' });
+        }, { threshold: 0.12 });
 
         els.forEach(function(el) { io.observe(el); });
       });
