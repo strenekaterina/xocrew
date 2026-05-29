@@ -321,6 +321,8 @@
       height: auto;
       user-select: none;
     }
+    /* Мобильный заголовок скрыт на десктопе */
+    .hero-title-mobile { display: none; }
 
     /* Wilson cards — отключены до добавления фото */
     .wilson-cards { display: none; }
@@ -1328,7 +1330,9 @@
       /* ── HERO ────────────────────────────────────────── */
       #hero { height: auto; min-height: auto; }
       .hero-top { padding: 28px 16px 24px; background-size: 28px 28px; }
-      /* Заголовок — поднять описание ближе */
+      /* Заголовок — мобилка: logo-new.svg вместо zagolovok.svg */
+      .hero-title-desktop { display: none; }
+      .hero-title-mobile  { display: block; }
       .wilson-wrap { padding: 12px 0 2px; }
       .hero-sub { margin-top: 8px; font-size: clamp(14px, 4.2vw, 16px); letter-spacing: .025em; }
       /* Countdown — метки в одну строку сверху (order!), цифры снизу */
@@ -1672,7 +1676,10 @@
 <div id="hero">
   <div class="hero-top">
     <div class="wilson-wrap">
-      <img src="logo-new.svg" alt="БРЕЙК-РОДИТЕЛЬ" class="hero-title-svg">
+      <!-- Десктоп: оригинальный заголовок -->
+      <img src="zagolovok.svg" alt="БРЕЙК-РОДИТЕЛЬ" class="hero-title-svg hero-title-desktop">
+      <!-- Мобилка: новый логотип в 2 строки -->
+      <img src="logo-new.svg" alt="БРЕЙК-РОДИТЕЛЬ" class="hero-title-svg hero-title-mobile">
     </div>
     <p class="hero-sub">
       ПЕРВЫЙ В МИРЕ ОНЛАЙН-ИНТЕНСИВ<br class="mob"> ДЛЯ САМЫХ ВДУМЧИВЫХ РОДИТЕЛЕЙ,<br>
