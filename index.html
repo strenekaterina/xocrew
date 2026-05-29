@@ -1507,13 +1507,14 @@
       #program { background-size: 28px 28px !important; }
 
       /* ── ТЕМЫ (topic cards) ──────────────────────────── */
-      .topics-sec { padding: 16px; overflow: hidden; }
-      .topics-grid { grid-template-columns: 1fr; gap: 10px; }
+      /* ВАЖНО: base CSS .topics-grid стоит ПОСЛЕ media query → нужен !important */
+      .topics-sec { padding: 16px !important; overflow: hidden !important; }
+      .topics-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
       .topic-card {
-        padding: 24px 20px; gap: 10px; border-radius: 14px;
-        width: 100%; box-sizing: border-box; overflow: hidden;
+        padding: 24px 20px !important; gap: 10px !important; border-radius: 14px !important;
+        width: 100% !important; box-sizing: border-box !important; overflow: hidden !important;
       }
-      .topic-head { font-size: clamp(16px, 5vw, 22px); padding-right: 0; }
+      .topic-head { font-size: clamp(16px, 5vw, 22px) !important; padding-right: 0 !important; }
       .topic-desc { font-size: 15px; line-height: 1.35; }
       .topic-items { grid-template-columns: 1fr; gap: 4px; }
       .topic-item { font-size: 13px; }
