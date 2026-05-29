@@ -1542,7 +1542,9 @@
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none; /* Firefox */
-        padding: 0 16px 4px;
+        /* 9vw - 6px = половина оставшегося пространства (18vw - 12px gap) / 2
+           → левый отступ = правый пик второй карточки */
+        padding: 0 calc(9vw - 6px) 4px;
         gap: 12px;
       }
       .curators-grid::-webkit-scrollbar { display: none; }
