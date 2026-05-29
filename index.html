@@ -1023,6 +1023,7 @@
       max-width: none;
       width: 100%;
     }
+    .mob-br { display: none; }
 
     /* ══════════════════════════════════════════════════════
        FORMAT GRID (старый, оставляем для обратной совместимости)
@@ -1503,6 +1504,8 @@
       /* КАК ПРОХОДИТ — override */
       #format { padding: 40px 16px !important; background-size: 28px 28px !important; }
       #format .fmt-desc { margin-bottom: 28px !important; font-size: 15px !important; line-height: 1.5 !important; }
+      .mob-br { display: inline; }
+      #format .fmt-desc br:not(.mob-br) { display: none; }
       .fmt-grid { grid-template-columns: 1fr 1fr; }
       .fmt-item { padding: 20px 16px; border-bottom: 2px solid var(--dark) !important; }
       .fmt-item:nth-child(odd)  { border-right: 2px solid var(--dark); }
@@ -2056,7 +2059,7 @@
 <!-- ══ 07 · КАК ПРОХОДИТ? ════════════════════════════════════ -->
 <section class="creds-sec" id="format">
   <h2 class="creds-title">КАК ПРОХОДИТ<br>ОБУЧЕНИЕ?</h2>
-  <p class="team-desc-text fmt-desc">Интенсив длится <strong>1 месяц.</strong><br><br>Каждой теме посвящено <strong>3 дня погружения,</strong> практики и обсуждений.<br><strong>Все материалы и записи сохраняются</strong> — используй<br>как личную библиотеку брейк-родителя.</p>
+  <p class="team-desc-text fmt-desc">Интенсив длится <strong>1 месяц.</strong><br><br>Каждой теме посвящено <strong>3 дня</strong><br class="mob-br"><strong>погружения,</strong> практики и<br class="mob-br">обсуждений. <strong>Все материалы</strong><br class="mob-br"><strong>и записи сохраняются</strong> —<br class="mob-br">используй как личную<br class="mob-br">библиотеку брейк-родителя.</p>
   <div class="creds-grid">
     <div class="cred-card"><span class="cred-num">1</span><span class="cred-text">Видеоуроки</span></div>
     <div class="cred-card"><span class="cred-num">2</span><span class="cred-text">Живые эфиры</span></div>
