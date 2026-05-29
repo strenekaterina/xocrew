@@ -2905,26 +2905,21 @@
   })();
 
   // ── TYPEWRITER ────────────────────────────────────────────────────────────
+  // Вся DOM-работа (создание spans) — на старте страницы, до скролла.
+  // При скролле — только запускаем fade уже готовых spans. Нет DOM-мутаций в scroll.
   (function() {
-    var TW_SPEED = 30;   // мс между символами
-    var TW_DELAY = 140;  // мс до старта после появления в viewport
+    var TW_SPEED = 30;
+    var TW_DELAY = 140;
+    var elSpans = []; // [{el, spans}]
 
-    function typewrite(el) {
-      if (el.dataset.tw) return;
-      el.dataset.tw = '1';
-      el.classList.remove('tw-pending'); // снимаем скрытие — контейнер видим, символы ещё нет
-
-      // Заменяем текстовые узлы на span-символы с opacity:0
-      // HTML-структура (br, span, стили) не трогается
+    // Шаг 1: заменяем текст на скрытые spans — вызывается ОДИН РАЗ на старте
+    function prepareEl(el) {
       var charSpans = [];
       var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-      var nodesToReplace = [];
+      var nodes = [];
       var n;
-      while ((n = walker.nextNode())) {
-        nodesToReplace.push({ node: n, text: n.nodeValue });
-      }
-
-      nodesToReplace.forEach(function(item) {
+      while ((n = walker.nextNode())) nodes.push({ node: n, text: n.nodeValue });
+      nodes.forEach(function(item) {
         var parent = item.node.parentNode;
         if (!parent) return;
         var frag = document.createDocumentFragment();
@@ -2937,17 +2932,52 @@
         });
         parent.replaceChild(frag, item.node);
       });
+      el.classList.add('tw-pending');
+      elSpans.push({ el: el, spans: charSpans });
+    }
 
-      if (!charSpans.length) return;
+    // Шаг 2: запускаем анимацию уже готовых spans — вызывается при скролле
+    function startTypewrite(el) {
+      if (el.dataset.tw) return;
+      el.dataset.tw = '1';
+      el.classList.remove('tw-pending');
 
+      // Ищем заранее подготовленные spans
+      var found = null;
+      for (var k = 0; k < elSpans.length; k++) {
+        if (elSpans[k].el === el) { found = elSpans[k].spans; break; }
+      }
+
+      // Fallback для коротких текстов (why-label), которые не препарировались заранее
+      if (!found) {
+        found = [];
+        var walker2 = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        var nodes2 = [];
+        var n2;
+        while ((n2 = walker2.nextNode())) nodes2.push({ node: n2, text: n2.nodeValue });
+        nodes2.forEach(function(item) {
+          var parent = item.node.parentNode;
+          if (!parent) return;
+          var frag = document.createDocumentFragment();
+          Array.from(item.text).forEach(function(ch) {
+            var sp = document.createElement('span');
+            sp.className = 'tw-ch';
+            sp.textContent = ch;
+            found.push(sp);
+            frag.appendChild(sp);
+          });
+          parent.replaceChild(frag, item.node);
+        });
+      }
+
+      if (!found.length) return;
       var i = 0;
       function tick() {
-        if (i >= charSpans.length) return;
-        charSpans[i].style.opacity = '1';
+        if (i >= found.length) return;
+        found[i].style.opacity = '1';
         i++;
         setTimeout(tick, TW_SPEED);
       }
-
       setTimeout(tick, TW_DELAY);
     }
 
@@ -2955,20 +2985,18 @@
     var els = document.querySelectorAll(SEL);
     if (!els.length) return;
 
+    // Препарируем ВСЕ заголовки сразу при загрузке (до скролла)
+    els.forEach(function(el) { prepareEl(el); });
+
+    // Наблюдаем: при попадании в viewport — только запускаем анимацию
     var io = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
-        if (e.isIntersecting) {
-          typewrite(e.target);
-          io.unobserve(e.target);
-        }
+        if (e.isIntersecting) { startTypewrite(e.target); io.unobserve(e.target); }
       });
     }, { threshold: 0.15 });
+    els.forEach(function(el) { io.observe(el); });
 
-    // Скрываем все цели до триггера
-    els.forEach(function(el) { el.classList.add('tw-pending'); io.observe(el); });
-
-    // Делаем typewrite доступным для других блоков
-    window._typewrite = typewrite;
+    window._typewrite = startTypewrite;
   })();
 
   // ── WHY-LABEL: SVG слайд слева + typewriter на тексте ────────────────────
