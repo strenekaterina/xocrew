@@ -2658,6 +2658,9 @@
   }
 
   // ── Hero height — точный расчёт под любой экран ────────────
+  // Обновляем высоту ТОЛЬКО при смене ориентации (portrait↔landscape).
+  // Изменение window.innerHeight при скролле на iOS (адресная строка прячется)
+  // НЕ меняет ширину → orientation остаётся прежней → рывка нет.
   function setHeroHeight() {
     const ticker = document.querySelector('.ticker');
     const navEl  = document.querySelector('nav');
@@ -2667,7 +2670,11 @@
     hero.style.height = (window.innerHeight - offset) + 'px';
   }
   setHeroHeight();
-  window.addEventListener('resize', setHeroHeight);
+  let _heroOrient = window.innerWidth > window.innerHeight ? 'L' : 'P';
+  window.addEventListener('resize', function() {
+    const o = window.innerWidth > window.innerHeight ? 'L' : 'P';
+    if (o !== _heroOrient) { _heroOrient = o; setHeroHeight(); }
+  });
 
   // ── Countdown ─────────────────────────────────────────────
   const START = new Date('2026-07-01T00:00:00');
