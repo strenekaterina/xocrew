@@ -1553,13 +1553,15 @@
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none; /* Firefox */
-        padding: 0 0 4px; /* отступы — через margin на карточках, не padding (iOS Safari) */
+        /* padding-left создаёт визуальный отступ.
+           scroll-padding-left говорит snap-движку: "начало viewport = padding-left",
+           иначе mandatory snap съедает отступ, прокручивая карточку к x=0. */
+        padding: 0 calc(9vw - 6px) 4px;
+        scroll-padding-left: calc(9vw - 6px);
         gap: 12px;
       }
       .curators-grid::-webkit-scrollbar { display: none; }
-      /* Каждая карточка — 82vw.
-         Отступ от края — margin на первой/последней карточке:
-         iOS Safari не читает padding scroll-контейнера, но margin дочернего — да. */
+      /* Каждая карточка — 82vw, вторая торчит справа */
       .curator-col {
         flex: 0 0 82vw;
         scroll-snap-align: start;
@@ -1567,11 +1569,7 @@
         border-radius: 12px;
         overflow: hidden;
       }
-      .curator-col:first-child {
-        margin-left: calc(9vw - 6px); /* левый отступ = правый пик второй карточки */
-        border-right: 1px solid rgba(255,255,255,.15);
-      }
-      .curator-col:last-child { margin-right: calc(9vw - 6px); }
+      .curator-col:first-child { border-right: 1px solid rgba(255,255,255,.15); }
       .curator-photo { aspect-ratio: 3/2; height: auto; }
       .curator-info { padding: 24px 20px 28px; }
       .curator-name { font-size: clamp(18px, 5vw, 26px); margin-bottom: 16px; }
