@@ -1728,6 +1728,22 @@
       left: 0;
       color: var(--orange);
     }
+
+    /* ── TYPEWRITER CURSOR ───────────────────────────── */
+    .tw-cur {
+      display: inline-block;
+      width: 3px;
+      height: 0.72em;
+      background: var(--orange);
+      margin-left: 3px;
+      vertical-align: middle;
+      border-radius: 1px;
+      animation: tw-blink 0.65s step-start infinite;
+    }
+    @keyframes tw-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -2801,6 +2817,70 @@
     function update() { applyLayout(window.innerWidth <= 820 ? mob : desk); }
     update();
     window.addEventListener('resize', update);
+  })();
+
+  // ── TYPEWRITER ────────────────────────────────────────────────────────────
+  (function() {
+    var TW_SPEED = 42;   // мс на символ
+    var TW_DELAY = 150;  // мс задержка перед стартом (после появления в viewport)
+
+    function typewrite(el) {
+      if (el.dataset.tw) return;
+      el.dataset.tw = '1';
+
+      // Собираем все текстовые узлы — HTML-структура (br, span) не трогается
+      var nodes = [];
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+      var n;
+      while ((n = walker.nextNode())) {
+        nodes.push({ node: n, full: n.nodeValue });
+        n.nodeValue = '';
+      }
+
+      // Плоский массив символов
+      var chars = [];
+      nodes.forEach(function(item) {
+        var arr = Array.from(item.full); // корректно для emoji и кириллицы
+        arr.forEach(function(ch) { chars.push({ node: item.node, ch: ch }); });
+      });
+
+      if (!chars.length) return;
+
+      // Мигающий оранжевый курсор
+      var cur = document.createElement('span');
+      cur.className = 'tw-cur';
+      cur.setAttribute('aria-hidden', 'true');
+      el.appendChild(cur);
+
+      var i = 0;
+      function tick() {
+        if (i >= chars.length) {
+          setTimeout(function() { if (cur.parentNode) cur.parentNode.removeChild(cur); }, 500);
+          return;
+        }
+        var item = chars[i++];
+        item.node.nodeValue += item.ch;
+        setTimeout(tick, TW_SPEED);
+      }
+
+      setTimeout(tick, TW_DELAY);
+    }
+
+    var SEL = '.what-title, .sec-t, .team-title, .creds-title, .curators-heading-title, #program-title, .pair-title';
+    var els = document.querySelectorAll(SEL);
+
+    if (!els.length) return;
+
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          typewrite(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    els.forEach(function(el) { io.observe(el); });
   })();
 
   (function() {
