@@ -1519,8 +1519,10 @@
       /* Заголовок программы — white-space:nowrap и font-size стоят инлайн/JS, перебиваем */
       #program-line1 { white-space: normal !important; }
       #program-title { font-size: clamp(42px, 11vw, 62px) !important; line-height: 1 !important; }
-      /* Сетка фона — уменьшаем как на других мобильных секциях */
+      /* Сетка фона — одинаковая для #program и .topics-sec (они один визуальный блок).
+         !important нужен — инлайн-стиль background-size:56px 56px иначе побеждает. */
       #program { background-size: 28px 28px !important; }
+      .topics-sec { background-size: 28px 28px !important; }
 
       /* ── ТЕМЫ (topic cards) ──────────────────────────── */
       /* ВАЖНО: base CSS .topics-grid стоит ПОСЛЕ media query → нужен !important */
