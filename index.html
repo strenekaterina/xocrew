@@ -1466,19 +1466,20 @@
       .team-photo-full { aspect-ratio: 4 / 3; }
 
       /* ── ЗА ПЛЕЧАМИ КОМАНДЫ + КАК ПРОХОДИТ ──────────── */
-      .creds-sec { padding: 40px 16px; }
+      .creds-sec { padding: 40px 16px; overflow: hidden; }
       /* Заголовок — 2-строчный, по стандарту what-title-md */
       .creds-title { font-size: clamp(36px, 10vw, 60px); margin-bottom: 28px; }
-      /* Карточки — 1 в ряд, без overflow */
+      /* Карточки — 1 в ряд, не выходят за край */
       .creds-grid { grid-template-columns: 1fr; gap: 10px; }
       .cred-card {
         padding: 16px 60px 16px 20px; /* справа место под цифру */
         min-height: auto;
         width: 100%;
+        max-width: 100%;
         box-sizing: border-box;
+        overflow: hidden;
       }
-      /* Убираем принудительные <br> — карточка полная ширина, переносы лишние */
-      .cred-text br { display: none; }
+      /* <br> оставляем — без них слова склеиваются */
       .cred-text { font-size: 15px; line-height: 1.35; }
       .cred-num { font-size: clamp(28px, 8vw, 40px); }
       /* КАК ПРОХОДИТ — override */
