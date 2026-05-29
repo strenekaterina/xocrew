@@ -557,10 +557,10 @@
                         linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
       background-size: 64px 64px; /* обновляется JS */
       padding: 64px;              /* обновляется JS */
-      display: flex;
+      display: flex; flex-direction: column; gap: 32px;
     }
-    .orange-left .what-title { color: var(--orange); }
-    #how .why-list { margin-top: 48px; }
+    .orange-left .what-title { color: #fff; }
+    #how .why-list { margin-top: 0; }
 
     /* ── dark-left — чёрный фон + белая сетка + серая карточка ── */
     .dark-left {
@@ -1426,6 +1426,17 @@
       #per-topic .what-photo { border-top-color: rgba(255,255,255,.15); }
       /* Оранжевая секция — цвет разделителя */
       #how .what-photo { border-top-color: rgba(0,0,0,.15); }
+      /* 30-40 МИН: заголовок вне карточки — крупнее и по центру */
+      #how-title {
+        font-size: clamp(52px, 14vw, 80px) !important;
+        text-align: center !important;
+        color: #fff !important;
+        margin-bottom: 4px;
+      }
+      /* JS ставит ~18px на 360px → переопределяем побольше */
+      #how .orange-left { background-size: 28px 28px !important; }
+      /* Карточка в #how — без лишнего отступа сверху (h2 убрана) */
+      #how .why-list { margin-top: 0 !important; }
 
       /* ── КАК ПОНЯТЬ (why-label) ──────────────────────── */
       /* На мобилке card padding = 20px → блид уменьшаем */
@@ -2042,8 +2053,8 @@
 <section class="what-sec" id="how">
   <!-- ЛЕВАЯ ЧАСТЬ: оранжевый фон + белая сетка + серая карточка -->
   <div class="orange-left">
+    <h2 class="what-title what-title-md" id="how-title">30–40 МИНУТ<br>В ДЕНЬ</h2>
     <div class="what-card">
-      <h2 class="what-title what-title-md" id="how-title">30–40 МИНУТ<br>В ДЕНЬ</h2>
       <div class="why-list">
         <div class="why-list-item">
           <span class="wli-num">01</span>
