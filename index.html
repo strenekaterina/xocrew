@@ -1416,6 +1416,7 @@
       /* Фото → снизу, на всю ширину.
          ВАЖНО: нужен явный height (не min-height), иначе .ph { height:100% } не работает */
       .what-photo {
+        flex: none; /* сбрасываем flex:1 с десктопа — иначе flex-basis:0 в column = height:0 */
         width: 100%; order: 2;
         height: 60vw;
         border-left: none; border-top: 2px solid var(--dark);
@@ -1499,6 +1500,9 @@
       #program > div:first-child p > br:not(.mob) { display: none; }
       #program > div:first-child p { font-size: 15px !important; }
       #program > div:last-child { padding: 16px 8px 32px !important; }
+      /* Заголовок программы — white-space:nowrap стоит инлайн, перебиваем */
+      #program-line1 { white-space: normal !important; }
+      #program-title { font-size: clamp(36px, 10vw, 60px); }
 
       /* ── ТЕМЫ (topic cards) ──────────────────────────── */
       .topics-sec { padding: 16px; overflow: hidden; }
