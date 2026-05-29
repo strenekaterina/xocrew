@@ -1443,12 +1443,11 @@
         text-align: left;
       }
       /* ОРГАНИЗАТОРЫ — контейнер скрывает любой overflow */
-      .team-top { overflow: hidden; }
-      /* Заголовок: width:100% фиксирует ширину = контейнер (343px @ 375px).
-         Sprite Graffiti ~0.5em/char × 12chars = 6em total.
-         15vw @ 375px = 56px → 6em × 56 = 337px ≤ 343px — почти до края */
+      .team-top { overflow: hidden; gap: 20px; }
+      /* Заголовок: width:100% фиксирует ширину = контейнер.
+         16vw @ 360px = 57.6px → ~297px для 12 chars ≤ 328px (контент) */
       .team-title {
-        font-size: clamp(48px, 15vw, 78px);
+        font-size: clamp(52px, 16vw, 82px);
         width: 100%;
         text-align: left;
       }
@@ -1485,7 +1484,7 @@
       .cred-text { font-size: 15px; line-height: 1.35; }
       .cred-num { font-size: clamp(28px, 8vw, 40px); }
       /* КАК ПРОХОДИТ — override */
-      #format { padding: 40px 16px !important; }
+      #format { padding: 40px 16px !important; background-size: 28px 28px !important; }
       #format .fmt-desc { margin-bottom: 28px !important; font-size: 15px !important; line-height: 1.5 !important; }
       .fmt-grid { grid-template-columns: 1fr 1fr; }
       .fmt-item { padding: 20px 16px; border-bottom: 2px solid var(--dark) !important; }
