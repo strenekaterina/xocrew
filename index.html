@@ -1729,20 +1729,11 @@
       color: var(--orange);
     }
 
-    /* ── TYPEWRITER CURSOR ───────────────────────────── */
-    .tw-cur {
-      display: inline-block;
-      width: 3px;
-      height: 0.72em;
-      background: var(--orange);
-      margin-left: 3px;
-      vertical-align: middle;
-      border-radius: 1px;
-      animation: tw-blink 0.65s step-start infinite;
-    }
-    @keyframes tw-blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0; }
+    /* ── TYPEWRITER CHARS ────────────────────────────── */
+    .tw-ch {
+      display: inline;
+      opacity: 0;
+      transition: opacity 0.28s ease;
     }
   </style>
 </head>
@@ -2821,45 +2812,44 @@
 
   // ── TYPEWRITER ────────────────────────────────────────────────────────────
   (function() {
-    var TW_SPEED = 42;   // мс на символ
-    var TW_DELAY = 150;  // мс задержка перед стартом (после появления в viewport)
+    var TW_SPEED = 60;   // мс между символами
+    var TW_DELAY = 140;  // мс до старта после появления в viewport
 
     function typewrite(el) {
       if (el.dataset.tw) return;
       el.dataset.tw = '1';
 
-      // Собираем все текстовые узлы — HTML-структура (br, span) не трогается
-      var nodes = [];
+      // Заменяем текстовые узлы на span-символы с opacity:0
+      // HTML-структура (br, span, стили) не трогается
+      var charSpans = [];
       var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+      var nodesToReplace = [];
       var n;
       while ((n = walker.nextNode())) {
-        nodes.push({ node: n, full: n.nodeValue });
-        n.nodeValue = '';
+        nodesToReplace.push({ node: n, text: n.nodeValue });
       }
 
-      // Плоский массив символов
-      var chars = [];
-      nodes.forEach(function(item) {
-        var arr = Array.from(item.full); // корректно для emoji и кириллицы
-        arr.forEach(function(ch) { chars.push({ node: item.node, ch: ch }); });
+      nodesToReplace.forEach(function(item) {
+        var parent = item.node.parentNode;
+        if (!parent) return;
+        var frag = document.createDocumentFragment();
+        Array.from(item.text).forEach(function(ch) {
+          var sp = document.createElement('span');
+          sp.className = 'tw-ch';
+          sp.textContent = ch;
+          charSpans.push(sp);
+          frag.appendChild(sp);
+        });
+        parent.replaceChild(frag, item.node);
       });
 
-      if (!chars.length) return;
-
-      // Мигающий оранжевый курсор
-      var cur = document.createElement('span');
-      cur.className = 'tw-cur';
-      cur.setAttribute('aria-hidden', 'true');
-      el.appendChild(cur);
+      if (!charSpans.length) return;
 
       var i = 0;
       function tick() {
-        if (i >= chars.length) {
-          setTimeout(function() { if (cur.parentNode) cur.parentNode.removeChild(cur); }, 500);
-          return;
-        }
-        var item = chars[i++];
-        item.node.nodeValue += item.ch;
+        if (i >= charSpans.length) return;
+        charSpans[i].style.opacity = '1';
+        i++;
         setTimeout(tick, TW_SPEED);
       }
 
@@ -2868,7 +2858,6 @@
 
     var SEL = '.what-title, .sec-t, .team-title, .creds-title, .curators-heading-title, #program-title, .pair-title';
     var els = document.querySelectorAll(SEL);
-
     if (!els.length) return;
 
     var io = new IntersectionObserver(function(entries) {
