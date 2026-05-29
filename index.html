@@ -1479,8 +1479,11 @@
 
       /* ── ЗА ПЛЕЧАМИ КОМАНДЫ + КАК ПРОХОДИТ ──────────── */
       .creds-sec { padding: 40px 16px; overflow: hidden; }
-      /* Заголовок — 2-строчный, по стандарту what-title-md */
-      .creds-title { font-size: clamp(36px, 10vw, 60px); margin-bottom: 28px; }
+      /* Заголовок — по стандарту what-title */
+      .creds-title { font-size: clamp(52px, 14vw, 80px); margin-bottom: 28px; }
+      /* Базовый #format .creds-title { margin-bottom: 80px } — более специфичен,
+         поэтому нужен !important чтобы победить его на мобилке */
+      #format .creds-title { margin-bottom: 16px !important; }
       /* Карточки — 1 в ряд, не выходят за край */
       .creds-grid { grid-template-columns: 1fr; gap: 10px; }
       .cred-card {
