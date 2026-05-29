@@ -3039,36 +3039,35 @@
     io.observe(sec);
   })();
 
-  // ── PRICING CARDS — slide up, root = scroll container ────────────────────
+  // ── PRICING CARDS — первая анимируется, остальные сразу видимы ───────────
   (function() {
     var grid = document.querySelector('.pricing-grid');
     if (!grid) return;
     var cards = Array.from(grid.querySelectorAll('.pc'));
-    // root = сам контейнер слайдера, чтобы карточки справа тоже наблюдались
+    // Вторая и далее — сразу видимы (чтобы был понятен свайп)
+    cards.slice(1).forEach(function(card) { card.classList.add('visible'); });
+    if (!cards[0]) return;
     var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      });
-    }, { root: grid, threshold: 0.05 });
-    cards.forEach(function(card) { io.observe(card); });
+      if (!entries[0].isIntersecting) return;
+      cards[0].classList.add('visible');
+      io.unobserve(cards[0]);
+    }, { threshold: 0.1 });
+    io.observe(cards[0]);
   })();
 
-  // ── CURATOR COLS — slide up, root = scroll container ─────────────────────
+  // ── CURATOR COLS — первая анимируется, остальные сразу видимы ───────────
   (function() {
     var grid = document.querySelector('#curators .curators-grid');
     if (!grid) return;
     var cols = Array.from(grid.querySelectorAll('.curator-col'));
-    // root = сам контейнер слайдера
+    cols.slice(1).forEach(function(col) { col.classList.add('visible'); });
+    if (!cols[0]) return;
     var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      });
-    }, { root: grid, threshold: 0.05 });
-    cols.forEach(function(col) { io.observe(col); });
+      if (!entries[0].isIntersecting) return;
+      cols[0].classList.add('visible');
+      io.unobserve(cols[0]);
+    }, { threshold: 0.1 });
+    io.observe(cols[0]);
   })();
 
   // ── TOPIC CARDS — per-element fade-in ────────────────────────────────────
