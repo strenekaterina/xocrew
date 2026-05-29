@@ -1629,6 +1629,8 @@
         gap: 12px !important;
       }
       #legal > .pair-col { padding: 24px 20px !important; }
+      /* base #legal .pair-item-text { clamp(18px...) } — ID+class специфичность → !important */
+      #legal .pair-item-text { font-size: 15px !important; line-height: 1.5 !important; }
 
       /* ── FOOTER ──────────────────────────────────────── */
       footer { padding: 36px 16px 24px; }
