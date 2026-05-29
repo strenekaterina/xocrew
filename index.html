@@ -1639,11 +1639,19 @@
 
       /* ── FOOTER ──────────────────────────────────────── */
       footer { padding: 36px 16px 24px; }
-      .ft-top { flex-direction: column; gap: 24px; }
+      .ft-top { flex-direction: column; gap: 24px; align-items: center; text-align: center; }
+      .ft-logo { text-align: center; }
+      .ft-desc {
+        font-family: var(--f-head) !important;
+        font-size: clamp(18px, 5.5vw, 26px) !important;
+        line-height: 1.1 !important;
+        text-align: center;
+      }
+      footer .ft-desc br:not(.mob) { display: none; }
+      .ft-links { text-align: center !important; align-items: center !important; }
+      .ft-links a { font-family: var(--f-head) !important; font-size: clamp(18px, 5.5vw, 26px) !important; line-height: 1.2 !important; }
       .ft-bottom { flex-direction: column; gap: 10px; text-align: center; }
       .ft-docs { flex-wrap: wrap; gap: 12px; justify-content: center; }
-      footer .ft-desc br:not(.mob) { display: none; }
-      .ft-links { text-align: left !important; }
       .desk { display: none; }
 
       /* ── MODAL ───────────────────────────────────────── */
