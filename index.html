@@ -3079,12 +3079,12 @@
 
   // ── Hero cursor gallery ───────────────────────────────────
   (function() {
-    if (window.matchMedia('(max-width: 820px)').matches) return; // отключить на мобилке
+    const isMob = window.matchMedia('(max-width: 820px)').matches;
     const IMGS = Array.from({length:19}, (_,i) => `img/gallery/g${i+1}.jpg`);
-    const MAX      = 12;   // максимум одновременных карточек
-    const DIST     = 90;   // минимальное расстояние курсора для новой карточки
-    const LIFETIME = 700; // мс до начала исчезновения
-    const W = 200, H = 288;
+    const MAX      = isMob ? 6  : 12;
+    const DIST     = isMob ? 50 : 90;
+    const LIFETIME = 700;
+    const W = isMob ? 110 : 200, H = isMob ? 158 : 288;
 
     // Хранит { el, rot, timerId } для каждой активной карточки
     let pool = [], idx = 0, lastX = 0, lastY = 0, zTop = 20;
@@ -3105,7 +3105,7 @@
       setTimeout(() => el.remove(), 380);
     }
 
-    trigger.addEventListener('mousemove', function(e) {
+    if (!isMob) trigger.addEventListener('mousemove', function(e) {
       const r = hero.getBoundingClientRect(); // координаты относительно hero-top
       const x = e.clientX - r.left;
       const y = e.clientY - r.top;
@@ -3159,11 +3159,65 @@
       }
     });
 
-    // Очистка при уходе курсора с заголовка
-    trigger.addEventListener('mouseleave', function() {
-      pool.forEach(entry => dismiss(entry));
-      pool = []; zTop = 20;
-    });
+    if (!isMob) {
+      // Очистка при уходе курсора с заголовка
+      trigger.addEventListener('mouseleave', function() {
+        pool.forEach(entry => dismiss(entry));
+        pool = []; zTop = 20;
+      });
+    }
+
+    // ── Mobile: touchmove по SVG-заголовку ───────────────────
+    if (isMob) {
+      let lastTX = -999, lastTY = -999;
+      trigger.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        lastTX = lastTY = -999;
+      }, { passive: false });
+
+      trigger.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        const t = e.touches[0];
+        const r = hero.getBoundingClientRect();
+        const x = t.clientX - r.left;
+        const y = t.clientY - r.top;
+        if (Math.hypot(x - lastTX, y - lastTY) < DIST) return;
+        lastTX = x; lastTY = y;
+
+        const el = document.createElement('img');
+        el.src = IMGS[idx % IMGS.length]; idx++;
+        const rot = (Math.random() - 0.5) * 22;
+        const ox  = (Math.random() - 0.5) * 16;
+        el.style.cssText = [
+          'position:absolute',
+          `left:${x - W/2 + ox}px`,
+          `top:${y - H/2}px`,
+          `width:${W}px`, `height:${H}px`,
+          'object-fit:cover', 'border-radius:6px',
+          'pointer-events:none',
+          `z-index:${zTop++}`,
+          'opacity:0',
+          `transform:rotate(${rot}deg) scale(0.72)`,
+          'transition:opacity .22s ease, transform .32s cubic-bezier(.34,1.45,.64,1)',
+          'will-change:transform,opacity',
+          'box-shadow:0 8px 28px rgba(0,0,0,.5)',
+        ].join(';');
+        hero.appendChild(el);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          el.style.opacity = '1';
+          el.style.transform = `rotate(${rot}deg) scale(1)`;
+        }));
+        const entry = { el, rot, timerId: null };
+        entry.timerId = setTimeout(() => { pool = pool.filter(p => p !== entry); dismiss(entry); }, LIFETIME);
+        pool.push(entry);
+        if (pool.length > MAX) { const old = pool.shift(); dismiss(old); }
+      }, { passive: false });
+
+      trigger.addEventListener('touchend', function() {
+        pool.forEach(entry => dismiss(entry));
+        pool = []; zTop = 20;
+      });
+    }
   })();
 
   // ── Висячие предлоги ──────────────────────────────────────
