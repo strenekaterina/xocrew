@@ -514,10 +514,10 @@
     }
     /* Правая половина — фото, прижато к правому краю */
     .what-photo {
-      flex: 1; overflow: hidden; position: relative;
+      flex: 1; overflow: hidden; display: flex; flex-direction: column;
     }
     .what-photo .ph {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      flex: 1; min-height: 0; width: 100%;
       background: #1a1a2e center/cover no-repeat;
     }
     /* убираем старые стили */
