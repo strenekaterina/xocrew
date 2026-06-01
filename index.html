@@ -467,7 +467,6 @@
     /* ── ЧТО? SECTION ───────────────────────────────────── */
     .what-sec {
       display: flex; flex-direction: row;
-      border-bottom: 2px solid var(--dark);
     }
     /* Левая половина — синяя с сеткой (размер сетки ставится JS) */
     .what-left, .why-left {
@@ -706,7 +705,7 @@
                         linear-gradient(90deg, rgba(255,255,255,.13) 2px, transparent 2px);
       background-size: 64px 64px; /* обновляется JS */
       padding: 80px 48px;
-      border-bottom: 2px solid var(--dark);
+      border-bottom: none;
       display: flex;
       gap: 28px;
     }
@@ -2890,19 +2889,17 @@
   fitChtoChtoMobileTitle();
   window.addEventListener('resize', fitChtoChtoMobileTitle);
 
-  // ── ГДЕ? — на мобилке 2 копии до края карточки ───────────────
+  // ── ГДЕ? — 2 копии до края карточки (мобилка + десктоп) ───────
   function repeatWhereMobileTitle() {
     const el = document.querySelector('#where .what-title');
     if (!el) return;
-    if (window.innerWidth > 820) {
-      el.textContent = 'ГДЕ?'; el.style.removeProperty('font-size'); el.style.whiteSpace = ''; return;
-    }
     const card = el.closest('.what-card');
     if (!card) return;
-    const available = card.clientWidth - 40;
+    const pad = window.innerWidth > 820 ? 80 : 40;
+    const available = card.clientWidth - pad;
     el.style.whiteSpace = 'nowrap';
     el.textContent = 'ГДЕ? ГДЕ?';
-    let lo = 20, hi = 300;
+    let lo = 20, hi = 400;
     while (hi - lo > 1) {
       const mid = Math.floor((lo + hi) / 2);
       el.style.setProperty('font-size', mid + 'px', 'important');
