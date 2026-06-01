@@ -963,6 +963,7 @@
       letter-spacing: -.01em;
       text-align: center;
     }
+    .curators-swipe-hint { display: none; color: #fff; }
     .curators-star {
       font-family: var(--f-head);
       font-size: clamp(150px, 22vw, 280px);
@@ -1035,6 +1036,10 @@
       line-height: 1.5;
       color: #EDEDED;
       text-transform: uppercase;
+    }
+    .curator-item-text strong {
+      font-weight: 800;
+      color: #fff;
     }
 
     /* ══════════════════════════════════════════════════════
@@ -1356,7 +1361,7 @@
       font-size: 12px; font-weight: 700; color: rgba(255,255,255,.6);
       display: flex; align-items: flex-start; gap: 7px; line-height: 1.3;
     }
-    .m-opt-features li strong { color: #fff; font-weight: 800; }
+    .m-opt-features li strong { color: #fff !important; font-weight: 800 !important; }
     .m-opt-features li::before {
       content: ''; flex-shrink: 0;
       width: 5px; height: 5px; border-radius: 50%;
@@ -1680,6 +1685,7 @@
       .curators-sec { padding: 36px 0 40px; }
       .curators-heading { gap: 4px; margin-bottom: 32px; padding: 0 8px; }
       .curators-heading-title { font-size: clamp(52px, 14vw, 80px); position: relative; z-index: 1; }
+      .curators-swipe-hint { display: inline; }
       .curators-star { font-size: clamp(136px, 34vw, 192px); position: relative; z-index: 2; align-self: center; transform: translateY(35%); }
       /* Трек слайдера */
       .curators-grid {
@@ -1779,14 +1785,14 @@
       .ft-top { flex-direction: column; gap: 24px; align-items: center; text-align: center; }
       .ft-logo { text-align: center; }
       .ft-desc {
-        font-family: var(--f-head) !important;
-        font-size: clamp(18px, 5.5vw, 26px) !important;
-        line-height: 1.1 !important;
+        font-family: var(--f-body) !important;
+        font-size: clamp(14px, 4vw, 18px) !important;
+        line-height: 1.55 !important;
         text-align: center;
       }
       footer .ft-desc br:not(.mob) { display: none; }
       .ft-links { text-align: center !important; align-items: center !important; }
-      .ft-links a { font-family: var(--f-head) !important; font-size: clamp(18px, 5.5vw, 26px) !important; line-height: 1.2 !important; }
+      .ft-links a { font-family: var(--f-body) !important; font-size: 15px !important; line-height: 1.4 !important; }
       .ft-bottom { flex-direction: column; gap: 10px; text-align: center; }
       .ft-docs { flex-wrap: wrap; gap: 12px; justify-content: center; }
       .desk { display: none; }
@@ -2363,7 +2369,7 @@
 <section class="curators-sec" id="curators">
   <div class="curators-heading">
     <span class="curators-star">*</span>
-    <h2 class="curators-heading-title">КУРАТОРЫ КУРСА</h2>
+    <h2 class="curators-heading-title">КУРАТОРЫ КУРСА<span class="curators-swipe-hint">&nbsp;&gt;&gt;</span></h2>
     <span class="curators-star">*</span>
   </div>
   <div class="curators-grid">
@@ -2371,12 +2377,12 @@
     <div class="curator-col">
       <div class="curator-photo" style="background:url('kirill-photo.webp') top center/cover no-repeat;"></div>
       <div class="curator-info">
-        <h3 class="curator-name">КИРИЛЛ «ЗЕЛЁНЫЙ»<br class="br-mob"> КОЗНЕВ</h3>
+        <h3 class="curator-name">КИРИЛЛ «ЗЕЛЁНЫЙ»<br class="br-mob"> КОЧНЕВ</h3>
         <div class="curator-list">
-          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text">Ректор крупнейшей школы брейкинга XO&nbsp;Crew</span></div>
-          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Брейк-тренер более чем с 15-летним опытом</span></div>
-          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Призёр и победитель бесчисленного множества чемпионатов мира</span></div>
-          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text">Создатель уникальной методики преподавания и лидерства брейк-атлетов</span></div>
+          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text"><strong>Ректор</strong> крупнейшей школы брейкинга <strong>XO&nbsp;Crew</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text"><strong>Брейк-тренер</strong> более чем с <strong>15-летним опытом</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text"><strong>Призёр и победитель</strong> бесчисленного множества <strong>чемпионатов мира</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text"><strong>Создатель</strong> уникальной <strong>методики преподавания</strong> и лидерства брейк-атлетов</span></div>
         </div>
       </div>
     </div>
@@ -2384,12 +2390,12 @@
     <div class="curator-col">
       <div class="curator-photo" style="background:url('artem-photo.webp') top center/cover no-repeat;"></div>
       <div class="curator-info">
-        <h3 class="curator-name">АРТЁМ<br class="br-medium br-mob"> ПЕРУК</h3>
+        <h3 class="curator-name">АРТЁМ «PERUK»<br> ПЕРУК</h3>
         <div class="curator-list">
-          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text">Основатель команды<br class="br-mob br-medium"> XO&nbsp;Crew</span></div>
-          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более 20 лет<br class="br-medium br-mob"> брейк-опыта</span></div>
-          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Воспитал сотни учеников — от новичков до профессиональных танцоров</span></div>
-          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text">Понимает брейкинг как культурную среду, спорт и образ жизни</span></div>
+          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text"><strong>Основатель</strong> команды<br class="br-mob br-medium"> <strong>XO&nbsp;Crew</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более <strong>20 лет</strong><br class="br-medium br-mob"> <strong>брейк-опыта</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Воспитал <strong>сотни учеников</strong> — от новичков до <strong>профессиональных танцоров</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text">Понимает <strong>брейкинг</strong> как <strong>культурную среду, спорт и образ жизни</strong></span></div>
         </div>
       </div>
     </div>
@@ -2448,22 +2454,22 @@
       <div class="why-list">
         <div class="why-list-item">
           <span class="wli-num">01</span>
-          <span class="wli-text">Более <strong>осознанным</strong></span>
+          <span class="wli-text">Быть более <strong>осознанным</strong></span>
         </div>
         <div class="why-list-item">
           <span class="wli-num">02</span>
-          <span class="wli-text">Более <strong>здоровым</strong></span>
+          <span class="wli-text">Быть более <strong>здоровым</strong></span>
         </div>
         <div class="why-list-item">
           <span class="wli-num">03</span>
-          <span class="wli-text">Более <strong>долгосрочным</strong></span>
+          <span class="wli-text">Быть более <strong>долгосрочным</strong></span>
         </div>
         <div class="why-list-item">
           <span class="wli-num">04</span>
-          <span class="wli-text"><strong>Без давления и хаоса</strong></span>
+          <span class="wli-text">Быть <strong>энергичным</strong></span>
         </div>
       </div>
-      <p class="what-quote">И чтобы рядом с ребёнком был взрослый,<br><span>который действительно понимает этот путь.</span></p>
+      <p class="what-quote">И чтобы рядом с ребёнком был взрослый,<br><span>который действительно понимает этот путь.</span><br>А главное — чтобы с взрослым был рядом.</p>
     </div>
   </div>
   <!-- ПРАВАЯ ЧАСТЬ: плейсхолдер фото -->
@@ -2509,7 +2515,7 @@
     </div>
   </div>
   <div class="what-photo">
-    <div class="ph" style="background:#1a1a2e url('when-photo-mob.webp') top center/cover no-repeat;"></div>
+    <div class="ph" style="background:#1a1a2e url('k5.jpg') top center/cover no-repeat;"></div>
   </div>
 </section>
 
@@ -2527,9 +2533,9 @@
         <div class="pc-price">20 000 <span style="font-family:var(--f-head);font-size:1em;font-weight:900;letter-spacing:0;">РУБ</span></div>
         <div class="pc-inst"><span style="display:inline-block;border:1px solid rgba(255,255,255,.3);padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);">Доступна рассрочка</span></div>
         <div class="curator-list" style="margin-top:24px;">
-          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text">Общий чат участников</span></div>
-          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Доступ ко всем материалам</span></div>
-          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Доступ к записям<br class="mob-br"> на 6 месяцев</span></div>
+          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text"><strong>Общий чат</strong> участников</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text"><strong>Доступ</strong> ко всем <strong>материалам</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Доступ к записям<br class="mob-br"> <strong>на 6 месяцев</strong></span></div>
         </div>
       </div>
       <button class="btn btn-orange" onclick="openModal()">ВЫБРАТЬ ТАРИФ</button>
@@ -2542,11 +2548,11 @@
         <div class="pc-price">30 000 <span style="font-family:var(--f-head);font-size:1em;font-weight:900;letter-spacing:0;">РУБ</span></div>
         <div class="pc-inst"><span style="display:inline-block;border:1px solid rgba(255,255,255,.3);padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);">Доступна рассрочка</span></div>
         <div class="curator-list" style="margin-top:24px;">
-          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text">Общий чат участников</span></div>
-          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Доступ ко всем материалам</span></div>
-          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Доступ к записям<br class="mob-br"> на 12 месяцев</span></div>
-          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text">Дополнительные материалы</span></div>
-          <div class="curator-item"><span class="curator-item-num">5</span><span class="curator-item-text">Личный разбор вопросов с Кириллом Кочневым</span></div>
+          <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text"><strong>Общий чат</strong> участников</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text"><strong>Доступ</strong> ко всем <strong>материалам</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text">Доступ к записям<br class="mob-br"> <strong>на 12 месяцев</strong></span></div>
+          <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text"><strong>Дополнительные материалы,</strong> не вошедшие в курс</span></div>
+          <div class="curator-item"><span class="curator-item-num">5</span><span class="curator-item-text"><strong>Личный разбор</strong> вопросов с <strong>Кириллом Кочневым</strong></span></div>
         </div>
       </div>
       <button class="btn btn-orange" onclick="openModal()">ВЫБРАТЬ ТАРИФ</button>
@@ -2560,10 +2566,10 @@
   <!-- 15: Финальный стейтмент -->
   <div style="min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:48px;">
     <p class="statement" style="text-align:center;max-width:1100px;font-size:clamp(38px,6.24vw,82px);color:var(--white);">
-      БРЕЙК-РОДИТЕЛЬ —<br>
+      <span style="color:var(--orange);">БРЕЙК-РОДИТЕЛЬ</span> —<br>
       ЭТО НЕ ПРОСТО ОНЛАЙН-КУРС.<br>
       ЭТО ПЕРВАЯ В СВОЁМ РОДЕ ВОЗМОЖНОСТЬ
-      <span style="color:var(--orange);">СТАТЬ НАСТОЯЩЕЙ ОПОРОЙ</span>
+      СТАТЬ НАСТОЯЩЕЙ ОПОРОЙ
       ДЛЯ РЕБЁНКА.
     </p>
   </div>
@@ -2610,9 +2616,17 @@
       <p class="ft-desc">Крупнейшая школа <br class="mob">брейкинга в мире.<br><br class="mob"><br class="mob">Брейк-родитель — наш <br class="mob">образовательный проект <br class="mob">для семей брейкеров.</p>
     </div>
     <ul class="ft-links" style="text-align:right;">
-      <li><a href="#what">Что такое интенсив?</a></li>
+      <li><a href="#what">Что?</a></li>
+      <li><a href="#curators">Организаторы</a></li>
+      <li><a href="#why">Почему?</a></li>
+      <li><a href="#for-whom">Для кого?</a></li>
       <li><a href="#program">Программа</a></li>
-      <li><a href="#pricing">Стоимость</a></li>
+      <li><a href="#how">Как?</a></li>
+      <li><a href="#why-join">Зачем?</a></li>
+      <li><a href="#chto-chto">Чтобы что?</a></li>
+      <li><a href="#where">Где?</a></li>
+      <li><a href="#when">Когда?</a></li>
+      <li><a href="#pricing">Сколько?</a></li>
       <li><a href="https://t.me/katerina_stren" target="_blank" rel="noopener">Служба заботы</a></li>
     </ul>
   </div>
@@ -2637,8 +2651,8 @@
         <div class="m-opt-name">БАЗА</div>
         <div class="m-opt-price">20 000 РУБ</div>
         <ul class="m-opt-features">
-          <li>Общий чат участников</li>
-          <li>Доступ <strong>ко всем материалам</strong></li>
+          <li><strong>Общий чат</strong> участников</li>
+          <li><strong>Доступ</strong> ко всем <strong>материалам</strong></li>
           <li>Доступ к записям <strong>на 6 месяцев</strong></li>
         </ul>
       </div>
@@ -2646,11 +2660,11 @@
         <div class="m-opt-name">РАСШИРЕННЫЙ</div>
         <div class="m-opt-price">30 000 РУБ</div>
         <ul class="m-opt-features">
-          <li>Общий чат участников</li>
-          <li>Доступ <strong>ко всем материалам</strong></li>
+          <li><strong>Общий чат</strong> участников</li>
+          <li><strong>Доступ</strong> ко всем <strong>материалам</strong></li>
           <li>Доступ к записям <strong>на 12 месяцев</strong></li>
-          <li><strong>Дополнительные материалы</strong></li>
-          <li><span><strong>Личный разбор</strong> вопросов с Кириллом Кочневым</span></li>
+          <li><strong>Дополнительные материалы,</strong> не вошедшие в курс</li>
+          <li><span><strong>Личный разбор</strong> вопросов с <strong>Кириллом Кочневым</strong></span></li>
         </ul>
       </div>
     </div>
@@ -2767,6 +2781,7 @@
       else hi = mid;
     }
     el.style.setProperty('font-size', lo + 'px', 'important');
+    el.textContent = 'ЧТО?';
   }
   repeatWhatTitle();
   window.addEventListener('resize', repeatWhatTitle);
@@ -2811,6 +2826,7 @@
     if (!card) return;
     const available = card.clientWidth - 40;
     el.style.whiteSpace = 'nowrap';
+    el.textContent = 'ЧТОБЫ ЧТО?';
     let lo = 20, hi = 300;
     while (hi - lo > 1) {
       const mid = Math.floor((lo + hi) / 2);
@@ -2819,6 +2835,7 @@
       else hi = mid;
     }
     el.style.setProperty('font-size', lo + 'px', 'important');
+    el.textContent = 'ЗАЧЕМ?';
   }
   fitWhyJoinMobileTitle();
   window.addEventListener('resize', fitWhyJoinMobileTitle);
@@ -2907,6 +2924,7 @@
       else hi = mid;
     }
     el.style.setProperty('font-size', lo + 'px', 'important');
+    el.textContent = 'ГДЕ?';
   }
   repeatWhereMobileTitle();
   window.addEventListener('resize', repeatWhereMobileTitle);
