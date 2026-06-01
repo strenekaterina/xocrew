@@ -514,10 +514,10 @@
     }
     /* Правая половина — фото, прижато к правому краю */
     .what-photo {
-      flex: 1; overflow: hidden;
+      flex: 1; overflow: hidden; position: relative;
     }
     .what-photo .ph {
-      width: 100%;
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background: #1a1a2e center/cover no-repeat;
     }
     /* убираем старые стили */
@@ -2749,7 +2749,7 @@
     });
   }
   alignWhatGrid();
-  window.addEventListener('resize', function() { alignWhatGrid(); fixPhotoHeights(); });
+  window.addEventListener('resize', alignWhatGrid);
 
   // ── КУРАТОРЫ — выравниваем высоты пунктов по обоим столбцам ─
   function alignCuratorItems() {
@@ -2769,20 +2769,6 @@
   alignCuratorItems();
   window.addEventListener('resize', alignCuratorItems);
   window.addEventListener('load', alignCuratorItems);
-
-  function fixPhotoHeights() {
-    if (window.innerWidth <= 820) return;
-    document.querySelectorAll('.what-photo').forEach(function(photo) {
-      var ph = photo.querySelector('.ph');
-      if (!ph) return;
-      ph.style.height = photo.offsetHeight + 'px';
-    });
-  }
-  fixPhotoHeights();
-  window.addEventListener('load', function() {
-    fixPhotoHeights();
-    setTimeout(fixPhotoHeights, 300);
-  });
 
   // ── ЧТО? — на мобилке 2 копии, шрифт подбирается под ширину ─
   function repeatWhatTitle() {
