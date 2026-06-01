@@ -2749,7 +2749,7 @@
     });
   }
   alignWhatGrid();
-  window.addEventListener('resize', alignWhatGrid);
+  window.addEventListener('resize', function() { alignWhatGrid(); fixPhotoHeights(); });
 
   // ── КУРАТОРЫ — выравниваем высоты пунктов по обоим столбцам ─
   function alignCuratorItems() {
@@ -2779,8 +2779,10 @@
     });
   }
   fixPhotoHeights();
-  window.addEventListener('resize', fixPhotoHeights);
-  window.addEventListener('load', fixPhotoHeights);
+  window.addEventListener('load', function() {
+    fixPhotoHeights();
+    setTimeout(fixPhotoHeights, 300);
+  });
 
   // ── ЧТО? — на мобилке 2 копии, шрифт подбирается под ширину ─
   function repeatWhatTitle() {
