@@ -585,7 +585,7 @@
       transform: translateX(0);
     }
     .why-list-item {
-      display: flex; align-items: flex-start; gap: 16px;
+      display: flex; align-items: flex-start; gap: 8px;
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -596,11 +596,11 @@
     }
     .wli-num {
       font-family: var(--f-head);
-      /* 20% меньше body (clamp(18px,1.8vw,20px) × 0.8) */
-      font-size: clamp(14px, 1.44vw, 16px);
-      font-weight: 900; line-height: 1.55; /* выравниваем по первой строке текста */
+      font-size: clamp(22px, 2.2vw, 28px);
+      font-weight: 900; line-height: 1.55;
       color: var(--orange); flex-shrink: 0;
-      min-width: 28px;
+      min-width: 36px;
+      position: relative; top: -7px;
     }
     .wli-text {
       /* совпадает с .what-paragraphs p */
@@ -838,6 +838,9 @@
     .team-sec {
       display: flex; flex-direction: column;
       background: var(--dark);
+      background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
+      background-size: 56px 56px;
     }
     .team-top {
       flex-shrink: 0;
@@ -880,6 +883,9 @@
     ══════════════════════════════════════════════════════ */
     .creds-sec {
       background: var(--dark);
+      background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
+      background-size: 56px 56px;
       padding: 80px 40px 80px;
     }
     .creds-title {
@@ -960,13 +966,13 @@
     }
     .curators-star {
       font-family: var(--f-head);
-      font-size: clamp(95px, 14vw, 182px); /* = размер заголовка */
+      font-size: clamp(150px, 22vw, 280px);
       color: var(--orange);
       line-height: .88;
       flex-shrink: 0;
       display: flex;
       align-items: center;
-      transform: translateY(22%); /* визуальная компенсация — гриф сидит высоко в em-box */
+      transform: translateY(38%); /* сдвиг вниз — центр между строками КУРАТОРЫ и КУРСА */
     }
     .curators-grid {
       display: grid;
@@ -2660,46 +2666,67 @@
 
 <!-- ══ SCRIPTS ═══════════════════════════════════════════════ -->
 <script>
-  // ── Grid alignment — 20 точных ячеек в .what-left / .why-left ─
+  // ── Grid alignment ────────────────────────────────────────────
+  // Desktop: background-attachment:fixed + единый размер ячейки viewport/33
+  // → все сетки используют одну систему координат и совпадают на стыках
   function alignWhatGrid() {
     const isMob = window.innerWidth <= 820;
-    document.querySelectorAll('.what-left, .why-left, .dark-left, .orange-left').forEach(el => {
-      if (isMob) {
+
+    if (isMob) {
+      // Мобилка: 28px, background-position: left top, выравнивание по сетке снизу
+      document.querySelectorAll('.what-left, .why-left, .dark-left, .orange-left').forEach(el => {
         const cell = 28;
-        el.style.setProperty('background-size', `${cell}px ${cell}px`, 'important');
-        el.style.setProperty('background-position', 'left top', 'important');
+        el.style.setProperty('background-size',     `${cell}px ${cell}px`, 'important');
+        el.style.setProperty('background-position', 'left top',            'important');
+        el.style.setProperty('background-attachment','scroll',             'important');
         el.style.setProperty('padding-top',   `${cell}px`, 'important');
         el.style.setProperty('padding-left',  `${cell}px`, 'important');
         el.style.setProperty('padding-right', `${cell}px`, 'important');
-        // Вычисляем нижний padding так, чтобы общая высота была кратна 28px
-        el.style.setProperty('padding-bottom', `${cell}px`, 'important');
-        const h   = el.offsetHeight;            // текущая высота (вызывает reflow)
-        const mod = h % cell;
-        const bot = mod === 0 ? cell : cell + (cell - mod);
-        el.style.setProperty('padding-bottom', `${bot}px`, 'important');
-        return;
+        el.style.setProperty('padding-bottom',`${cell}px`, 'important');
+        const h = el.offsetHeight, mod = h % cell;
+        el.style.setProperty('padding-bottom', `${mod === 0 ? cell : cell + (cell - mod)}px`, 'important');
+      });
+      document.querySelectorAll('.curators-sec,.slogan-sec,.team-sec,.creds-sec,.where-sec').forEach(el => {
+        el.style.setProperty('background-size','28px 28px','important');
+        el.style.setProperty('background-attachment','scroll','important');
+      });
+      ['program','s-statement'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.style.setProperty('background-size','28px 28px','important'); el.style.setProperty('background-attachment','scroll','important'); }
+      });
+      document.querySelectorAll('.topics-sec').forEach(el => {
+        el.style.setProperty('background-size','28px 28px','important');
+        el.style.setProperty('background-attachment','scroll','important');
+      });
+      return;
+    }
+
+    // Десктоп: единая ячейка = viewport / 33, fixed attachment = непрерывная сетка
+    const cell = window.innerWidth / 33;
+    const cs   = `${cell}px ${cell}px`;
+
+    document.querySelectorAll('.what-left, .why-left, .dark-left, .orange-left').forEach(el => {
+      el.style.backgroundSize       = cs;
+      el.style.backgroundAttachment = 'fixed';
+      el.style.backgroundPosition   = '0 0';
+      const p = el.offsetWidth / 20; // padding = 1/20 ширины панели
+      el.style.padding = `${p}px`;
+    });
+    document.querySelectorAll('.curators-sec,.slogan-sec,.team-sec,.creds-sec,.where-sec').forEach(el => {
+      el.style.backgroundSize       = cs;
+      el.style.backgroundAttachment = 'fixed';
+      el.style.backgroundPosition   = '0 0';
+    });
+    document.querySelectorAll('.topics-sec').forEach(el => {
+      el.style.setProperty('background-size', cs, 'important');
+      el.style.setProperty('background-attachment', 'fixed', 'important');
+    });
+    ['program','s-statement'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.setProperty('background-size',       cs,      'important');
+        el.style.setProperty('background-attachment', 'fixed', 'important');
       }
-      const w = el.offsetWidth;
-      const cell = w / 20; // 20 колонок → ячейка = 1/20 ширины
-      el.style.backgroundSize = `${cell}px ${cell}px`;
-      el.style.padding = `${cell}px`; // отступ = 1 ячейка (= 1/20 ширины)
-    });
-    // КУРАТОРЫ КУРСА — сетка только снаружи, padding не трогаем
-    document.querySelectorAll('.curators-sec').forEach(el => {
-      if (isMob) { el.style.setProperty('background-size','28px 28px','important'); return; }
-      const cell = el.offsetWidth / 20;
-      el.style.backgroundSize = `${cell}px ${cell}px`;
-    });
-    // СЛОГАН — полный оранжевый блок, только backgroundSize
-    document.querySelectorAll('.slogan-sec').forEach(el => {
-      if (isMob) { el.style.setProperty('background-size','28px 28px','important'); return; }
-      const cell = el.offsetWidth / 20;
-      el.style.backgroundSize = `${cell}px ${cell}px`;
-    });
-    // ГДЕ? + КОГДА? — синий фон с сеткой (делим на 33 чтобы ячейка = той же что у .what-left 60%/20)
-    document.querySelectorAll('.where-sec').forEach(el => {
-      const cell = el.offsetWidth / 33;
-      el.style.backgroundSize = `${cell}px ${cell}px`;
     });
   }
   alignWhatGrid();
@@ -3258,7 +3285,7 @@
     };
 
     var desk = {
-      vb: '0 0 1000 420',
+      vb: '0 -40 1000 470',
       ln: [
         [464,279, 340,351],[458,258, 315,258],[464,237, 340,165],
         [479,222, 408, 98],[500,216, 500, 73],[521,222, 593, 98],
@@ -3267,15 +3294,15 @@
       lb: [
         [305,371,'end',   'ИНДУСТРИЯ',            null],
         [270,263,'end',   'ТРЕНЕР',               null],
-        [305,145,'end',   'ЗДОРОВЬЕ',             null],
+        [305,168,'end',   'ЗДОРОВЬЕ',             null],
         [387, 63,'end',   'СООБЩЕСТВО',           null],
-        [500, 33,'middle','РОДИТЕЛЬСКИЙ БРЕЙК',   null],
+        [500, -10,'middle','РОДИТЕЛЬСКИЙ',          'БРЕЙК'],
         [613, 63,'start', 'ОБРАЗОВАНИЕ',          null],
-        [695,145,'start', 'ДЕНЬГИ',               null],
+        [695,168,'start', 'ДЕНЬГИ',               null],
         [730,263,'start', 'КАРЬЕРА',              null],
         [695,371,'start', 'СЕМЬЯ',                null]
       ],
-      fs:'23', ls:'1.5'
+      fs:'27', ls:'1.5'
     };
 
     var NS = 'http://www.w3.org/2000/svg';
