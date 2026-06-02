@@ -1427,9 +1427,15 @@
       padding: 64px 48px 40px;
     }
     .ft-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      column-gap: 48px;
+      align-items: flex-start;
     }
-    .ft-left { display: flex; flex-direction: column; }
+    .ft-left { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; }
+    .ft-links { grid-column: 2; grid-row: 1 / 3; }
+    .ft-bottom { grid-column: 1; grid-row: 2; align-self: end; }
     .ft-logo { font-family: var(--f-head); font-size: 36px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; }
     .ft-logo span { color: var(--orange); }
     .ft-desc { font-size: 14px; font-weight: 700; line-height: 1.65; color: var(--white); max-width: 500px; }
@@ -1437,10 +1443,11 @@
     .ft-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
     .ft-links a { font-size: 14px; color: var(--white); font-weight: 700; transition: color .15s; }
     .ft-links a:hover { color: var(--orange); }
-    .ft-bottom { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; font-size: 12px; color: rgba(255,255,255,.4); font-weight: 700; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.08); }
+    .ft-bottom { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; font-size: 12px; color: rgba(255,255,255,.4); font-weight: 700; margin-top: 32px; }
     .ft-docs { display: flex; flex-direction: column; gap: 8px; }
     .ft-docs a { color: rgba(255,255,255,.4); font-weight: 700; transition: color .15s; }
     .ft-docs a:hover { color: var(--white); }
+    .ft-ip { display: flex; flex-direction: column; gap: 10px; color: rgba(255,255,255,.4); }
 
     /* ══════════════════════════════════════════════════════
        MODAL
@@ -1711,6 +1718,8 @@
         border-left: none; border-top: 2px solid var(--dark);
         overflow: hidden;
       }
+      /* 9 ключевых тем — перенос на новую строку */
+      .program-blob-text strong { display: block; }
       /* Тёмная секция — цвет разделителя */
       #per-topic .what-photo { border-top-color: rgba(255,255,255,.15); }
       /* Позиция фото на мобилке — подбираем лицо в кадр */
@@ -1940,7 +1949,7 @@
 
       /* ── FOOTER ──────────────────────────────────────── */
       footer { padding: 36px 16px 24px; }
-      .ft-top { flex-direction: column; gap: 24px; align-items: center; text-align: center; }
+      .ft-top { display: flex; flex-direction: column; gap: 24px; align-items: center; text-align: center; }
       .ft-logo { text-align: center; }
       .ft-desc {
         font-family: var(--f-body) !important;
@@ -1951,8 +1960,9 @@
       footer .ft-desc br:not(.mob) { display: none; }
       .ft-links { text-align: center !important; align-items: center !important; }
       .ft-links a { font-family: var(--f-body) !important; font-size: 15px !important; line-height: 1.4 !important; }
-      .ft-bottom { flex-direction: column; gap: 10px; text-align: center; }
-      .ft-docs { flex-wrap: wrap; gap: 12px; justify-content: center; }
+      .ft-bottom { flex-direction: column; gap: 10px; text-align: center; align-items: center; width: 100%; }
+      .ft-docs { flex-direction: column; gap: 10px; align-items: center; }
+      .ft-ip { align-items: center; text-align: center; }
       .desk { display: none; }
 
       /* ── MODAL ───────────────────────────────────────── */
@@ -2361,7 +2371,7 @@
   <div style="padding:110px 48px 16px;flex-shrink:0;text-align:center;">
     <h2 id="program-title" style="font-family:var(--f-head);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--orange);"><span id="program-line1" style="white-space:nowrap;">ЧЕМУ БУДЕТ<br class="mob"> ПОСВЯЩЕН</span><br>ЭТОТ ИНТЕНСИВ?</h2>
     <div class="program-blob-wrap why-label-wrap">
-      <p class="program-blob-text">Обучение построено вокруг<br class="mob-br"> <strong>9 ключевых тем</strong>, <br>через которые проходит практически каждая семья в брейкинге.</p>
+      <p class="program-blob-text">Обучение построено вокруг <strong>9 ключевых тем,</strong><br>через которые проходит практически каждая семья в&nbsp;брейкинге.</p>
       <img src="Line.svg" class="why-label-line" alt="">
     </div>
   </div>
@@ -2402,11 +2412,11 @@
       <!-- Labels (everything shifted -25 in y; СООБЩЕСТВО/КАРЬЕРА next to arrow tips) -->
       <text x="305" y="346" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ТРЕНЕР</text>
       <text x="270" y="238" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ИНДУСТРИЯ</text>
-      <text x="305" y="140" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ЗДОРОВЬЕ</text>
+      <text x="305" y="160" text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ЗДОРОВЬЕ</text>
       <text x="395" y="62"  text-anchor="end"    font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">СООБЩЕСТВО</text>
       <text x="500" y="18"  text-anchor="middle" font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">РОДИТЕЛЬСКИЙ БРЕЙК</text>
       <text x="608" y="62"  text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">КАРЬЕРА</text>
-      <text x="695" y="140" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ДЕНЬГИ</text>
+      <text x="695" y="160" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ДЕНЬГИ</text>
       <text x="730" y="238" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">ОБРАЗОВАНИЕ</text>
       <text x="695" y="346" text-anchor="start"  font-family="'Neutral Face','Inter',sans-serif" font-size="33" font-weight="900" fill="#D1D1D1" letter-spacing="2">СЕМЬЯ</text>
     </svg>
@@ -2421,7 +2431,7 @@
     <div class="topic-card">
       <span class="topic-num">1</span>
       <p class="topic-head">Родительский брейк</p>
-      <p class="topic-desc">Как меняется роль родителя в танцевальном пути ребёнка. И какими базовыми знаниями, умениями и навыками брейкинга должен обладать родитель, чтоб обеспечить ребёнка нужной поддержкой и мотивацией.</p>
+      <p class="topic-desc">Как меняется роль родителя в&nbsp;танцевальном пути ребёнка. И&nbsp;какими базовыми знаниями, умениями и навыками брейкинга должен обладать родитель, чтоб обеспечить ребёнка нужной поддержкой и&nbsp;мотивацией.</p>
     </div>
 
     <!-- 2 -->
@@ -2442,35 +2452,35 @@
     <div class="topic-card">
       <span class="topic-num">4</span>
       <p class="topic-head">Образование</p>
-      <p class="topic-desc">Как совмещать брейкинг со школой, кружками, секциями и обычной жизнью ребёнка.</p>
+      <p class="topic-desc">Как совмещать брейкинг со&nbsp;школой, кружками, секциями и&nbsp;обычной жизнью ребёнка.</p>
     </div>
 
     <!-- 5 -->
     <div class="topic-card">
       <span class="topic-num">5</span>
       <p class="topic-head">Семья</p>
-      <p class="topic-desc">Как принимать решения о воспитании внутри семьи. Как договариваться между собой и сохранять баланс.</p>
+      <p class="topic-desc">Как принимать решения о&nbsp;воспитании внутри семьи. Как&nbsp;договариваться между собой и&nbsp;сохранять баланс.</p>
     </div>
 
     <!-- 6 -->
     <div class="topic-card">
       <span class="topic-num">6</span>
       <p class="topic-head">Сообщество</p>
-      <p class="topic-desc">Как выстраивать отношения с другими родителями, детьми, командами и окружением.</p>
+      <p class="topic-desc">Как выстраивать отношения с&nbsp;другими родителями, детьми, командами и окружением.</p>
     </div>
 
     <!-- 7 -->
     <div class="topic-card">
       <span class="topic-num">7</span>
       <p class="topic-head">Тренер</p>
-      <p class="topic-desc">Как строить здоровые взаимоотношения с тренером. Ключевые условия доверия, коммуникация, ожидания и ответственности сторон.</p>
+      <p class="topic-desc">Как строить здоровые взаимоотношения с тренером. Ключевые условия доверия, коммуникация, ожидания и&nbsp;ответственности сторон.</p>
     </div>
 
     <!-- 9 -->
     <div class="topic-card">
       <span class="topic-num">9</span>
       <p class="topic-head">Здоровье</p>
-      <p class="topic-desc">Физическое и эмоциональное состояние ребёнка. Нагрузки, восстановление, психология и профилактика выгорания.</p>
+      <p class="topic-desc">Физическое и эмоциональное состояние ребёнка. Нагрузки, восстановление, психология и&nbsp;профилактика выгорания.</p>
     </div>
 
     <!-- 8 · ИНДУСТРИЯ — на всю ширину, пункты в 4 колонки -->
@@ -2481,7 +2491,7 @@
       <ul class="topic-items">
         <li class="topic-item">Федерации</li>
         <li class="topic-item">Рейтинги и оценки</li>
-        <li class="topic-item">Ключевые команды и сообщества</li>
+        <li class="topic-item">Ключевые команды и&nbsp;сообщества</li>
         <li class="topic-item">История и развитие</li>
         <li class="topic-item">Структура</li>
         <li class="topic-item">Судейство</li>
@@ -2522,11 +2532,11 @@
         </div>
         <div class="why-list-item">
           <span class="wli-num wli-star">*</span>
-          <span class="wli-text"><strong>Практические рекомендации</strong> и живой опыт.</span>
+          <span class="wli-text"><strong>Практические рекомендации</strong> и&nbsp;живой опыт.</span>
         </div>
         <div class="why-list-item">
           <span class="wli-num">!</span>
-          <span class="wli-text">Советы от <strong>звёздных брейк-родителей,</strong> которые уже прошли этот путь вместе со своими детьми.</span>
+          <span class="wli-text">Советы от <strong>звёздных брейк&#8209;родителей,</strong> которые уже&nbsp;прошли этот путь вместе&nbsp;со своими детьми.</span>
         </div>
       </div>
       <p class="what-quote"><strong>Это не теория «из интернета».</strong><br><span>Это реальный опыт семей, тренеров и людей внутри индустрии.</span></p>
@@ -2555,7 +2565,7 @@
         </div>
         <div class="why-list-item">
           <span class="wli-num wli-star">*</span>
-          <span class="wli-text">Это <strong>система ориентиров,</strong> к которой мы очень рекомендуем возвращаться снова, снова и снова.</span>
+          <span class="wli-text">Это <strong>система ориентиров,</strong> к&nbsp;которой мы очень рекомендуем возвращаться снова, снова и снова.</span>
         </div>
       </div>
     </div>
@@ -2594,7 +2604,7 @@
         <h3 class="curator-name">АРТЁМ «PERUK»<br> ПЕРУК</h3>
         <div class="curator-list">
           <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text"><strong>Основатель</strong> команды<br class="br-mob br-medium"> <strong>XO&nbsp;Crew</strong></span></div>
-          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более <strong>20 лет</strong> опыта в брейке и предпринимательства</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более <strong>20 лет</strong> опыта в&nbsp;брейке и предпринимательства</span></div>
           <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text"><strong>Основатель</strong> самой <strong>титулованной</strong> барной команды нашей<br class="br-mob"> страны</span></div>
           <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text"><strong>Опытный предприниматель,</strong> наставник и спикер</span></div>
         </div>
@@ -2606,7 +2616,7 @@
 <!-- ══ 09c · СЛОГАН ══════════════════════════════════════════ -->
 <section class="slogan-sec" id="slogan">
   <p class="slogan-text">РЕБЁНКУ НУЖЕН<br>ВЗРОСЛЫЙ РЯДОМ,<br>КОТОРЫЙ ПОНИМАЕТ,<br>ЧТО ПРОИСХОДИТ.</p>
-  <p class="slogan-text">ИМЕННО ДЛЯ ЭТОГО<br>И БЫЛ СОЗДАН ИНТЕНСИВ<br>БРЕЙК-РОДИТЕЛЬ.</p>
+  <p class="slogan-text">ИМЕННО ДЛЯ&nbsp;ЭТОГО<br>И БЫЛ СОЗДАН ИНТЕНСИВ<br>БРЕЙК-РОДИТЕЛЬ.</p>
 </section>
 
 <!-- ══ 10 · ЗАЧЕМ? ════════════════════════════════════════════ -->
@@ -2626,7 +2636,7 @@
         </div>
         <div class="why-list-item">
           <span class="wli-num wli-star">*</span>
-          <span class="wli-text">Лучше ориентировались в <strong>соревнованиях, тренировках и развитии.</strong></span>
+          <span class="wli-text">Лучше ориентировались в&nbsp;<strong>соревнованиях, тренировках и развитии.</strong></span>
         </div>
         <div class="why-list-item">
           <span class="wli-num">?</span>
@@ -2670,7 +2680,7 @@
           <span class="wli-text">Быть <strong>энергичным</strong></span>
         </div>
       </div>
-      <p class="what-quote">А главное – чтобы рядом с ребёнком был взрослый,<br><span>который действительно понимает этот путь.</span></p>
+      <p class="what-quote">А главное – чтобы&nbsp;рядом с ребёнком был&nbsp;взрослый,<br><span>который действительно понимает этот путь.</span></p>
     </div>
   </div>
   <!-- ПРАВАЯ ЧАСТЬ: плейсхолдер фото -->
@@ -2685,7 +2695,7 @@
     <div class="what-card">
       <h2 class="what-title">ГДЕ?</h2>
       <div class="why-list">
-        <p class="wli-text"><strong>Онлайн.</strong> <strong style="color:var(--orange);">Закрытый канал VK</strong> с последующим <strong>доступом ко всем материалам.</strong></p>
+        <p class="wli-text"><strong>Онлайн.</strong> <strong style="color:var(--orange);">Закрытый канал VK</strong> с&nbsp;последующим <strong>доступом ко&nbsp;всем материалам.</strong></p>
         <div class="why-label-wrap">
           <span class="why-label-text">ВНИМАНИЕ</span>
           <img src="Line.svg" class="why-label-line" alt="">
@@ -2774,8 +2784,7 @@
       <span style="color:var(--orange);">БРЕЙК-РОДИТЕЛЬ</span> —<br>
       ЭТО НЕ ПРОСТО ОНЛАЙН-КУРС.<br>
       ЭТО ПЕРВАЯ В СВОЁМ РОДЕ ВОЗМОЖНОСТЬ
-      СТАТЬ НАСТОЯЩЕЙ ОПОРОЙ
-      ДЛЯ РЕБЁНКА.
+      СТАТЬ НАСТОЯЩЕЙ ОПОРОЙ ДЛЯ&nbsp;РЕБЁНКА.
     </p>
   </div>
 
@@ -2796,7 +2805,7 @@
       <div class="pair-body">
         <div>
           <div class="pair-item-head">Договор и документы</div>
-          <p class="pair-item-text">Если вы оплачиваете участие как юридическое лицо, мы предоставим полный пакет документов: договор, счёт, акт выполненных работ.<br><br>Для оформления — напишите нам напрямую.</p>
+          <p class="pair-item-text">Если вы оплачиваете участие как <strong>юридическое лицо,</strong> мы предоставим <strong>полный пакет документов:</strong> договор, счёт, акт выполненных работ.<br><br>Для оформления — <strong>напишите нам напрямую.</strong></p>
         </div>
         <div>
           <div class="pair-item-head">Контакты для юрлиц</div>
@@ -2810,7 +2819,7 @@
       <div class="pair-body">
         <div>
           <div class="pair-item-head">Есть вопросы?</div>
-          <p class="pair-item-text">Мы на связи и готовы помочь<br>с любым вопросом — от выбора<br>тарифа до технических<br class="br-not-large">моментов.<br><br>Время ответа: до 24 часов<br class="br-not-large">в рабочие дни.</p>
+          <p class="pair-item-text">Мы на связи и готовы помочь<br>с любым вопросом — от выбора<br>тарифа до технических<br class="br-not-large">моментов.<br><br>Время ответа: <strong>до 24 часов<br class="br-not-large">в рабочие дни.</strong></p>
         </div>
         <div>
           <div class="pair-item-head">Как написать</div>
@@ -2828,14 +2837,6 @@
     <div class="ft-left">
       <div class="ft-logo">XO <span>CREW</span></div>
       <p class="ft-desc">Крупнейшая школа <br class="mob">брейкинга в мире.<br><br class="mob"><br class="mob">Брейк-родитель — наш <br class="mob">образовательный проект <br class="mob">для семей брейкеров.</p>
-      <div class="ft-bottom">
-        <span>© 2026 XO Crew. Все права защищены.</span>
-        <span style="color:#444;display:flex;flex-direction:column;gap:4px;"><span>ИП Перук Артём Викторович</span><span>ИНН 602714737784</span><span>ОГРНИП 318602700010715</span></span>
-        <div class="ft-docs">
-          <a href="offer.html">Договор оферты</a>
-          <a href="privacy.html">Политика конфиденциальности</a>
-        </div>
-      </div>
     </div>
     <ul class="ft-links" style="text-align:right;">
       <li><a href="#what">Что?</a></li>
@@ -2851,6 +2852,14 @@
       <li><a href="#pricing">Сколько?</a></li>
       <li><a href="https://t.me/katerina_stren" target="_blank" rel="noopener">Служба заботы</a></li>
     </ul>
+    <div class="ft-bottom">
+      <span>© 2026 XO Crew. Все права защищены.</span>
+      <div class="ft-docs">
+        <a href="offer.html">Договор оферты</a>
+        <a href="privacy.html">Политика конфиденциальности</a>
+      </div>
+      <span class="ft-ip"><span>ИП Перук Артём Викторович</span><span>ИНН 602714737784</span><span>ОГРНИП 318602700010715</span></span>
+    </div>
   </div>
 </footer>
 
