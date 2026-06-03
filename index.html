@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#020202">
   <title>БРЕЙК-РОДИТЕЛЬ — XO Crew</title>
   <meta name="description" content="Первый в мире онлайн-интенсив для родителей, дети которых занимаются брейкингом. Старт 1 июля 2026.">
   <!-- Open Graph -->
@@ -108,6 +109,8 @@
     br.mob { display: none; }
 
     /* ── NAV ─────────────────────────────────────────────── */
+    html { scroll-padding-top: calc(96px + env(safe-area-inset-top)); }
+
     nav {
       position: sticky; top: 0; z-index: 500;
       transform: translateZ(0); /* iOS: свой GPU-слой, без репейнта на каждый кадр */
@@ -116,7 +119,8 @@
       display: grid;
       grid-template-columns: auto 1fr 360px;
       align-items: stretch;
-      padding: 0 0 0 48px; height: 88px;
+      padding: env(safe-area-inset-top) 0 0 48px;
+      height: calc(88px + env(safe-area-inset-top));
     }
     .nav-logo {
       display: flex; align-items: center;
@@ -184,25 +188,7 @@
       position: relative;
     }
     .mob-nav-menu a:hover { color: var(--orange); }
-    .mob-nav-menu a::before {
-      font-family: var(--f-head);
-      font-size: 1.3em;
-      color: var(--orange);
-      position: absolute;
-      right: calc(100% + 5px);
-      top: 50%; transform: translateY(-50%);
-      content: '*';
-    }
-    .mob-nav-menu a:nth-child(2)::before  { content: '!'; }
-    .mob-nav-menu a:nth-child(3)::before  { content: '?'; }
-    .mob-nav-menu a:nth-child(4)::before  { content: '*'; }
-    .mob-nav-menu a:nth-child(5)::before  { content: '!'; }
-    .mob-nav-menu a:nth-child(6)::before  { content: '?'; }
-    .mob-nav-menu a:nth-child(7)::before  { content: '*'; }
-    .mob-nav-menu a:nth-child(8)::before  { content: '!'; }
-    .mob-nav-menu a:nth-child(9)::before  { content: '?'; }
-    .mob-nav-menu a:nth-child(10)::before { content: '*'; }
-    .mob-nav-menu a:nth-child(11)::before { content: '!'; }
+    .mob-nav-menu a::before { content: none; }
     .mob-nav-blob-wrap {
       position: relative;
       display: inline-flex;
@@ -308,6 +294,42 @@
       position: relative;
       top: calc(0.22em + 5px);
     }
+    /* ── ATTENTION TICKER ───────────────────────────────── */
+    .attention-ticker {
+      overflow: hidden;
+      background: var(--orange);
+      border-top: 2px solid var(--blue);
+      border-bottom: 2px solid var(--blue);
+      padding: 6px 0;
+      user-select: none;
+    }
+    .attention-ticker-track {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      width: max-content;
+      animation: tickerScroll 18s linear infinite;
+    }
+    .att-word {
+      font-family: var(--f-head);
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--blue);
+      padding: 0 20px;
+      letter-spacing: .04em;
+    }
+    .att-sep {
+      font-family: var(--f-head);
+      font-size: clamp(70px, 9vw, 110px);
+      font-weight: 900;
+      color: var(--blue);
+      flex-shrink: 0;
+      line-height: 0;
+      position: relative;
+      top: calc(0.22em + 5px);
+    }
+
     /* ── PILL LABEL ──────────────────────────────────────── */
     .pill {
       display: inline-block;
@@ -546,6 +568,7 @@
     }
 
     /* Countdown — центр */
+    .hb-label-inner { display: none; }
     .cd-wrap {
       display: flex; flex-direction: column; align-items: center; gap: 6px;
     }
@@ -741,7 +764,7 @@
     }
     .wli-num {
       font-family: var(--f-head);
-      font-size: clamp(42px, 4.2vw, 54px);
+      font-size: clamp(56px, 5.5vw, 72px);
       font-weight: 900; line-height: 1;
       color: var(--orange); flex-shrink: 0;
       min-width: 28px;
@@ -755,6 +778,7 @@
       color: var(--dark); text-transform: uppercase;
       letter-spacing: 0;
     }
+    .wli-text strong { font-weight: 900; }
 
     /* ── dark-sec — старый тёмный вариант (не удалять, используется в других местах) */
     .dark-sec .what-title  { color: var(--orange); }
@@ -1436,7 +1460,7 @@
     .ft-left { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; }
     .ft-links { grid-column: 2; grid-row: 1 / 3; }
     .ft-bottom { grid-column: 1; grid-row: 2; align-self: end; }
-    .ft-logo { font-family: var(--f-head); font-size: 36px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; }
+    .ft-logo { font-family: var(--f-head); font-size: 56px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; }
     .ft-logo span { color: var(--orange); }
     .ft-desc { font-size: 14px; font-weight: 700; line-height: 1.65; color: var(--white); max-width: 500px; }
     .ft-col-title { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 16px; font-weight: 700; }
@@ -1599,11 +1623,12 @@
     }
 
     @media (max-width: 820px) {
+      html { scroll-padding-top: calc(72px + env(safe-area-inset-top)); }
 
       /* ── NAV ─────────────────────────────────────────── */
       nav {
-        padding: 0;
-        height: 64px;
+        padding: env(safe-area-inset-top) 0 0 0;
+        height: calc(64px + env(safe-area-inset-top));
         grid-template-columns: auto 1fr auto;
       }
       .nav-logo { display: none; }
@@ -1633,36 +1658,40 @@
       .hero-title-mobile  { display: block; max-width: 640px; margin: 0 auto; }
       .wilson-wrap { padding: 12px 0 2px; }
       .hero-sub { margin-top: 8px; font-size: clamp(14px, 4.2vw, 16px); letter-spacing: .025em; }
-      /* Countdown — метки в одну строку сверху (order!), цифры снизу */
+      /* Countdown — column layout: label → цифры → подписи */
       .hero-bottom {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: stretch;
         padding: 8px 24px 12px;
         min-height: auto;
         gap: 0;
-        overflow: hidden;
+        overflow: visible;
       }
-      /* Метки: order 1/2 выводит их в первую строку */
-      .hb-side {
-        flex: 1 !important;
-        width: auto !important;
-        justify-content: flex-start;
-        text-align: left;
+      /* Боковые блоки не нужны на мобилке */
+      .hb-side { display: none !important; }
+      .hb-label-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        width: 100%;
+        margin-bottom: 2px;
       }
-      .hb-side.left  { order: 1; }
-      .hb-side.right { order: 2; justify-content: flex-end; align-items: flex-end; text-align: right; }
-      .hb-label { font-size: 10px; letter-spacing: .1em; line-height: 1.3; }
-      .start-date { font-size: 10px; letter-spacing: .1em; text-align: right; line-height: 1.3; white-space: normal; }
-      /* Цифры: order 3 → переносятся на вторую строку, 100% ширины */
+      .hb-label-inner {
+        display: block;
+        font-size: 11px; font-weight: 900;
+        letter-spacing: .05em; line-height: 1.2;
+        color: var(--dark); text-transform: uppercase;
+      }
+      /* cd-wrap занимает полную ширину автоматически */
       .cd-wrap {
-        order: 3;
-        flex: 0 0 100%;
+        order: unset;
+        flex: none;
+        width: 100%;
         align-items: stretch;
         gap: 4px;
-        padding-top: 10px;
+        padding-top: 4px;
       }
-      /* cd-row на всю ширину с space-between — заполняет до краёв */
+      /* cd-row на всю ширину с space-between */
       .cd-row {
         width: 100%;
         justify-content: space-between;
@@ -1675,10 +1704,10 @@
         align-items: baseline;
       }
       .cd-sep { flex-shrink: 0; padding: 0 1px; }
-      /* Шрифт цифр — крупнее, подходит к краям */
+      /* Шрифт цифр */
       .cd-n   { font-size: clamp(42px, 13.5vw, 58px); min-width: auto; }
       .cd-sep { font-size: clamp(42px, 13.5vw, 58px); }
-      /* Подписи под цифрами — выравниваются по колонкам */
+      /* Подписи под цифрами */
       .cd-labels { padding: 0; width: 100%; }
       .cd-u   { font-size: 9px; }
 
@@ -1748,7 +1777,7 @@
       .why-label-text { font-size: clamp(30px, 8vw, 40px); }
       .why-list { gap: 12px; margin-top: 24px; }
 
-      .wli-num { font-size: 33px; min-width: 24px; line-height: 1; }
+      .wli-num { font-size: 44px; min-width: 30px; line-height: 1; position: relative; top: -10px; }
       .wli-num.wli-star { top: 5px; }
       .wli-text { font-size: 15px; line-height: 1.4; }
 
@@ -1781,6 +1810,7 @@
         word-wrap: break-word;
         overflow-wrap: break-word;
         box-sizing: border-box;
+        color: #fff !important;
       }
       #team .team-desc-text br { display: none; }
       /* Фото организаторов — меньше высота */
@@ -1990,9 +2020,11 @@
       border-radius: 20px;
       padding: 48px 44px 48px 44px;
       position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 10px;
+      row-gap: 16px;
+      align-items: baseline;
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.4s ease, transform 0.4s ease;
@@ -2005,29 +2037,33 @@
       grid-column: 1 / -1;
     }
     .topic-num {
-      display: none;
+      grid-column: 1;
+      grid-row: 1;
+      font-family: var(--f-head);
+      font-size: clamp(36px, 4vw, 55px);
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
     }
     .topic-head {
+      grid-column: 2;
+      grid-row: 1;
       font-size: clamp(20px, 2vw, 29px);
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: .06em;
       color: var(--orange);
       line-height: 1.2;
-      padding-right: 72px;
     }
-    .topic-card .topic-head::before {
-      font-family: var(--f-head);
-      font-size: 1.3em;
-      color: var(--orange);
-      margin-right: 8px;
-      content: '*';
-      line-height: 1;
-      position: relative;
-      top: 3px;
+    .topic-desc {
+      grid-column: 1 / -1;
+      grid-row: 2;
     }
-    .topic-card:nth-child(3n+2) .topic-head::before { content: '!'; }
-    .topic-card:nth-child(3n)   .topic-head::before { content: '?'; }
+    .topic-items {
+      grid-column: 1 / -1;
+      grid-row: 3;
+    }
+    .topic-card .topic-head::before { content: none; }
     .topic-desc {
       font-size: clamp(18px, 1.7vw, 24px);
       font-weight: 600;
@@ -2182,6 +2218,10 @@
       <div class="hb-label">ДО СТАРТА<br>ОСТАЛОСЬ</div>
     </div>
     <div class="cd-wrap">
+      <div class="hb-label-row">
+        <div class="hb-label hb-label-inner">ДО СТАРТА ОСТАЛОСЬ</div>
+        <div class="hb-label hb-label-inner">СТАРТ 1 ИЮЛЯ 2026</div>
+      </div>
       <div class="cd-row">
         <div class="cd-col"><span class="cd-n" id="cd-d">00</span></div>
         <span class="cd-sep">:</span>
@@ -2232,7 +2272,10 @@
   </div>
   <!-- Фото на всю ширину -->
   <div class="team-photo-full">
-    <img src="team-photo.webp" alt="Команда XO Crew" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+    <picture>
+      <source media="(max-width: 820px)" srcset="k8.png">
+      <img src="team-photo.webp" alt="Команда XO Crew" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+    </picture>
   </div>
 </section>
 
@@ -2279,11 +2322,11 @@
           <span class="wli-text">Где настоящее развитие, а где непланомерный перегруз</span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">!</span>
+          <span class="wli-num wli-star">*</span>
           <span class="wli-text">Какие соревнования важны, а какие просто коммерция</span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">?</span>
+          <span class="wli-num wli-star">*</span>
           <span class="wli-text">Как работает судейство и&nbsp;на чём оно основано</span>
         </div>
         <div class="why-list-item">
@@ -2291,11 +2334,11 @@
           <span class="wli-text">Как выбрать тренера и&nbsp;команду</span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">!</span>
+          <span class="wli-num wli-star">*</span>
           <span class="wli-text">Как поддерживать ребёнка без давления</span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">?</span>
+          <span class="wli-num wli-star">*</span>
           <span class="wli-text">Как не потеряться в&nbsp;индустрии и не выгореть вместе с ребёнком</span>
         </div>
       </div>
@@ -2337,25 +2380,26 @@
   <div class="why-left">
     <div class="what-card">
       <h2 class="what-title">ДЛЯ КОГО?</h2>
-      <div class="what-paragraphs">
-        <p>Возрастных ограничений нет.</p>
-      </div>
       <div class="why-list">
-        <div class="why-list-item">
-          <span class="wli-num">!</span>
-          <span class="wli-text">Родителей детей, которые&nbsp;уже занимаются брейкингом</span>
+        <div class="why-label-wrap">
+          <span class="why-label-text" style="font-family: var(--f-body); font-size: clamp(18px, 1.8vw, 20px); font-weight: 900; text-transform: uppercase; letter-spacing: .04em;">Возрастных ограничений нет.</span>
+          <img src="Line.svg" class="why-label-line" alt="">
         </div>
         <div class="why-list-item">
-          <span class="wli-num">?</span>
-          <span class="wli-text">Родителей, чьи дети только&nbsp;начинают путь</span>
+          <span class="wli-num">–</span>
+          <span class="wli-text">Родителей детей, которые&nbsp;<strong>уже занимаются брейкингом</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num wli-star">*</span>
-          <span class="wli-text">Семей, которые хотят глубже понять культуру и&nbsp;индустрию</span>
+          <span class="wli-num">–</span>
+          <span class="wli-text">Родителей, чьи дети <strong>только&nbsp;начинают</strong> путь</span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">!</span>
-          <span class="wli-text">Тех, кто хочет выстроить здоровое и долгосрочное развитие ребёнка в&nbsp;хип&#8209;хоп индустрии в целом</span>
+          <span class="wli-num">–</span>
+          <span class="wli-text">Семей, которые хотят <strong>глубже понять культуру и&nbsp;индустрию</strong></span>
+        </div>
+        <div class="why-list-item">
+          <span class="wli-num">–</span>
+          <span class="wli-text">Тех, кто хочет <strong>выстроить здоровое и долгосрочное развитие ребёнка</strong> в&nbsp;хип&#8209;хоп индустрии в целом</span>
         </div>
       </div>
     </div>
@@ -2527,15 +2571,15 @@
       <h2 class="what-title what-title-md">ПО КАЖДОЙ ТЕМЕ<br class="br-large"> <span class="per-nowrap">ВЫ<br class="br-medium"> ПОЛУЧИТЕ:</span></h2>
       <div class="why-list">
         <div class="why-list-item">
-          <span class="wli-num">?</span>
+          <span class="wli-num">+</span>
           <span class="wli-text">Знания и опыт от <strong>приглашённых экспертов.</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num wli-star">*</span>
+          <span class="wli-num">+</span>
           <span class="wli-text"><strong>Практические рекомендации</strong> и&nbsp;живой опыт.</span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">!</span>
+          <span class="wli-num">+</span>
           <span class="wli-text">Советы от <strong>звёздных брейк&#8209;родителей,</strong> которые уже&nbsp;прошли этот путь вместе&nbsp;со своими детьми.</span>
         </div>
       </div>
@@ -2556,15 +2600,15 @@
     <div class="what-card">
       <div class="why-list">
         <div class="why-list-item">
-          <span class="wli-num">!</span>
+          <span class="wli-num">x</span>
           <span class="wli-text">Формат устроен так, чтобы родители могли учиться <strong>без перегруза.</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">?</span>
+          <span class="wli-num">x</span>
           <span class="wli-text">При этом материалов будет значительно больше — интенсив можно будет использовать как <strong>полноценную библиотеку знаний</strong> и «шпаргалку» по брейк-воспитанию ребёнка.</span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num wli-star">*</span>
+          <span class="wli-num">x</span>
           <span class="wli-text">Это <strong>система ориентиров,</strong> к&nbsp;которой мы очень рекомендуем возвращаться снова, снова и снова.</span>
         </div>
       </div>
@@ -2604,7 +2648,7 @@
         <h3 class="curator-name">АРТЁМ «PERUK»<br> ПЕРУК</h3>
         <div class="curator-list">
           <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text"><strong>Основатель</strong> команды<br class="br-mob br-medium"> <strong>XO&nbsp;Crew</strong></span></div>
-          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более <strong>20 лет</strong> опыта в&nbsp;брейке и предпринимательства</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более <strong>20 лет</strong> опыта в&nbsp;брейке и<br>бизнесе</span></div>
           <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text"><strong>Основатель</strong> самой <strong>титулованной</strong> барной команды нашей<br class="br-mob"> страны</span></div>
           <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text"><strong>Опытный предприниматель,</strong> наставник и спикер</span></div>
         </div>
@@ -2612,6 +2656,30 @@
     </div>
   </div>
 </section>
+
+<!-- ══ TOPICS TICKER 2 ════════════════════════════════════ -->
+<div class="topics-ticker">
+  <div class="topics-ticker-track">
+    <span class="ticker-word">Родительский брейк</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Образование</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Деньги</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Карьера</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Семья</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Индустрия</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Тренер</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Здоровье</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Сообщество</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Родительский брейк</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Образование</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Деньги</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Карьера</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Семья</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Индустрия</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Тренер</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Здоровье</span><span class="ticker-sep">*</span>
+    <span class="ticker-word">Сообщество</span><span class="ticker-sep">*</span>
+  </div>
+</div>
 
 <!-- ══ 09c · СЛОГАН ══════════════════════════════════════════ -->
 <section class="slogan-sec" id="slogan">
@@ -2627,23 +2695,23 @@
       <h2 class="what-title">ЗАЧЕМ?</h2>
       <div class="why-list">
         <div class="why-list-item">
-          <span class="wli-num">?</span>
+          <span class="wli-num">#</span>
           <span class="wli-text">Понимали, <strong>как устроен современный брейкинг.</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">!</span>
+          <span class="wli-num">#</span>
           <span class="wli-text">Умели принимать <strong>грамотные решения.</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num wli-star">*</span>
+          <span class="wli-num">#</span>
           <span class="wli-text">Лучше ориентировались в&nbsp;<strong>соревнованиях, тренировках и развитии.</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">?</span>
+          <span class="wli-num">#</span>
           <span class="wli-text">Могли поддерживать ребёнка <strong>экологично.</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">!</span>
+          <span class="wli-num">#</span>
           <span class="wli-text"><strong>Не терялись</strong> в информации и индустрии.</span>
         </div>
       </div>
@@ -2664,23 +2732,23 @@
       <h2 class="what-title">ЧТОБЫ ЧТО?</h2>
       <div class="why-list">
         <div class="why-list-item">
-          <span class="wli-num wli-star">*</span>
-          <span class="wli-text">Быть более <strong>осознанным</strong></span>
+          <span class="wli-num">></span>
+          <span class="wli-text">Быть <strong>осознанным</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">!</span>
-          <span class="wli-text">Быть более <strong>здоровым</strong></span>
+          <span class="wli-num">></span>
+          <span class="wli-text">Быть <strong>здоровым</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">?</span>
-          <span class="wli-text">Быть более <strong>долгосрочным</strong></span>
+          <span class="wli-num">></span>
+          <span class="wli-text">Быть <strong>долгосрочным</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num wli-star">*</span>
+          <span class="wli-num">></span>
           <span class="wli-text">Быть <strong>энергичным</strong></span>
         </div>
       </div>
-      <p class="what-quote">А главное – чтобы&nbsp;рядом с ребёнком был&nbsp;взрослый,<br><span>который действительно понимает этот путь.</span></p>
+      <p class="what-quote">А главное –&nbsp;чтобы рядом<br>с ребёнком был&nbsp;взрослый, который действительно понимает и&nbsp;разделяет этот&nbsp;путь.</p>
     </div>
   </div>
   <!-- ПРАВАЯ ЧАСТЬ: плейсхолдер фото -->
@@ -2700,7 +2768,10 @@
           <span class="why-label-text">ВНИМАНИЕ</span>
           <img src="Line.svg" class="why-label-line" alt="">
         </div>
-        <p class="wli-text">Участвовать можно <strong>из любой точки мира.</strong></p>
+        <div class="why-list-item">
+          <span class="wli-num wli-star">*</span>
+          <span class="wli-text"><strong>Участвовать можно из любой точки мира!</strong></span>
+        </div>
       </div>
     </div>
   </div>
@@ -2788,12 +2859,21 @@
     </p>
   </div>
 
-  <!-- ВНИМАНИЕ-блок -->
-  <div style="background: var(--orange); padding: 18px 48px; overflow: hidden;">
-    <div class="curators-heading" style="margin-bottom: 0;">
-      <span class="curators-star" style="color: var(--blue);">*</span>
-      <h2 class="curators-heading-title" style="color: var(--blue);">ВНИМАНИЕ</h2>
-      <span class="curators-star" style="color: var(--blue);">*</span>
+  <!-- ВНИМАНИЕ-тикер -->
+  <div class="attention-ticker">
+    <div class="attention-ticker-track">
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
+      <span class="att-word">ВНИМАНИЕ</span><span class="att-sep">*</span>
     </div>
   </div>
 
@@ -2836,7 +2916,7 @@
   <div class="ft-top">
     <div class="ft-left">
       <div class="ft-logo">XO <span>CREW</span></div>
-      <p class="ft-desc">Крупнейшая школа <br class="mob">брейкинга в мире.<br><br class="mob"><br class="mob">Брейк-родитель — наш <br class="mob">образовательный проект <br class="mob">для семей брейкеров.</p>
+      <p class="ft-desc">Крупнейшая школа <br class="mob">брейкинга в мире.</p>
     </div>
     <ul class="ft-links" style="text-align:right;">
       <li><a href="#what">Что?</a></li>
