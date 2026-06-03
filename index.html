@@ -628,7 +628,7 @@
     /* ── ЧТО? SECTION ───────────────────────────────────── */
     .what-sec {
       display: flex; flex-direction: row;
-      contain: paint;
+      contain: layout paint;
     }
     /* Левая половина — синяя с сеткой (размер сетки ставится JS) */
     .what-left, .why-left {
@@ -1022,7 +1022,7 @@
     ══════════════════════════════════════════════════════ */
     .team-sec {
       display: flex; flex-direction: column;
-      contain: paint;
+      contain: layout paint;
       background: var(--dark);
       background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
                         linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
@@ -1068,7 +1068,7 @@
        03b · ЗА ПЛЕЧАМИ КОМАНДЫ
     ══════════════════════════════════════════════════════ */
     .creds-sec {
-      contain: paint;
+      contain: layout paint;
       background: var(--dark);
       background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
                         linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
@@ -1126,7 +1126,7 @@
        КУРАТОРЫ КУРСА
     ══════════════════════════════════════════════════════ */
     .curators-sec {
-      contain: paint;
+      contain: layout paint;
       background: var(--dark);
       background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
                         linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
@@ -4016,7 +4016,7 @@
       entries.forEach(function(e) {
         e.target.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
       });
-    }, { rootMargin: '200px' }); // 200px буфер — начинаем до того как видно
+    }, { rootMargin: '800px' }); // большой буфер — анимация стартует заранее
     tracks.forEach(function(el) { io.observe(el); });
   })();
 
