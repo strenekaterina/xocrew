@@ -1639,6 +1639,18 @@
     @media (max-width: 820px) {
       html { scroll-padding-top: 72px; }
 
+      /* Тёмная подложка над навом — закрашивает любую щель над оранжевым навом,
+         если visual viewport на мгновение сместится (Telegram iOS URL-бар) */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 120px;
+        background: #020202;
+        z-index: 498;
+        pointer-events: none;
+      }
+
       /* ── NAV ─────────────────────────────────────────── */
       nav {
         position: fixed; top: 0; left: 0; right: 0;
@@ -2997,6 +3009,24 @@
 
 <!-- ══ SCRIPTS ═══════════════════════════════════════════════ -->
 <script>
+  // ── iOS in-app WebView → открыть в Safari (Telegram, Instagram и т.п.) ────
+  (function() {
+    var ua = navigator.userAgent;
+    var isIOS = /iPhone|iPad|iPod/.test(ua);
+    if (!isIOS) return;
+    // Detect iOS WebView: no "Safari" token but has "AppleWebKit"
+    var isSafari = /Safari\//.test(ua) && /Version\//.test(ua) && !/CriOS/.test(ua) && !/FxiOS/.test(ua);
+    if (isSafari) return; // already in Safari, no redirect needed
+    // We're in a WebView (Telegram, Instagram, etc.)
+    // Try x-safari-https:// scheme to force-open in Safari
+    try {
+      var href = window.location.href;
+      if (href.startsWith('https://')) {
+        window.location.replace('x-safari-' + href);
+      }
+    } catch(e) {}
+  })();
+
   // ── Debounce utility ─────────────────────────────────────────────────────
   function _db(fn, ms) { var t; return function() { clearTimeout(t); t = setTimeout(fn, ms); }; }
 
@@ -3075,7 +3105,31 @@
     });
   }
   alignWhatGrid();
-  window.addEventListener('resize', _db(alignWhatGrid, 180));
+  // Только при реальном изменении ширины: показ/скрытие адресной строки в
+  // Telegram/iOS меняет лишь высоту → не должно дёргать сетку (cell = innerWidth/14).
+  (function() {
+    var _prevW = window.innerWidth;
+    window.addEventListener('resize', _db(function() {
+      var w = window.innerWidth;
+      if (w !== _prevW) { _prevW = w; alignWhatGrid(); }
+    }, 180));
+  })();
+
+  // ── Nav привязан к visual viewport (фикс щели над навом в Telegram iOS) ────
+  // URL-бар Telegram WKWebView внутри фрейма: при анимации смещается
+  // visualViewport.offsetTop, а position:fixed считается от layout viewport.
+  // Компенсируем сдвиг через translateY.
+  (function() {
+    if (window.innerWidth > 820 || !window.visualViewport) return;
+    var navEl = document.querySelector('nav');
+    if (!navEl) return;
+    function _syncNav() {
+      navEl.style.transform = 'translateY(' + window.visualViewport.offsetTop + 'px)';
+    }
+    window.visualViewport.addEventListener('scroll', _syncNav);
+    window.visualViewport.addEventListener('resize', _syncNav);
+    _syncNav();
+  })();
 
   // ── КУРАТОРЫ — выравниваем высоты пунктов по обоим столбцам ─
   function alignCuratorItems() {
