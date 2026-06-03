@@ -3029,6 +3029,9 @@
 
   // ── Debounce utility ─────────────────────────────────────────────────────
   function _db(fn, ms) { var t; return function() { clearTimeout(t); t = setTimeout(fn, ms); }; }
+  // _dbW: запускает fn только если изменилась ШИРИНА (поворот телефона).
+  // Telegram URL-bar show/hide меняет только высоту — такие события игнорируются.
+  function _dbW(fn, ms) { var t, w = window.innerWidth; return function() { var nw = window.innerWidth; if (nw === w) return; clearTimeout(t); t = setTimeout(function(){ w = nw; fn(); }, ms); }; }
 
   // ── Grid alignment ────────────────────────────────────────────
   // Desktop: background-attachment:fixed + единый размер ячейки viewport/33
@@ -3107,13 +3110,7 @@
   alignWhatGrid();
   // Только при реальном изменении ширины: показ/скрытие адресной строки в
   // Telegram/iOS меняет лишь высоту → не должно дёргать сетку (cell = innerWidth/14).
-  (function() {
-    var _prevW = window.innerWidth;
-    window.addEventListener('resize', _db(function() {
-      var w = window.innerWidth;
-      if (w !== _prevW) { _prevW = w; alignWhatGrid(); }
-    }, 180));
-  })();
+  window.addEventListener('resize', _dbW(alignWhatGrid, 180));
 
   // ── Nav привязан к visual viewport (фикс щели над навом в Telegram iOS) ────
   // URL-бар Telegram WKWebView внутри фрейма: при анимации смещается
@@ -3147,7 +3144,7 @@
     }
   }
   alignCuratorItems();
-  window.addEventListener('resize', _db(alignCuratorItems, 180));
+  window.addEventListener('resize', _dbW(alignCuratorItems, 180));
   window.addEventListener('load', alignCuratorItems);
 
   // ── ЧТО? — на мобилке 2 копии, шрифт подбирается под ширину ─
@@ -3171,7 +3168,7 @@
     el.textContent = 'ЧТО?';
   }
   repeatWhatTitle();
-  window.addEventListener('resize', _db(repeatWhatTitle, 180));
+  window.addEventListener('resize', _dbW(repeatWhatTitle, 180));
 
   // ── ПО КАЖДОЙ ТЕМЕ — на мобилке до края по длинной строке ──
   function fitPerTopicMobileTitle() {
@@ -3202,7 +3199,7 @@
     el.innerHTML = 'ПО КАЖДОЙ ТЕМЕ<br>ВЫ ПОЛУЧИТЕ:';
   }
   fitPerTopicMobileTitle();
-  window.addEventListener('resize', _db(fitPerTopicMobileTitle, 180));
+  window.addEventListener('resize', _dbW(fitPerTopicMobileTitle, 180));
 
   // ── ЗАЧЕМ? — на мобилке до края карточки ────────────────────
   function fitWhyJoinMobileTitle() {
@@ -3225,7 +3222,7 @@
     el.textContent = 'ЗАЧЕМ?';
   }
   fitWhyJoinMobileTitle();
-  window.addEventListener('resize', _db(fitWhyJoinMobileTitle, 180));
+  window.addEventListener('resize', _dbW(fitWhyJoinMobileTitle, 180));
 
   // ── ПОЧЕМУ? — на мобилке до края карточки ───────────────────
   function fitWhyMobileTitle() {
@@ -3247,7 +3244,7 @@
     el.style.whiteSpace = '';
   }
   fitWhyMobileTitle();
-  window.addEventListener('resize', _db(fitWhyMobileTitle, 180));
+  window.addEventListener('resize', _dbW(fitWhyMobileTitle, 180));
 
   // ── ДЛЯ КОГО? — на мобилке до края карточки ─────────────────
   function fitForWhomMobileTitle() {
@@ -3270,7 +3267,7 @@
     el.style.setProperty('font-size', lo + 'px', 'important');
   }
   fitForWhomMobileTitle();
-  window.addEventListener('resize', _db(fitForWhomMobileTitle, 180));
+  window.addEventListener('resize', _dbW(fitForWhomMobileTitle, 180));
 
   // ── ЧТОБЫ ЧТО? — на мобилке до края карточки ────────────────
   function fitChtoChtoMobileTitle() {
@@ -3291,7 +3288,7 @@
     el.style.setProperty('font-size', lo + 'px', 'important');
   }
   fitChtoChtoMobileTitle();
-  window.addEventListener('resize', _db(fitChtoChtoMobileTitle, 180));
+  window.addEventListener('resize', _dbW(fitChtoChtoMobileTitle, 180));
 
   // ── ГДЕ? — 2 копии до края карточки (мобилка + десктоп) ───────
   function repeatWhereMobileTitle() {
@@ -3314,7 +3311,7 @@
     el.textContent = 'ГДЕ?';
   }
   repeatWhereMobileTitle();
-  window.addEventListener('resize', _db(repeatWhereMobileTitle, 180));
+  window.addEventListener('resize', _dbW(repeatWhereMobileTitle, 180));
 
   // ── КОГДА? — на мобилке 2 копии до края карточки ────────────
   function repeatWhenMobileTitle() {
@@ -3339,7 +3336,7 @@
     el.textContent = 'КОГДА?';
   }
   repeatWhenMobileTitle();
-  window.addEventListener('resize', _db(repeatWhenMobileTitle, 180));
+  window.addEventListener('resize', _dbW(repeatWhenMobileTitle, 180));
 
   // ── ЧТОБЫ ЧТО? — шрифт растягивается до ширины карточки ───
   function fitChtoTitle() {
@@ -3360,7 +3357,7 @@
     el.style.fontSize = lo + 'px';
   }
   fitChtoTitle();
-  window.addEventListener('resize', _db(fitChtoTitle, 180));
+  window.addEventListener('resize', _dbW(fitChtoTitle, 180));
 
   // ── ЮРЛИЦА + ЗАБОТА — оба заголовка одинакового размера (по меньшему) ─
   function fitLegalTitles() {
@@ -3391,7 +3388,7 @@
     }
   }
   fitLegalTitles();
-  window.addEventListener('resize', _db(fitLegalTitles, 180));
+  window.addEventListener('resize', _dbW(fitLegalTitles, 180));
 
   // ── ЧЕМУ БУДЕТ ПОСВЯЩЕН — первая строка точно в ширину секции ─
   function fitProgramTitle() {
@@ -3413,7 +3410,7 @@
     h2.style.fontSize = lo + 'px';
   }
   fitProgramTitle();
-  window.addEventListener('resize', _db(fitProgramTitle, 180));
+  window.addEventListener('resize', _dbW(fitProgramTitle, 180));
 
   // fitHowTitle removed — size now set via .what-title-md CSS
 
@@ -3731,7 +3728,7 @@
 
     function update() { applyLayout(window.innerWidth <= 820 ? mob : desk); }
     update();
-    window.addEventListener('resize', _db(update, 180));
+    window.addEventListener('resize', _dbW(update, 180));
   })();
 
   // ── TYPEWRITER ────────────────────────────────────────────────────────────
