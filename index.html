@@ -1643,17 +1643,6 @@
     @media (max-width: 820px) {
       html { scroll-padding-top: 72px; }
 
-      /* Тёмная подложка над навом — закрашивает любую щель над оранжевым навом,
-         если visual viewport на мгновение сместится (Telegram iOS URL-бар) */
-      body::before {
-        content: '';
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        height: 64px;
-        background: #020202;
-        z-index: 498;
-        pointer-events: none;
-      }
 
       /* ── NAV ─────────────────────────────────────────── */
       nav {
@@ -2181,6 +2170,7 @@
   </style>
 </head>
 <body>
+<div id="nav-fill" style="display:none;position:fixed;top:0;left:0;right:0;height:64px;background:#020202;z-index:499;pointer-events:none;"></div>
 
 <!-- ticker removed -->
 
@@ -3116,19 +3106,23 @@
   // Telegram/iOS меняет лишь высоту → не должно дёргать сетку (cell = innerWidth/14).
   window.addEventListener('resize', _dbW(alignWhatGrid, 180));
 
-  // ── Nav привязан к visual viewport (фикс щели над навом в Telegram iOS) ────
-  // URL-бар Telegram WKWebView внутри фрейма: при анимации смещается
-  // visualViewport.offsetTop, а position:fixed считается от layout viewport.
-  // Компенсируем сдвиг через translateY.
+  // ── Nav + тёмная подложка привязаны к visual viewport (Telegram iOS gap fix) ─
   (function() {
-    if (window.innerWidth > 820 || !window.visualViewport) return;
+    if (window.innerWidth > 820) return;
     var navEl = document.querySelector('nav');
+    var fill  = document.getElementById('nav-fill');
     if (!navEl) return;
+    if (fill) fill.style.display = 'block';
     function _syncNav() {
-      navEl.style.transform = 'translateY(' + window.visualViewport.offsetTop + 'px)';
+      var offset = window.visualViewport ? window.visualViewport.offsetTop : 0;
+      navEl.style.transform = 'translateY(' + offset + 'px)';
+      // подложка растёт вместе со сдвигом: закрывает зазор между URL-баром и навом
+      if (fill) fill.style.height = (offset + 64) + 'px';
     }
-    window.visualViewport.addEventListener('scroll', _syncNav);
-    window.visualViewport.addEventListener('resize', _syncNav);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('scroll', _syncNav);
+      window.visualViewport.addEventListener('resize', _syncNav);
+    }
     _syncNav();
   })();
 
