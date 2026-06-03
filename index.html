@@ -86,7 +86,7 @@
       --f-body: 'Neutral Face', 'Inter', sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; }
     body {
       background: var(--white);
       color: var(--dark);
@@ -129,7 +129,6 @@
 
     nav {
       position: sticky; top: 0; z-index: 500;
-      transform: translateZ(0); /* iOS: свой GPU-слой, без репейнта на каждый кадр */
       background: var(--dark);
       border-bottom: 2px solid rgba(255,255,255,.08);
       display: grid;
@@ -1642,6 +1641,7 @@
 
       /* ── NAV ─────────────────────────────────────────── */
       nav {
+        position: fixed; top: 0; left: 0; right: 0;
         padding: 0;
         height: 64px;
         grid-template-columns: auto 1fr auto;
@@ -1666,7 +1666,7 @@
       .ticker-item { font-size: 9px; padding: 0 16px; }
 
       /* ── HERO ────────────────────────────────────────── */
-      #hero { height: auto !important; min-height: auto; }
+      #hero { height: auto !important; min-height: auto; margin-top: 64px; }
       .hero-top { flex: 0 0 auto; padding: 24px 16px; background-size: 28px 28px; }
       /* Заголовок — мобилка: logo-new.svg вместо zagolovok.svg */
       .hero-title-desktop { display: none; }
@@ -2997,6 +2997,9 @@
 
 <!-- ══ SCRIPTS ═══════════════════════════════════════════════ -->
 <script>
+  // ── Debounce utility ─────────────────────────────────────────────────────
+  function _db(fn, ms) { var t; return function() { clearTimeout(t); t = setTimeout(fn, ms); }; }
+
   // ── Grid alignment ────────────────────────────────────────────
   // Desktop: background-attachment:fixed + единый размер ячейки viewport/33
   // → все сетки используют одну систему координат и совпадают на стыках
@@ -3072,7 +3075,7 @@
     });
   }
   alignWhatGrid();
-  window.addEventListener('resize', alignWhatGrid);
+  window.addEventListener('resize', _db(alignWhatGrid, 180));
 
   // ── КУРАТОРЫ — выравниваем высоты пунктов по обоим столбцам ─
   function alignCuratorItems() {
@@ -3090,7 +3093,7 @@
     }
   }
   alignCuratorItems();
-  window.addEventListener('resize', alignCuratorItems);
+  window.addEventListener('resize', _db(alignCuratorItems, 180));
   window.addEventListener('load', alignCuratorItems);
 
   // ── ЧТО? — на мобилке 2 копии, шрифт подбирается под ширину ─
@@ -3114,7 +3117,7 @@
     el.textContent = 'ЧТО?';
   }
   repeatWhatTitle();
-  window.addEventListener('resize', repeatWhatTitle);
+  window.addEventListener('resize', _db(repeatWhatTitle, 180));
 
   // ── ПО КАЖДОЙ ТЕМЕ — на мобилке до края по длинной строке ──
   function fitPerTopicMobileTitle() {
@@ -3145,7 +3148,7 @@
     el.innerHTML = 'ПО КАЖДОЙ ТЕМЕ<br>ВЫ ПОЛУЧИТЕ:';
   }
   fitPerTopicMobileTitle();
-  window.addEventListener('resize', fitPerTopicMobileTitle);
+  window.addEventListener('resize', _db(fitPerTopicMobileTitle, 180));
 
   // ── ЗАЧЕМ? — на мобилке до края карточки ────────────────────
   function fitWhyJoinMobileTitle() {
@@ -3168,7 +3171,7 @@
     el.textContent = 'ЗАЧЕМ?';
   }
   fitWhyJoinMobileTitle();
-  window.addEventListener('resize', fitWhyJoinMobileTitle);
+  window.addEventListener('resize', _db(fitWhyJoinMobileTitle, 180));
 
   // ── ПОЧЕМУ? — на мобилке до края карточки ───────────────────
   function fitWhyMobileTitle() {
@@ -3190,7 +3193,7 @@
     el.style.whiteSpace = '';
   }
   fitWhyMobileTitle();
-  window.addEventListener('resize', fitWhyMobileTitle);
+  window.addEventListener('resize', _db(fitWhyMobileTitle, 180));
 
   // ── ДЛЯ КОГО? — на мобилке до края карточки ─────────────────
   function fitForWhomMobileTitle() {
@@ -3213,7 +3216,7 @@
     el.style.setProperty('font-size', lo + 'px', 'important');
   }
   fitForWhomMobileTitle();
-  window.addEventListener('resize', fitForWhomMobileTitle);
+  window.addEventListener('resize', _db(fitForWhomMobileTitle, 180));
 
   // ── ЧТОБЫ ЧТО? — на мобилке до края карточки ────────────────
   function fitChtoChtoMobileTitle() {
@@ -3234,7 +3237,7 @@
     el.style.setProperty('font-size', lo + 'px', 'important');
   }
   fitChtoChtoMobileTitle();
-  window.addEventListener('resize', fitChtoChtoMobileTitle);
+  window.addEventListener('resize', _db(fitChtoChtoMobileTitle, 180));
 
   // ── ГДЕ? — 2 копии до края карточки (мобилка + десктоп) ───────
   function repeatWhereMobileTitle() {
@@ -3257,7 +3260,7 @@
     el.textContent = 'ГДЕ?';
   }
   repeatWhereMobileTitle();
-  window.addEventListener('resize', repeatWhereMobileTitle);
+  window.addEventListener('resize', _db(repeatWhereMobileTitle, 180));
 
   // ── КОГДА? — на мобилке 2 копии до края карточки ────────────
   function repeatWhenMobileTitle() {
@@ -3282,7 +3285,7 @@
     el.textContent = 'КОГДА?';
   }
   repeatWhenMobileTitle();
-  window.addEventListener('resize', repeatWhenMobileTitle);
+  window.addEventListener('resize', _db(repeatWhenMobileTitle, 180));
 
   // ── ЧТОБЫ ЧТО? — шрифт растягивается до ширины карточки ───
   function fitChtoTitle() {
@@ -3303,7 +3306,7 @@
     el.style.fontSize = lo + 'px';
   }
   fitChtoTitle();
-  window.addEventListener('resize', fitChtoTitle);
+  window.addEventListener('resize', _db(fitChtoTitle, 180));
 
   // ── ЮРЛИЦА + ЗАБОТА — оба заголовка одинакового размера (по меньшему) ─
   function fitLegalTitles() {
@@ -3334,7 +3337,7 @@
     }
   }
   fitLegalTitles();
-  window.addEventListener('resize', fitLegalTitles);
+  window.addEventListener('resize', _db(fitLegalTitles, 180));
 
   // ── ЧЕМУ БУДЕТ ПОСВЯЩЕН — первая строка точно в ширину секции ─
   function fitProgramTitle() {
@@ -3356,7 +3359,7 @@
     h2.style.fontSize = lo + 'px';
   }
   fitProgramTitle();
-  window.addEventListener('resize', fitProgramTitle);
+  window.addEventListener('resize', _db(fitProgramTitle, 180));
 
   // fitHowTitle removed — size now set via .what-title-md CSS
 
@@ -3387,21 +3390,7 @@
     if (o !== _heroOrient) { _heroOrient = o; setHeroHeight(); }
   });
 
-  // ── Countdown ─────────────────────────────────────────────
-  const START = new Date('2026-07-01T00:00:00');
-  function tick() {
-    const diff = START - Date.now();
-    const pad = n => String(n).padStart(2, '0');
-    if (diff <= 0) {
-      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
-      return;
-    }
-    document.getElementById('cd-d').textContent = pad(Math.floor(diff / 86400000));
-    document.getElementById('cd-h').textContent = pad(Math.floor(diff % 86400000 / 3600000));
-    document.getElementById('cd-m').textContent = pad(Math.floor(diff % 3600000 / 60000));
-    document.getElementById('cd-s').textContent = pad(Math.floor(diff % 60000 / 1000));
-  }
-  tick(); setInterval(tick, 1000);
+  // ── Countdown — управляется в блоке ниже ──────────────────
 
   // ── Topics accordion ──────────────────────────────────────
   function toggleTopic(el) {
@@ -3550,10 +3539,9 @@
     // ── Mobile: touchmove по SVG-заголовку ───────────────────
     if (isMob) {
       let lastTX = -999, lastTY = -999;
-      trigger.addEventListener('touchstart', function(e) {
-        e.preventDefault();
+      trigger.addEventListener('touchstart', function() {
         lastTX = lastTY = -999;
-      }, { passive: false });
+      }, { passive: true });
 
       trigger.addEventListener('touchmove', function(e) {
         e.preventDefault();
@@ -3579,7 +3567,6 @@
           'opacity:0',
           `transform:rotate(${rot}deg) scale(0.72)`,
           'transition:opacity .22s ease, transform .32s cubic-bezier(.34,1.45,.64,1)',
-          'will-change:transform,opacity',
           'box-shadow:0 8px 28px rgba(0,0,0,.5)',
         ].join(';');
         hero.appendChild(el);
@@ -3690,7 +3677,7 @@
 
     function update() { applyLayout(window.innerWidth <= 820 ? mob : desk); }
     update();
-    window.addEventListener('resize', update);
+    window.addEventListener('resize', _db(update, 180));
   })();
 
   // ── TYPEWRITER ────────────────────────────────────────────────────────────
@@ -3964,6 +3951,41 @@
       io.unobserve(sec);
     }, { threshold: 0.15 });
     io.observe(sec);
+  })();
+
+  // ── Smooth scroll только для nav/anchor ссылок ──────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var id = this.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ── Countdown — с очисткой interval при скрытой вкладке ─────────────────
+  (function() {
+    var cdStart = new Date('2026-07-01T00:00:00');
+    function cdTick() {
+      var diff = cdStart - Date.now();
+      var pad = function(n) { return String(n).padStart(2,'0'); };
+      if (diff <= 0) {
+        ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent='00'; });
+        return;
+      }
+      var d=document.getElementById('cd-d'), h=document.getElementById('cd-h'), m=document.getElementById('cd-m'), s=document.getElementById('cd-s');
+      if(d) d.textContent=pad(Math.floor(diff/86400000));
+      if(h) h.textContent=pad(Math.floor(diff%86400000/3600000));
+      if(m) m.textContent=pad(Math.floor(diff%3600000/60000));
+      if(s) s.textContent=pad(Math.floor(diff%60000/1000));
+    }
+    cdTick();
+    var cdInterval = setInterval(cdTick, 1000);
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) { clearInterval(cdInterval); }
+      else { cdTick(); cdInterval = setInterval(cdTick, 1000); }
+    });
   })();
 
   (function() {
