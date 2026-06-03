@@ -3035,9 +3035,11 @@
 
     if (isMob) {
       // Мобилка: scroll вместо fixed — fixed вызывает серые блоки в iOS WebView
-      const mobCell = window.innerWidth / 14; // ~28px при 390px
+      const mobCell = Math.round(window.innerWidth / 14); // целое число — точный snap
       const mobCs = `${mobCell}px ${mobCell}px`;
-      const mobPos = '-1px -4px';
+      // 0px 0px: сетка начинается ровно от края элемента → H % cell = 0 выравнивает идеально
+      // (с -4px offset условие было (H+4)%cell=0, что несовместимо с выравниванием соседних блоков)
+      const mobPos = '0px 0px';
       document.querySelectorAll('.what-left, .why-left, .dark-left, .orange-left').forEach(el => {
         el.style.setProperty('background-size',      mobCs,    'important');
         el.style.setProperty('background-position',  mobPos,   'important');
@@ -3046,8 +3048,9 @@
         el.style.setProperty('padding-top',   `${cell}px`, 'important');
         el.style.setProperty('padding-left',  `${cell}px`, 'important');
         el.style.setProperty('padding-right', `${cell}px`, 'important');
+        el.style.setProperty('padding-bottom', `${cell}px`, 'important'); // reset → стабильное чтение h
         const h = el.offsetHeight, mod = h % cell;
-        el.style.setProperty('padding-bottom', `${mod === 0 ? cell : cell + (cell - mod)}px`, 'important');
+        el.style.setProperty('padding-bottom', `${cell + (mod === 0 ? 0 : cell - mod)}px`, 'important');
       });
       document.querySelectorAll('.curators-sec,.slogan-sec,.team-sec,.creds-sec,.where-sec,.hero-top,.curators-grid').forEach(el => {
         el.style.setProperty('background-size',      mobCs,  'important');
@@ -3101,10 +3104,72 @@
       }
     });
   }
-  alignWhatGrid();
+  // ── Привязка высот секций к сетке (mobile only) ─────────────────────────
+  // Цель: каждая секция начинается и заканчивается на полной клетке.
+  // Условие: высота каждой секции кратна cell = Math.round(innerWidth/14).
+  // .what-left уже снапится выше. Здесь снапим фото и остальные секции.
+  function snapGridSections() {
+    if (window.innerWidth > 820) return;
+    var cell = Math.round(window.innerWidth / 14);
+    // Вспомогательная функция: добавляет к pb элемента столько, чтобы offsetHeight % cell = 0
+    function snapEl(el, prop) {
+      prop = prop || 'padding-bottom';
+      el.style.removeProperty(prop);
+      var h = el.offsetHeight;
+      var mod = h % cell;
+      if (mod > 0) {
+        var cur = parseFloat(window.getComputedStyle(el)[prop]) || 0;
+        el.style.setProperty(prop, (cur + cell - mod) + 'px', 'important');
+      }
+    }
+
+    // 1. Снапим .hero-top (синяя сетка внутри hero) → заканчивается на полном квадрате
+    var heroTop = document.querySelector('.hero-top');
+    if (heroTop) snapEl(heroTop);
+
+    // 2. Снапим #hero total через .hero-bottom → следующий блок стартует на полном квадрате
+    var hero = document.getElementById('hero');
+    var hb   = document.querySelector('.hero-bottom');
+    if (hero && hb) {
+      hb.style.removeProperty('padding-bottom');
+      var heroMod = hero.offsetHeight % cell;
+      if (heroMod > 0) {
+        var hbCur = parseFloat(window.getComputedStyle(hb).paddingBottom) || 0;
+        hb.style.setProperty('padding-bottom', (hbCur + cell - heroMod) + 'px', 'important');
+      }
+    }
+
+    // 3. Снапим .what-photo → .what-sec total % cell = 0
+    document.querySelectorAll('.what-photo').forEach(function(photo) {
+      photo.style.removeProperty('height');
+      var mod = photo.offsetHeight % cell;
+      if (mod > 0) photo.style.setProperty('height', (photo.offsetHeight + cell - mod) + 'px', 'important');
+    });
+
+    // 4. .team-sec: снапим .team-top и .team-photo-full отдельно
+    //    (два перехода: текст→фото и фото→следующая секция)
+    var teamTop = document.querySelector('.team-top');
+    if (teamTop) snapEl(teamTop);
+    var teamPhoto = document.querySelector('.team-photo-full');
+    if (teamPhoto) {
+      teamPhoto.style.removeProperty('height');
+      var tpMod = teamPhoto.offsetHeight % cell;
+      if (tpMod > 0) teamPhoto.style.setProperty('height', (teamPhoto.offsetHeight + cell - tpMod) + 'px', 'important');
+    }
+
+    // 5. Снапим остальные секции с сеткой → добавляем pb до кратного cell
+    //    #legal исключён — он внутри #s-statement, отдельный snap ломает выравнивание
+    document.querySelectorAll('.team-sec, .creds-sec, .curators-sec, .slogan-sec, #format, #program, .topics-sec, #pricing, #s-statement').forEach(function(el) {
+      snapEl(el);
+    });
+  }
+
+  function alignAndSnap() { alignWhatGrid(); snapGridSections(); }
+  alignAndSnap();
+  window.addEventListener('load', alignAndSnap);
   // Только при реальном изменении ширины: показ/скрытие адресной строки в
   // Telegram/iOS меняет лишь высоту → не должно дёргать сетку (cell = innerWidth/14).
-  window.addEventListener('resize', _dbW(alignWhatGrid, 180));
+  window.addEventListener('resize', _dbW(alignAndSnap, 180));
 
   // ── Nav + тёмная подложка привязаны к visual viewport (Telegram iOS gap fix) ─
   (function() {
