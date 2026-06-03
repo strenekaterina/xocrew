@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#020202">
   <title>БРЕЙК-РОДИТЕЛЬ — XO Crew</title>
   <meta name="description" content="Первый в мире онлайн-интенсив для родителей, дети которых занимаются брейкингом. Старт 1 июля 2026.">
@@ -109,7 +109,9 @@
     br.mob { display: none; }
 
     /* ── NAV ─────────────────────────────────────────────── */
-    html { scroll-padding-top: calc(96px + env(safe-area-inset-top)); }
+    html { scroll-padding-top: 96px; }
+
+    html { background-color: #020202; }
 
     nav {
       position: sticky; top: 0; z-index: 500;
@@ -119,8 +121,7 @@
       display: grid;
       grid-template-columns: auto 1fr 360px;
       align-items: stretch;
-      padding: env(safe-area-inset-top) 0 0 48px;
-      height: calc(88px + env(safe-area-inset-top));
+      padding: 0 0 0 48px; height: 88px;
     }
     .nav-logo {
       display: flex; align-items: center;
@@ -1623,12 +1624,12 @@
     }
 
     @media (max-width: 820px) {
-      html { scroll-padding-top: calc(72px + env(safe-area-inset-top)); }
+      html { scroll-padding-top: 72px; }
 
       /* ── NAV ─────────────────────────────────────────── */
       nav {
-        padding: env(safe-area-inset-top) 0 0 0;
-        height: calc(64px + env(safe-area-inset-top));
+        padding: 0;
+        height: 64px;
         grid-template-columns: auto 1fr auto;
       }
       .nav-logo { display: none; }
@@ -2989,14 +2990,14 @@
     const isMob = window.innerWidth <= 820;
 
     if (isMob) {
-      // Мобилка: фиксированная сетка — единая за всеми блоками
+      // Мобилка: scroll вместо fixed — fixed вызывает серые блоки в iOS WebView
       const mobCell = window.innerWidth / 14; // ~28px при 390px
       const mobCs = `${mobCell}px ${mobCell}px`;
       const mobPos = '-1px -4px';
       document.querySelectorAll('.what-left, .why-left, .dark-left, .orange-left').forEach(el => {
         el.style.setProperty('background-size',      mobCs,    'important');
         el.style.setProperty('background-position',  mobPos,   'important');
-        el.style.setProperty('background-attachment','fixed',   'important');
+        el.style.setProperty('background-attachment','scroll',  'important');
         const cell = mobCell;
         el.style.setProperty('padding-top',   `${cell}px`, 'important');
         el.style.setProperty('padding-left',  `${cell}px`, 'important');
@@ -3007,20 +3008,20 @@
       document.querySelectorAll('.curators-sec,.slogan-sec,.team-sec,.creds-sec,.where-sec,.hero-top,.curators-grid').forEach(el => {
         el.style.setProperty('background-size',      mobCs,  'important');
         el.style.setProperty('background-position',  mobPos, 'important');
-        el.style.setProperty('background-attachment','fixed', 'important');
+        el.style.setProperty('background-attachment','scroll', 'important');
       });
       ['program','s-statement'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-          el.style.setProperty('background-size',      mobCs,  'important');
-          el.style.setProperty('background-position',  mobPos, 'important');
-          el.style.setProperty('background-attachment','fixed', 'important');
+          el.style.setProperty('background-size',      mobCs,   'important');
+          el.style.setProperty('background-position',  mobPos,  'important');
+          el.style.setProperty('background-attachment','scroll', 'important');
         }
       });
       document.querySelectorAll('.topics-sec').forEach(el => {
-        el.style.setProperty('background-size',      mobCs,  'important');
-        el.style.setProperty('background-position',  mobPos, 'important');
-        el.style.setProperty('background-attachment','fixed', 'important');
+        el.style.setProperty('background-size',      mobCs,   'important');
+        el.style.setProperty('background-position',  mobPos,  'important');
+        el.style.setProperty('background-attachment','scroll', 'important');
       });
       return;
     }
