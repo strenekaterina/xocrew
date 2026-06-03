@@ -628,6 +628,7 @@
     /* ── ЧТО? SECTION ───────────────────────────────────── */
     .what-sec {
       display: flex; flex-direction: row;
+      contain: paint;
     }
     /* Левая половина — синяя с сеткой (размер сетки ставится JS) */
     .what-left, .why-left {
@@ -1021,6 +1022,7 @@
     ══════════════════════════════════════════════════════ */
     .team-sec {
       display: flex; flex-direction: column;
+      contain: paint;
       background: var(--dark);
       background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
                         linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
@@ -1066,6 +1068,7 @@
        03b · ЗА ПЛЕЧАМИ КОМАНДЫ
     ══════════════════════════════════════════════════════ */
     .creds-sec {
+      contain: paint;
       background: var(--dark);
       background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
                         linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
@@ -1123,6 +1126,7 @@
        КУРАТОРЫ КУРСА
     ══════════════════════════════════════════════════════ */
     .curators-sec {
+      contain: paint;
       background: var(--dark);
       background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
                         linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
@@ -4002,6 +4006,18 @@
       io.unobserve(sec);
     }, { threshold: 0.15 });
     io.observe(sec);
+  })();
+
+  // ── Пауза анимаций тикеров вне viewport (снижает GPU pressure в WKWebView) ─
+  (function() {
+    var tracks = document.querySelectorAll('.ticker-track, .topics-ticker-track, .attention-ticker-track');
+    if (!tracks.length || !window.IntersectionObserver) return;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        e.target.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
+      });
+    }, { rootMargin: '200px' }); // 200px буфер — начинаем до того как видно
+    tracks.forEach(function(el) { io.observe(el); });
   })();
 
   // ── Smooth scroll только для nav/anchor ссылок ──────────────────────────
