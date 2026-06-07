@@ -21,6 +21,7 @@
   <meta name="twitter:title"       content="БРЕЙК-РОДИТЕЛЬ — XO Crew">
   <meta name="twitter:description" content="Первый в мире онлайн-интенсив для родителей, дети которых занимаются брейкингом. Старт 1 июля 2026.">
   <meta name="twitter:image"       content="https://xocrew.ru/team-photo.webp">
+  <link rel="canonical" href="https://xocrew.ru/">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231929C2'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='11' fill='%23FF5200'>XO</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3049,9 +3050,20 @@
         el.style.setProperty('padding-top',   `${cell}px`, 'important');
         el.style.setProperty('padding-left',  `${cell}px`, 'important');
         el.style.setProperty('padding-right', `${cell}px`, 'important');
-        el.style.setProperty('padding-bottom', `${cell}px`, 'important'); // reset → стабильное чтение h
+        // pb = всегда ровно 1 клетка (1 квадрат синего под карточкой)
+        el.style.setProperty('padding-bottom', `${cell}px`, 'important');
+        // Остаток добавляем внутрь карточки, чтобы её высота стала кратна cell
+        const card = el.querySelector('.what-card');
+        if (card) card.style.removeProperty('padding-bottom');
         const h = el.offsetHeight, mod = h % cell;
-        el.style.setProperty('padding-bottom', `${cell + (mod === 0 ? 0 : cell - mod)}px`, 'important');
+        if (mod > 0) {
+          if (card) {
+            const cardPb = parseFloat(window.getComputedStyle(card).paddingBottom) || 0;
+            card.style.setProperty('padding-bottom', `${cardPb + (cell - mod)}px`, 'important');
+          } else {
+            el.style.setProperty('padding-bottom', `${cell + (cell - mod)}px`, 'important');
+          }
+        }
       });
       document.querySelectorAll('.curators-sec,.slogan-sec,.team-sec,.creds-sec,.where-sec,.hero-top,.curators-grid').forEach(el => {
         el.style.setProperty('background-size',      mobCs,  'important');
@@ -3163,9 +3175,39 @@
 
     // 5. Снапим остальные секции с сеткой → добавляем pb до кратного cell
     //    #legal исключён — он внутри #s-statement, отдельный snap ломает выравнивание
-    document.querySelectorAll('.team-sec, .creds-sec, .curators-sec, .slogan-sec, #format, #program, .topics-sec, #pricing, #s-statement').forEach(function(el) {
+    document.querySelectorAll('.team-sec, .creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
       snapEl(el);
     });
+    // .topics-sec: pb=cell (1 квадрат), остаток добавляем в последнюю карточку
+    (function() {
+      var sec = document.querySelector('.topics-sec');
+      if (!sec) return;
+      var lastCard = sec.querySelector('.topics-grid .topic-card:last-child');
+      if (!lastCard) { snapEl(sec); return; }
+      sec.style.removeProperty('padding-bottom');
+      lastCard.style.removeProperty('padding-bottom');
+      sec.style.setProperty('padding-bottom', cell + 'px', 'important');
+      var mod = sec.offsetHeight % cell;
+      if (mod > 0) {
+        var basePb = parseFloat(window.getComputedStyle(lastCard).paddingBottom) || 0;
+        lastCard.style.setProperty('padding-bottom', (basePb + cell - mod) + 'px', 'important');
+      }
+    })();
+    // #s-statement: pb=cell (1 квадрат), остаток добавляем в #legal
+    (function() {
+      var sec = document.getElementById('s-statement');
+      if (!sec) return;
+      var legal = document.getElementById('legal');
+      if (!legal) { snapEl(sec); return; }
+      sec.style.removeProperty('padding-bottom');
+      legal.style.removeProperty('padding-bottom');
+      sec.style.setProperty('padding-bottom', cell + 'px', 'important');
+      var mod = sec.offsetHeight % cell;
+      if (mod > 0) {
+        var basePb = parseFloat(window.getComputedStyle(legal).paddingBottom) || 0;
+        legal.style.setProperty('padding-bottom', (basePb + cell - mod) + 'px', 'important');
+      }
+    })();
   }
 
   // ── Привязка высот секций к сетке (desktop) ─────────────────────────────
@@ -3196,9 +3238,39 @@
     }
 
     // Остальные секции с сеткой
-    document.querySelectorAll('.team-sec, .creds-sec, .curators-sec, .slogan-sec, #format, #program, .topics-sec, #pricing, #s-statement').forEach(function(el) {
+    document.querySelectorAll('.team-sec, .creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
       snapEl(el);
     });
+    // .topics-sec: pb=cell (1 квадрат), остаток добавляем в последнюю карточку
+    (function() {
+      var sec = document.querySelector('.topics-sec');
+      if (!sec) return;
+      var lastCard = sec.querySelector('.topics-grid .topic-card:last-child');
+      if (!lastCard) { snapEl(sec); return; }
+      sec.style.removeProperty('padding-bottom');
+      lastCard.style.removeProperty('padding-bottom');
+      sec.style.paddingBottom = cell + 'px';
+      var mod = sec.offsetHeight % cell;
+      if (mod > 0) {
+        var basePb = parseFloat(window.getComputedStyle(lastCard).paddingBottom) || 0;
+        lastCard.style.paddingBottom = (basePb + cell - mod) + 'px';
+      }
+    })();
+    // #s-statement: pb=cell (1 квадрат), остаток добавляем в #legal
+    (function() {
+      var sec = document.getElementById('s-statement');
+      if (!sec) return;
+      var legal = document.getElementById('legal');
+      if (!legal) { snapEl(sec); return; }
+      sec.style.removeProperty('padding-bottom');
+      legal.style.removeProperty('padding-bottom');
+      sec.style.paddingBottom = cell + 'px';
+      var mod = sec.offsetHeight % cell;
+      if (mod > 0) {
+        var basePb = parseFloat(window.getComputedStyle(legal).paddingBottom) || 0;
+        legal.style.paddingBottom = (basePb + cell - mod) + 'px';
+      }
+    })();
   }
 
   function alignAndSnap() {
