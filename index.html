@@ -758,16 +758,21 @@
       font-size: clamp(16px, 1.9vw, 27px);
       font-weight: 700;
       text-transform: uppercase;
-      color: #D1D1D1;
+      color: var(--dark);
       line-height: 1.35;
       position: relative;
       z-index: 1;
       padding: 0 16px;
     }
+    .program-blob-text strong { color: var(--blue); font-weight: 700; }
     .program-blob-wrap .why-label-line {
-      width: 140%;
+      width: 130%;
       height: auto;
-      left: -20%;
+      left: -15%;
+      top: calc(50% + 70px);
+    }
+    .program-blob-wrap .why-label-line.visible {
+      transform: translateY(-60%) scaleX(1) scaleY(1.5);
     }
     .why-list-item {
       display: flex; align-items: flex-start; gap: 8px;
@@ -1807,6 +1812,7 @@
       #where .what-card { padding-bottom: 28px !important; }
       #when .what-paragraphs { margin-top: 28px; }
       #when .what-card { padding-bottom: 28px !important; }
+      #when .when-dates { margin-top: 90px !important; }
       #why-join .why-list { margin-top: 28px; }
       #why-join .what-quote { margin-top: 28px; margin-bottom: 0; }
       #why-join .what-card { padding-bottom: 28px !important; }
@@ -1889,11 +1895,12 @@
       #program > div:last-child { padding: 16px 8px 32px !important; }
       /* Заголовок программы — white-space:nowrap и font-size стоят инлайн/JS, перебиваем */
       #program-line1 { white-space: normal !important; }
-      #program-title { font-size: clamp(42px, 11vw, 62px) !important; line-height: 1 !important; }
+      #program-title { font-size: clamp(52px, 14vw, 80px) !important; line-height: 1 !important; }
       /* Сетка фона — одинаковая для #program и .topics-sec (они один визуальный блок).
          !important нужен — инлайн-стиль background-size:56px 56px иначе побеждает. */
       #program { background-size: 28px 28px !important; }
       .topics-sec { background-size: 28px 28px !important; }
+      .team-sec { background-size: 28px 28px !important; }
 
       /* ── ТЕМЫ (topic cards) ──────────────────────────── */
       /* ВАЖНО: base CSS .topics-grid стоит ПОСЛЕ media query → нужен !important */
@@ -1911,7 +1918,7 @@
 
       /* ── КУРАТОРЫ КУРСА — SWIPE SLIDER ─────────────── */
       /* Без overflow:hidden на секции — он мешает iOS Safari скроллить дочерний контейнер */
-      .curators-sec { padding: 36px 0 40px; }
+      .curators-sec { padding: 28px 0 40px; border-bottom: none; }
       .curators-heading { gap: 4px; margin-bottom: 32px; padding: 0 8px; }
       .curators-heading-title { font-size: clamp(52px, 14vw, 80px); position: relative; z-index: 1; }
       .curators-swipe-hint { display: inline; }
@@ -1948,6 +1955,7 @@
       .curator-info { padding: 24px 20px 28px; }
       .curator-name { font-size: clamp(26px, 7.5vw, 34px); margin-bottom: 16px; }
       .curator-list { gap: 12px; }
+      .curator-item-num { font-size: 28px; }
       .curator-item-text { font-size: 15px; line-height: 1.4; }
 
       /* ── СЛОГАН ──────────────────────────────────────── */
@@ -2070,16 +2078,15 @@
       grid-column: 1 / -1;
     }
     .topic-num {
-      grid-column: 1;
-      grid-row: 1;
-      font-family: var(--f-head);
-      font-size: clamp(36px, 4vw, 55px);
-      font-weight: 900;
+      display: inline;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
       color: var(--orange);
-      line-height: 1;
+      line-height: inherit;
     }
     .topic-head {
-      grid-column: 2;
+      grid-column: 1 / -1;
       grid-row: 1;
       font-size: clamp(20px, 2vw, 29px);
       font-weight: 900;
@@ -2118,13 +2125,16 @@
       text-transform: uppercase;
       color: var(--blue);
       line-height: 1.35;
-      padding-left: 18px;
+      padding-left: 28px;
       position: relative;
     }
     .topic-item::before {
-      content: "•";
+      content: "e";
+      font-family: 'Sprite Graffiti Extras';
+      font-size: 1em;
       position: absolute;
       left: 0;
+      top: 0.1em;
       color: var(--orange);
     }
 
@@ -2286,7 +2296,7 @@
     <div class="what-card">
       <h2 class="what-title">ЧТО?</h2>
       <div class="what-paragraphs">
-        <p><span style="position:relative;display:inline-block;"><img src="blob-line3.svg" style="position:absolute;top:calc(50% + 10px);left:50%;transform:translate(-50%,-50%);width:130%;pointer-events:none;" alt=""><strong style="position:relative;">Брейк-родитель</strong></span> — это первый в своем роде месячный <strong>онлайн-интенсив для родителей,</strong> которые желают разобраться, как устроен современный мир брейкинга и&nbsp;как грамотно сопровождать ребенка на этом сложнейшем (но интереснейшем) пути.</p>
+        <p><span style="position:relative;display:inline-block;"><img src="blob-line3.svg" style="position:absolute;top:calc(50% + 10px);left:50%;transform:translate(-50%,-50%);width:130%;pointer-events:none;" alt=""><strong style="position:relative;">Брейк-родитель</strong></span><span style="position:relative;"> — это первый в своем роде месячный <strong>онлайн-интенсив для родителей,</strong> которые желают разобраться, как устроен современный мир брейкинга и&nbsp;как грамотно сопровождать ребенка на этом сложнейшем (но интереснейшем) пути.</span></p>
         <div style="position:relative;">
           <img src="Line.svg" style="position:absolute;top:50%;left:calc(50% - 20px);transform:translate(-50%,-50%);width:110%;pointer-events:none;" alt="">
           <p style="position:relative;"><strong>Сегодня брейкинг</strong> — это уже не&nbsp;просто танцы. Это <strong>олимпийская дисциплина</strong> и&nbsp;целая международная индустрия.</p>
@@ -2306,7 +2316,7 @@
 <section class="team-sec" id="team">
   <div class="team-top">
     <h2 class="team-title">ОРГАНИЗАТОРЫ</h2>
-    <p class="team-desc-text">Интенсив создан командой <strong>XO&nbsp;Crew</strong> — крупнейшей школой брейкинга в мире и одной из<br class="mob-br"> главных точек развития брейкинг-культуры в России.</p>
+    <p class="team-desc-text">Интенсив создан командой <strong>XO&nbsp;Crew</strong> — крупнейшей школой брейкинга в мире и одной из<br class="mob-br"> главных точек развития брейкинг-культуры в России</p>
   </div>
   <!-- Фото на всю ширину -->
   <div class="team-photo-full">
@@ -2451,10 +2461,10 @@
 <!-- ══ 06 · 9 ТЕМ · СИНИЙ ═══════════════════════════════════ -->
 <section class="s-blue" id="program" style="display:flex;flex-direction:column;border-bottom:2px solid rgba(255,255,255,.12);overflow:hidden;background-image:linear-gradient(rgba(255,255,255,.12) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.12) 2px,transparent 2px);background-size:56px 56px;">
   <div style="padding:110px 48px 16px;flex-shrink:0;text-align:center;">
-    <h2 id="program-title" style="font-family:var(--f-head);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--orange);"><span id="program-line1" style="white-space:nowrap;">ЧЕМУ БУДЕТ<br class="mob"> ПОСВЯЩЕН</span><br>ЭТОТ ИНТЕНСИВ?</h2>
+    <h2 id="program-title" style="font-family:var(--f-head);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--orange);"><span id="program-line1" style="white-space:nowrap;">ЧЕМУ БУДЕТ<br class="mob"> ПОСВЯЩЕН</span><br>ИНТЕНСИВ?</h2>
     <div class="program-blob-wrap why-label-wrap">
-      <p class="program-blob-text">Обучение построено вокруг <strong>9 ключевых тем,</strong><br>через которые проходит практически каждая семья в&nbsp;брейкинге.</p>
-      <img src="Line.svg" class="why-label-line" alt="">
+      <p class="program-blob-text">Обучение построено вокруг <strong>9 ключевых тем,</strong><br>через которые проходит практически каждая семья в&nbsp;брейкинге</p>
+      <img src="blob-line3.svg" class="why-label-line" alt="" style="filter:grayscale(1) brightness(1.4);">
     </div>
   </div>
   <div style="padding-top:120px;padding-bottom:120px;">
@@ -2511,64 +2521,55 @@
 
     <!-- 1 -->
     <div class="topic-card">
-      <span class="topic-num">1</span>
-      <p class="topic-head">Родительский брейк</p>
+      <p class="topic-head"><span class="topic-num">1</span>&nbsp;Родительский брейк</p>
       <p class="topic-desc">Как меняется роль родителя в&nbsp;танцевальном пути ребенка. И&nbsp;какими базовыми знаниями, умениями и навыками брейкинга должен обладать родитель, чтоб обеспечить ребенка нужной поддержкой и&nbsp;мотивацией.</p>
     </div>
 
     <!-- 2 -->
     <div class="topic-card">
-      <span class="topic-num">2</span>
-      <p class="topic-head">Карьера</p>
+      <p class="topic-head"><span class="topic-num">2</span>&nbsp;Карьера</p>
       <p class="topic-desc">Как может развиваться профессиональный путь ребенка в хип-хоп индустрии. Спорт, культура, профессия, бизнес и визионерство, умноженные на международные возможности и перспективы.</p>
     </div>
 
     <!-- 3 -->
     <div class="topic-card">
-      <span class="topic-num">3</span>
-      <p class="topic-head">Деньги</p>
+      <p class="topic-head"><span class="topic-num">3</span>&nbsp;Деньги</p>
       <p class="topic-desc">Расходы, турниры, поездки, экипировка, инвестиции в развитие ребенка и финансовое планирование.</p>
     </div>
 
     <!-- 4 -->
     <div class="topic-card">
-      <span class="topic-num">4</span>
-      <p class="topic-head">Образование</p>
+      <p class="topic-head"><span class="topic-num">4</span>&nbsp;Образование</p>
       <p class="topic-desc">Как совмещать брейкинг со&nbsp;школой, кружками, секциями и&nbsp;обычной жизнью ребенка.</p>
     </div>
 
     <!-- 5 -->
     <div class="topic-card">
-      <span class="topic-num">5</span>
-      <p class="topic-head">Семья</p>
+      <p class="topic-head"><span class="topic-num">5</span>&nbsp;Семья</p>
       <p class="topic-desc">Как принимать решения о&nbsp;воспитании внутри семьи. Как&nbsp;договариваться между собой и&nbsp;сохранять баланс.</p>
     </div>
 
     <!-- 6 -->
     <div class="topic-card">
-      <span class="topic-num">6</span>
-      <p class="topic-head">Сообщество</p>
+      <p class="topic-head"><span class="topic-num">6</span>&nbsp;Сообщество</p>
       <p class="topic-desc">Как выстраивать отношения с&nbsp;другими родителями, детьми, командами и окружением.</p>
     </div>
 
     <!-- 7 -->
     <div class="topic-card">
-      <span class="topic-num">7</span>
-      <p class="topic-head">Тренер</p>
+      <p class="topic-head"><span class="topic-num">7</span>&nbsp;Тренер</p>
       <p class="topic-desc">Как строить здоровые взаимоотношения с тренером. Ключевые условия доверия, коммуникация, ожидания и&nbsp;ответственности сторон.</p>
     </div>
 
     <!-- 8 -->
     <div class="topic-card">
-      <span class="topic-num">8</span>
-      <p class="topic-head">Здоровье</p>
+      <p class="topic-head"><span class="topic-num">8</span>&nbsp;Здоровье</p>
       <p class="topic-desc">Физическое и эмоциональное состояние ребенка. Нагрузки, восстановление, психология и&nbsp;профилактика выгорания.</p>
     </div>
 
     <!-- 9 · ИНДУСТРИЯ — на всю ширину, пункты в 4 колонки -->
     <div class="topic-card topic-card-wide">
-      <span class="topic-num">9</span>
-      <p class="topic-head">Индустрия</p>
+      <p class="topic-head"><span class="topic-num">9</span>&nbsp;Индустрия</p>
       <p class="topic-desc">Что такое современная индустрия брейкинга:</p>
       <ul class="topic-items">
         <li class="topic-item">Федерации</li>
@@ -2588,7 +2589,7 @@
 <!-- ══ 07 · КАК ПРОХОДИТ? ════════════════════════════════════ -->
 <section class="creds-sec" id="format">
   <h2 class="creds-title">КАК ПРОХОДИТ<br>ОБУЧЕНИЕ?</h2>
-  <p class="team-desc-text fmt-desc">Интенсив длится <strong>1 месяц.</strong><br class="mob-br">Каждой теме посвящено <strong>3 дня</strong><br class="mob-br"> <strong>погружения,</strong> практики и<br class="mob-br"> обсуждений.<br> <strong>Все материалы</strong><br class="mob-br"> <strong>и записи сохраняются</strong> —<br> используй как личную<br class="mob-br"> библиотеку брейк-родителя.</p>
+  <p class="team-desc-text fmt-desc">Интенсив длится <strong>1 месяц.</strong><br class="mob-br">Каждой теме посвящено <strong>3 дня</strong><br class="mob-br"> <strong>погружения,</strong> практики и<br class="mob-br"> обсуждений.<br> <strong>Все материалы</strong><br class="mob-br"> <strong>и записи сохраняются</strong> —<br> используй как личную<br class="mob-br"> библиотеку брейк-родителя</p>
   <div class="creds-grid">
     <div class="cred-card"><span class="cred-num">1</span><span class="cred-text">Видеоуроки</span></div>
     <div class="cred-card"><span class="cred-num">2</span><span class="cred-text">Живые эфиры</span></div>
@@ -2638,15 +2639,15 @@
     <div class="what-card">
       <div class="why-list">
         <div class="why-list-item">
-          <span class="wli-num">x</span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:0;">f</span>
           <span class="wli-text">Формат устроен так, чтобы родители могли учиться <strong>без перегруза.</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">x</span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:0;">f</span>
           <span class="wli-text">При этом материалов будет значительно больше — интенсив можно будет использовать как <strong>полноценную библиотеку знаний</strong> и «шпаргалку» по брейк-воспитанию ребенка.</span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">x</span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:0;">f</span>
           <span class="wli-text">Это <strong>система ориентиров,</strong> к&nbsp;которой мы очень рекомендуем возвращаться снова, снова и снова.</span>
         </div>
       </div>
@@ -2686,7 +2687,7 @@
         <h3 class="curator-name">АРТЕМ «PERUK»<br> ПЕРУК</h3>
         <div class="curator-list">
           <div class="curator-item"><span class="curator-item-num">1</span><span class="curator-item-text"><strong>Основатель</strong> команды<br class="br-mob br-medium"> <strong>XO&nbsp;Crew</strong></span></div>
-          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более <strong>20 лет</strong> опыта в&nbsp;брейке и<br>бизнесе</span></div>
+          <div class="curator-item"><span class="curator-item-num">2</span><span class="curator-item-text">Более <strong>20 лет</strong> опыта<br class="mob-br"> в&nbsp;брейке и<br>бизнесе</span></div>
           <div class="curator-item"><span class="curator-item-num">3</span><span class="curator-item-text"><strong>Основатель</strong> самой <strong>титулованной</strong> барной команды нашей<br class="br-mob"> страны</span></div>
           <div class="curator-item"><span class="curator-item-num">4</span><span class="curator-item-text"><strong>Опытный предприниматель,</strong> наставник и спикер</span></div>
         </div>
@@ -2770,19 +2771,19 @@
       <h2 class="what-title">ЧТОБЫ ЧТО?</h2>
       <div class="why-list">
         <div class="why-list-item">
-          <span class="wli-num">></span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-5px;">f</span>
           <span class="wli-text">Быть <strong>осознанным</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">></span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-5px;">f</span>
           <span class="wli-text">Быть <strong>здоровым</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">></span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-5px;">f</span>
           <span class="wli-text">Быть <strong>долгосрочным</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num">></span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-5px;">f</span>
           <span class="wli-text">Быть <strong>энергичным</strong></span>
         </div>
       </div>
@@ -2826,7 +2827,7 @@
       <div class="why-list">
         <p class="wli-text"><strong>1 месяц</strong> погружения, практики и <strong>переосмысления роли родителя</strong> в брейкинге.</p>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:48px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:48px;" class="when-dates">
         <div class="date-start">
           <div class="date-label">Старт</div>
           <div class="date-value">1 Июля</div>
@@ -2893,7 +2894,7 @@
       <span style="color:var(--orange);">Брейк-родитель</span> — это<br>
       не просто онлайн-курс.<br>
       Это первая в своем роде возможность перестать быть случайным наблюдателем<br>
-      и стать настоящей опорой для ребенка в его брейкинг-пути.
+      и стать настоящей опорой для ребенка в его брейкинг-пути
     </p>
   </div>
 
@@ -3053,10 +3054,11 @@
     if (isMob) {
       // Мобилка: scroll вместо fixed — fixed вызывает серые блоки в iOS WebView
       const mobCell = Math.round(window.innerWidth / 14); // целое число — точный snap
-      const mobCs = `${mobCell}px ${mobCell}px`;
-      // 0px 0px: сетка начинается ровно от края элемента → H % cell = 0 выравнивает идеально
-      // (с -4px offset условие было (H+4)%cell=0, что несовместимо с выравниванием соседних блоков)
-      const mobPos = '0px 0px';
+      // точная горизонтальная ячейка: 14 колонок делят экран ровно → правый край тоже с линией
+      const mobCellExact = window.innerWidth / 14;
+      const mobCs = `${mobCellExact}px ${mobCell}px`;
+      // -1px -1px: сдвиг на 1px → линия видна с КАЖДОЙ из 4 сторон блока
+      const mobPos = '-1px -1px';
       document.querySelectorAll('.what-left, .why-left, .dark-left, .orange-left').forEach(el => {
         el.style.setProperty('background-size',      mobCs,    'important');
         el.style.setProperty('background-position',  mobPos,   'important');
@@ -3186,7 +3188,12 @@
     // 4. .team-sec: снапим .team-top и .team-photo-full отдельно
     //    (два перехода: текст→фото и фото→следующая секция)
     var teamTop = document.querySelector('.team-top');
-    if (teamTop) snapEl(teamTop);
+    if (teamTop) {
+      snapEl(teamTop);
+      // +1px чтобы линия сетки была видна на 1px снизу (граница текст→фото)
+      var ttPb = parseFloat(window.getComputedStyle(teamTop).paddingBottom) || 0;
+      teamTop.style.setProperty('padding-bottom', (ttPb + 1) + 'px', 'important');
+    }
     var teamPhoto = document.querySelector('.team-photo-full');
     if (teamPhoto) {
       teamPhoto.style.removeProperty('height');
@@ -3196,7 +3203,9 @@
 
     // 5. Снапим остальные секции с сеткой → добавляем pb до кратного cell
     //    #legal исключен — он внутри #s-statement, отдельный snap ломает выравнивание
-    document.querySelectorAll('.team-sec, .creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
+    //    .team-sec исключён: team-top и team-photo уже снапнуты по отдельности →
+    //    без своего snap нет padding-bottom под фото, блок кончается ровно по краю фото
+    document.querySelectorAll('.creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
       snapEl(el);
     });
     // .topics-sec: pb=cell (1 квадрат), остаток добавляем в последнюю карточку
@@ -3258,8 +3267,8 @@
       if (tpMod > 0) teamPhoto.style.height = (teamPhoto.offsetHeight + cell - tpMod) + 'px';
     }
 
-    // Остальные секции с сеткой
-    document.querySelectorAll('.team-sec, .creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
+    // Остальные секции с сеткой (.team-sec исключён — кончается ровно по краю фото)
+    document.querySelectorAll('.creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
       snapEl(el);
     });
     // .topics-sec: pb=cell (1 квадрат), остаток добавляем в последнюю карточку
