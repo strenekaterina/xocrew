@@ -89,7 +89,7 @@
 
     html { scroll-behavior: auto; background: #020202; }
     body {
-      background: var(--white);
+      background: var(--dark);
       color: var(--dark);
       font-family: var(--f-body);
       -webkit-font-smoothing: antialiased;
@@ -3061,11 +3061,11 @@
       // Мобилка: scroll вместо fixed — fixed вызывает серые блоки в iOS WebView
       // clientWidth даёт CSS layout width без browser chrome (надёжнее innerWidth на iOS)
       const vw = document.documentElement.clientWidth || window.innerWidth;
-      const dpr = window.devicePixelRatio || 1;
-      const mobCell = Math.round(vw / 14); // целое число — точный snap
-      // округление до физического пикселя: 14 клеток × rounded = vw ровно
-      const mobCellExact = Math.round(vw * dpr / 14) / dpr;
-      const mobCs = `${mobCellExact}px ${mobCell}px`;
+      const mobCell = Math.round(vw / 14); // целое число — точный snap для паддингов
+      // vw/14 (точный float): 14 тайлов × (vw/14) = vw → последняя линия ровно у правого края
+      // при -1px сдвиге: 1px линии видна слева И 1px у правого края
+      const mobCellH = vw / 14;
+      const mobCs = `${mobCellH}px ${mobCell}px`;
       // -1px -1px: сдвиг на 1px → линия видна с КАЖДОЙ из 4 сторон блока
       const mobPos = '-1px -1px';
       document.querySelectorAll('.what-left, .why-left, .dark-left, .orange-left').forEach(el => {
@@ -3444,12 +3444,14 @@
     if (!card) return;
     const available = card.clientWidth - 40;
     el.style.whiteSpace = 'nowrap';
-    el.textContent = 'ПОЛУЧИТЕ:';
+    const testLines = ['ПО КАЖДОЙ', 'ТЕМЕ ВЫ', 'ПОЛУЧИТЕ:'];
     let lo = 20, hi = 200;
     while (hi - lo > 1) {
       const mid = Math.floor((lo + hi) / 2);
       el.style.setProperty('font-size', mid + 'px', 'important');
-      if (el.scrollWidth <= available) lo = mid;
+      let maxW = 0;
+      testLines.forEach(line => { el.textContent = line; maxW = Math.max(maxW, el.scrollWidth); });
+      if (maxW <= available) lo = mid;
       else hi = mid;
     }
     el.style.setProperty('font-size', lo + 'px', 'important');
