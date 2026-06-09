@@ -87,7 +87,7 @@
       --f-body: 'Neutral Face', 'Inter', sans-serif;
     }
 
-    html { scroll-behavior: auto; }
+    html { scroll-behavior: auto; background: #020202; }
     body {
       background: var(--white);
       color: var(--dark);
@@ -769,10 +769,10 @@
       width: 130%;
       height: auto;
       left: -15%;
-      top: calc(50% + 70px);
+      top: calc(50% + 65px);
     }
     .program-blob-wrap .why-label-line.visible {
-      transform: translateY(-60%) scaleX(1) scaleY(1.5);
+      transform: translateY(-60%) scaleX(1) scaleY(1.65);
     }
     .why-list-item {
       display: flex; align-items: flex-start; gap: 8px;
@@ -1776,8 +1776,10 @@
         border-left: none; border-top: 2px solid var(--dark);
         overflow: hidden;
       }
-      /* 9 ключевых тем — перенос на новую строку */
-      .program-blob-text strong { display: block; }
+      /* 9 ключевых тем — без принудительного блока на мобилке, ЧЕРЕЗ идёт следом */
+      .program-top-wrap { padding-left: 0 !important; padding-right: 0 !important; }
+      .program-blob-wrap { display: block; }
+      .program-blob-text { font-size: 15px; padding: 0 !important; }
       /* Темная секция — цвет разделителя */
       #per-topic .what-photo { border-top-color: rgba(255,255,255,.15); }
       /* Позиция фото на мобилке — подбираем лицо в кадр */
@@ -1804,15 +1806,18 @@
       /* На мобилке card padding = 20px → блид уменьшаем */
       .why-label-line { left: -38px; height: 52px; }
       .why-label-text { font-size: clamp(30px, 8vw, 40px); }
-      .why-list { gap: 12px; margin-top: 14px; }
+      .why-list { gap: 14px; margin-top: 14px; }
       #chto-chto .why-list { margin-top: 28px; }
-      #chto-chto .what-quote { margin-top: 28px; }
+      #per-topic .why-list { margin-top: 28px; }
+      #chto-chto .what-quote { margin-top: 23px; }
       #for-whom .why-list { margin-top: 28px; }
       #where .why-list { margin-top: 28px; }
+      #where .why-label-wrap { margin-top: 28px; }
       #where .what-card { padding-bottom: 28px !important; }
       #when .what-paragraphs { margin-top: 28px; }
       #when .what-card { padding-bottom: 28px !important; }
-      #when .when-dates { margin-top: 90px !important; }
+      #when .when-dates { margin-top: 48px !important; }
+      #when .what-card { padding-bottom: 28px !important; }
       #why-join .why-list { margin-top: 28px; }
       #why-join .what-quote { margin-top: 28px; margin-bottom: 0; }
       #why-join .what-card { padding-bottom: 28px !important; }
@@ -1955,11 +1960,12 @@
       .curator-info { padding: 24px 20px 28px; }
       .curator-name { font-size: clamp(26px, 7.5vw, 34px); margin-bottom: 16px; }
       .curator-list { gap: 12px; }
-      .curator-item-num { font-size: 28px; }
+      .curator-item { align-items: baseline; }
+      .curator-item-num { font-size: 28px; line-height: 1; position: relative; top: 2px; }
       .curator-item-text { font-size: 15px; line-height: 1.4; }
 
       /* ── СЛОГАН ──────────────────────────────────────── */
-      .slogan-sec { padding: 48px 16px; gap: 36px; }
+      .slogan-sec { padding: 48px 16px 20px; gap: 36px; }
       .slogan-text {
         font-size: clamp(28px, 8.5vw, 52px);
         line-height: 1.05;
@@ -1996,7 +2002,7 @@
       .pc { flex: 0 0 82vw; scroll-snap-align: start; }
       .pc-body { padding: 24px 16px 36px; }
       .pc-name { font-size: clamp(44px, 11vw, 60px); }
-      .pc-price { font-size: clamp(36px, 10vw, 56px); }
+      .pc-price { font-size: clamp(36px, 10vw, 56px); margin-top: 8px; }
       .pc-inst { margin-top: 8px; }
 
       /* ── ФИНАЛЬНЫЙ СТЕЙТМЕНТ ─────────────────────────── */
@@ -2448,7 +2454,7 @@
       </div>
       <div style="margin-top:28px;text-align:center;position:relative;overflow:visible;">
         <img src="blob-line3.svg" style="position:absolute;top:calc(100% + 10px);left:50%;transform:translate(-50%,-60%);width:120%;pointer-events:none;" alt="">
-        <span class="why-label-text" style="position:relative;z-index:1;font-family:var(--f-body);text-transform:uppercase;font-size:clamp(28px,3vw,36px);">Возрастных<br>ограничений нет!</span>
+        <span class="why-label-text" style="position:relative;z-index:1;font-family:var(--f-body);text-transform:uppercase;font-size:clamp(26px,3vw,36px);">Возрастных<br>ограничений нет!</span>
       </div>
     </div>
   </div>
@@ -2460,10 +2466,10 @@
 
 <!-- ══ 06 · 9 ТЕМ · СИНИЙ ═══════════════════════════════════ -->
 <section class="s-blue" id="program" style="display:flex;flex-direction:column;border-bottom:2px solid rgba(255,255,255,.12);overflow:hidden;background-image:linear-gradient(rgba(255,255,255,.12) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.12) 2px,transparent 2px);background-size:56px 56px;">
-  <div style="padding:110px 48px 16px;flex-shrink:0;text-align:center;">
+  <div class="program-top-wrap" style="padding:110px 48px 16px;flex-shrink:0;text-align:center;">
     <h2 id="program-title" style="font-family:var(--f-head);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;color:var(--orange);"><span id="program-line1" style="white-space:nowrap;">ЧЕМУ БУДЕТ<br class="mob"> ПОСВЯЩЕН</span><br>ИНТЕНСИВ?</h2>
     <div class="program-blob-wrap why-label-wrap">
-      <p class="program-blob-text">Обучение построено вокруг <strong>9 ключевых тем,</strong><br>через которые проходит практически каждая семья в&nbsp;брейкинге</p>
+      <p class="program-blob-text">Обучение построено вокруг<br class="br-mob"> <strong>9 ключевых тем,</strong><br class="br-desk"> через которые проходит практически<br class="mob-br"> каждая семья в&nbsp;брейкинге</p>
       <img src="blob-line3.svg" class="why-label-line" alt="" style="filter:grayscale(1) brightness(1.4);">
     </div>
   </div>
@@ -2771,19 +2777,19 @@
       <h2 class="what-title">ЧТОБЫ ЧТО?</h2>
       <div class="why-list">
         <div class="why-list-item">
-          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-5px;">f</span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-8px;">f</span>
           <span class="wli-text">Быть <strong>осознанным</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-5px;">f</span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-8px;">f</span>
           <span class="wli-text">Быть <strong>здоровым</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-5px;">f</span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-8px;">f</span>
           <span class="wli-text">Быть <strong>долгосрочным</strong></span>
         </div>
         <div class="why-list-item">
-          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-5px;">f</span>
+          <span class="wli-num wli-star" style="font-family:'Sprite Graffiti Extras';top:-8px;">f</span>
           <span class="wli-text">Быть <strong>энергичным</strong></span>
         </div>
       </div>
@@ -3053,9 +3059,12 @@
 
     if (isMob) {
       // Мобилка: scroll вместо fixed — fixed вызывает серые блоки в iOS WebView
-      const mobCell = Math.round(window.innerWidth / 14); // целое число — точный snap
-      // точная горизонтальная ячейка: 14 колонок делят экран ровно → правый край тоже с линией
-      const mobCellExact = window.innerWidth / 14;
+      // clientWidth даёт CSS layout width без browser chrome (надёжнее innerWidth на iOS)
+      const vw = document.documentElement.clientWidth || window.innerWidth;
+      const dpr = window.devicePixelRatio || 1;
+      const mobCell = Math.round(vw / 14); // целое число — точный snap
+      // округление до физического пикселя: 14 клеток × rounded = vw ровно
+      const mobCellExact = Math.round(vw * dpr / 14) / dpr;
       const mobCs = `${mobCellExact}px ${mobCell}px`;
       // -1px -1px: сдвиг на 1px → линия видна с КАЖДОЙ из 4 сторон блока
       const mobPos = '-1px -1px';
@@ -3074,13 +3083,32 @@
         if (card) card.style.removeProperty('padding-bottom');
         const h = el.offsetHeight, mod = h % cell;
         if (mod > 0) {
+          const extra = cell - mod;
           if (card) {
-            const cardPb = parseFloat(window.getComputedStyle(card).paddingBottom) || 0;
-            card.style.setProperty('padding-bottom', `${cardPb + (cell - mod)}px`, 'important');
+            const list = card.querySelector('.why-list');
+            const items = list ? list.querySelectorAll('.why-list-item') : null;
+            // Только для #how: распределяем остаток в gap между пунктами (равные отступы сверху/снизу)
+            const isHow = el.parentElement && el.parentElement.id === 'how';
+            if (isHow && list && items && items.length > 1) {
+              list.style.removeProperty('gap');
+              const curGap = parseFloat(window.getComputedStyle(list).gap) || 14;
+              const gapAdd = Math.floor(extra / (items.length - 1));
+              const rem = extra - gapAdd * (items.length - 1);
+              list.style.setProperty('gap', `${curGap + gapAdd}px`, 'important');
+              if (rem > 0) card.style.setProperty('padding-bottom', `${(parseFloat(window.getComputedStyle(card).paddingBottom)||0) + rem}px`, 'important');
+            } else {
+              const cardPb = parseFloat(window.getComputedStyle(card).paddingBottom) || 0;
+              card.style.setProperty('padding-bottom', `${cardPb + extra}px`, 'important');
+            }
           } else {
-            el.style.setProperty('padding-bottom', `${cell + (cell - mod)}px`, 'important');
+            el.style.setProperty('padding-bottom', `${cell + extra}px`, 'important');
           }
         }
+      });
+      // Фиксируем padding-bottom карточек где снап добавляет лишнее
+      ['when','where'].forEach(function(id) {
+        var c = document.querySelector('#' + id + ' .what-card');
+        if (c) c.style.setProperty('padding-bottom', '28px', 'important');
       });
       document.querySelectorAll('.curators-sec,.slogan-sec,.team-sec,.creds-sec,.where-sec,.hero-top,.curators-grid').forEach(el => {
         el.style.setProperty('background-size',      mobCs,  'important');
@@ -3143,7 +3171,7 @@
   // .what-left уже снапится выше. Здесь снапим фото и остальные секции.
   function snapGridSections() {
     if (window.innerWidth > 820) return;
-    var cell = Math.round(window.innerWidth / 14);
+    var cell = Math.round((document.documentElement.clientWidth || window.innerWidth) / 14);
     // Вспомогательная функция: добавляет к pb элемента столько, чтобы offsetHeight % cell = 0
     function snapEl(el, prop) {
       prop = prop || 'padding-bottom';
@@ -3205,7 +3233,7 @@
     //    #legal исключен — он внутри #s-statement, отдельный snap ломает выравнивание
     //    .team-sec исключён: team-top и team-photo уже снапнуты по отдельности →
     //    без своего snap нет padding-bottom под фото, блок кончается ровно по краю фото
-    document.querySelectorAll('.creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
+    document.querySelectorAll('.attention-ticker, .creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
       snapEl(el);
     });
     // .topics-sec: pb=cell (1 квадрат), остаток добавляем в последнюю карточку
@@ -3223,6 +3251,17 @@
         lastCard.style.setProperty('padding-bottom', (basePb + cell - mod) + 'px', 'important');
       }
     })();
+    // Снапим statement text div → ticker начинается на линии сетки
+    (function() {
+      var stDiv = document.querySelector('#s-statement > div:first-child');
+      if (!stDiv) return;
+      stDiv.style.removeProperty('padding-bottom');
+      var stMod = stDiv.offsetHeight % cell;
+      if (stMod > 0) {
+        var stPb = parseFloat(window.getComputedStyle(stDiv).paddingBottom) || 0;
+        stDiv.style.setProperty('padding-bottom', (stPb + cell - stMod) + 'px', 'important');
+      }
+    })();
     // #s-statement: pb=cell (1 квадрат), остаток добавляем в #legal
     (function() {
       var sec = document.getElementById('s-statement');
@@ -3231,6 +3270,9 @@
       if (!legal) { snapEl(sec); return; }
       sec.style.removeProperty('padding-bottom');
       legal.style.removeProperty('padding-bottom');
+      legal.style.removeProperty('padding-top');
+      var basePt = parseFloat(window.getComputedStyle(legal).paddingTop) || 0;
+      legal.style.setProperty('padding-top', (basePt + cell) + 'px', 'important');
       sec.style.setProperty('padding-bottom', cell + 'px', 'important');
       var mod = sec.offsetHeight % cell;
       if (mod > 0) {
@@ -3268,7 +3310,7 @@
     }
 
     // Остальные секции с сеткой (.team-sec исключён — кончается ровно по краю фото)
-    document.querySelectorAll('.creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
+    document.querySelectorAll('.attention-ticker, .creds-sec, .curators-sec, .slogan-sec, #format, #program, #pricing').forEach(function(el) {
       snapEl(el);
     });
     // .topics-sec: pb=cell (1 квадрат), остаток добавляем в последнюю карточку
@@ -3284,6 +3326,17 @@
       if (mod > 0) {
         var basePb = parseFloat(window.getComputedStyle(lastCard).paddingBottom) || 0;
         lastCard.style.paddingBottom = (basePb + cell - mod) + 'px';
+      }
+    })();
+    // Снапим statement text div → ticker начинается на линии сетки
+    (function() {
+      var stDiv = document.querySelector('#s-statement > div:first-child');
+      if (!stDiv) return;
+      stDiv.style.removeProperty('padding-bottom');
+      var stMod = stDiv.offsetHeight % cell;
+      if (stMod > 0) {
+        var stPb = parseFloat(window.getComputedStyle(stDiv).paddingBottom) || 0;
+        stDiv.style.paddingBottom = (stPb + cell - stMod) + 'px';
       }
     })();
     // #s-statement: pb=cell (1 квадрат), остаток добавляем в #legal
