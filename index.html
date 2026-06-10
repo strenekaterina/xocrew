@@ -1125,7 +1125,8 @@
       font-weight: 900;
       color: var(--orange);
       position: absolute;
-      top: 16px; right: 22px;
+      top: 50%; right: 22px;
+      transform: translateY(-50%);
       line-height: 1;
     }
 
@@ -1176,8 +1177,6 @@
       border-radius: 4px;
       overflow: hidden;
       background-color: var(--dark);
-      background-image: linear-gradient(rgba(255,255,255,.18) 2px, transparent 2px),
-                        linear-gradient(90deg, rgba(255,255,255,.18) 2px, transparent 2px);
     }
     .curator-col:first-child {
       border-right: 1px solid rgba(255,255,255,.15);
@@ -1623,6 +1622,11 @@
       .per-nowrap { white-space: nowrap; }
       .br-not-large { display: none; }
       #for-whom .what-title { font-size: clamp(95px, 14vw, 182px); white-space: normal; }
+      .for-whom-blob { width: 69% !important; top: calc(100% + 40px) !important; }
+      .creds-sec:not(#format) .creds-grid { grid-auto-rows: 1fr; }
+      .what-blob2 { display: none; }
+      .attention-ticker { padding-top: 18px; padding-bottom: 0; }
+      .att-sep { top: calc(0.22em + 12px); }
     }
     @media (max-width: 1599px) and (min-width: 821px) { .br-medium { display: inline; } }
     @media (max-width: 820px) { .br-mob { display: inline; } }
@@ -1640,9 +1644,23 @@
 
     @media (min-width: 821px) {
       .why-list-item { align-items: center; }
+      #how .why-list-item { align-items: flex-start; }
+      #for-whom .why-list-item { align-items: flex-start; }
+      .creds-sec:not(#format) .cred-num { display: none; }
+      .team-desc-text { color: rgba(255,255,255,.85) !important; }
+      .what-blob1 { top: calc(50% + 20px) !important; }
+      .what-blob2 { left: -50px !important; transform: translateY(-50%) !important; width: 77% !important; }
+      .for-whom-blob { width: 92% !important; }
+      #chto-chto .wli-num.wli-star { top: -5px !important; }
       .wli-num { font-size: clamp(28px, 2.8vw, 40px); }
+      .curator-item-num { font-size: clamp(28px, 2.88vw, 32px); position: relative; top: -10px; }
       #for-whom .what-title { font-size: clamp(70px, 8vw, 105px); white-space: nowrap; }
       .program-blob-wrap .why-label-line { display: none; }
+      .program-blob-text { color: #EDEDED !important; }
+      .program-blob-text strong { color: #EDEDED !important; }
+      #per-topic .what-photo .ph { background-position: top center !important; background-size: auto 115% !important; }
+      #why-join .what-photo .ph { background-position: top center !important; background-size: auto 120% !important; }
+      #chto-chto .what-photo .ph { background-position: top center !important; background-size: auto 115% !important; }
       #how .what-photo .ph { background-image: url('how-photo.webp') !important; }
       #chto-chto .what-photo .ph { background-image: url('chto-chto-photo.webp') !important; background-position: center calc(50% - 50px) !important; }
       #when .what-photo .ph { background-image: url('when-photo.webp') !important; background-position: center 20% !important; }
@@ -2072,6 +2090,7 @@
       column-gap: 10px;
       row-gap: 16px;
       align-items: baseline;
+      align-content: start;
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.4s ease, transform 0.4s ease;
@@ -2302,9 +2321,9 @@
     <div class="what-card">
       <h2 class="what-title">ЧТО?</h2>
       <div class="what-paragraphs">
-        <p><span style="position:relative;display:inline-block;"><img src="blob-line3.svg" style="position:absolute;top:calc(50% + 10px);left:50%;transform:translate(-50%,-50%);width:130%;pointer-events:none;" alt=""><strong style="position:relative;">Брейк-родитель</strong></span><span style="position:relative;"> — это первый в своем роде месячный <strong>онлайн-интенсив для родителей,</strong> которые желают разобраться, как устроен современный мир брейкинга и&nbsp;как грамотно сопровождать ребенка на этом сложнейшем (но интереснейшем) пути.</span></p>
+        <p><span style="position:relative;display:inline-block;"><img src="blob-line3.svg" class="what-blob1" style="position:absolute;top:calc(50% + 10px);left:50%;transform:translate(-50%,-50%);width:130%;pointer-events:none;" alt=""><strong style="position:relative;">Брейк-родитель</strong></span><span style="position:relative;"> — это первый в своем роде месячный <strong>онлайн-интенсив для родителей,</strong> которые желают разобраться, как устроен современный мир брейкинга и&nbsp;как грамотно сопровождать ребенка на этом сложнейшем (но интереснейшем) пути.</span></p>
         <div style="position:relative;">
-          <img src="Line.svg" style="position:absolute;top:50%;left:calc(50% - 20px);transform:translate(-50%,-50%);width:110%;pointer-events:none;" alt="">
+          <img src="Line.svg" class="what-blob2" style="position:absolute;top:50%;left:calc(50% - 20px);transform:translate(-50%,-50%);width:110%;pointer-events:none;" alt="">
           <p style="position:relative;"><strong>Сегодня брейкинг</strong> — это уже не&nbsp;просто танцы. Это <strong>олимпийская дисциплина</strong> и&nbsp;целая международная индустрия.</p>
         </div>
         <p>Это соревнования, рейтинги, отборы, команды, судейство, тренеры, выезды, сборы, психология, развитие и&nbsp;огромное количество информации.</p>
@@ -2337,21 +2356,13 @@
 <section class="creds-sec">
   <h2 class="creds-title">ЗА ПЛЕЧАМИ КОМАНДЫ</h2>
   <div class="creds-grid">
-    <div class="cred-card">
-      <p class="cred-text">Многолетний (почти 25 лет) опыт воспитания детей в&nbsp;культуре брейкинга</p>
-      <span class="cred-num">1</span>
+    <div class="cred-card"><span class="cred-num">1</span><p class="cred-text">Многолетний (почти 25 лет) опыт воспитания детей в&nbsp;культуре брейкинга</p>
     </div>
-    <div class="cred-card">
-      <p class="cred-text">Работа с начинающими и профессиональными танцорами</p>
-      <span class="cred-num">2</span>
+    <div class="cred-card"><span class="cred-num">2</span><p class="cred-text">Работа с начинающими и профессиональными танцорами</p>
     </div>
-    <div class="cred-card">
-      <p class="cred-text">Организация мероприятий, батлов и образовательных проектов</p>
-      <span class="cred-num">3</span>
+    <div class="cred-card"><span class="cred-num">3</span><p class="cred-text">Организация мероприятий, батлов и образовательных проектов</p>
     </div>
-    <div class="cred-card">
-      <p class="cred-text">Понимание брейкинга не только как танца, но и как культурной среды, спорта и&nbsp;образа жизни</p>
-      <span class="cred-num">4</span>
+    <div class="cred-card"><span class="cred-num">4</span><p class="cred-text">Понимание брейкинга не только как танца, но и как культурной среды, спорта и&nbsp;образа жизни</p>
     </div>
   </div>
 </section>
@@ -2453,7 +2464,7 @@
         </div>
       </div>
       <div style="margin-top:28px;text-align:center;position:relative;overflow:visible;">
-        <img src="blob-line3.svg" style="position:absolute;top:calc(100% + 10px);left:50%;transform:translate(-50%,-60%);width:120%;pointer-events:none;" alt="">
+        <img src="blob-line3.svg" class="for-whom-blob" style="position:absolute;top:calc(100% + 10px);left:50%;transform:translate(-50%,-60%);width:120%;pointer-events:none;" alt="">
         <span class="why-label-text" style="position:relative;z-index:1;font-family:var(--f-body);text-transform:uppercase;font-size:clamp(26px,3vw,36px);">Возрастных<br>ограничений нет!</span>
       </div>
     </div>
@@ -2595,7 +2606,7 @@
 <!-- ══ 07 · КАК ПРОХОДИТ? ════════════════════════════════════ -->
 <section class="creds-sec" id="format">
   <h2 class="creds-title">КАК ПРОХОДИТ<br>ОБУЧЕНИЕ?</h2>
-  <p class="team-desc-text fmt-desc">Интенсив длится <strong>1 месяц.</strong><br class="mob-br">Каждой теме посвящено <strong>3 дня</strong><br class="mob-br"> <strong>погружения,</strong> практики и<br class="mob-br"> обсуждений.<br> <strong>Все материалы</strong><br class="mob-br"> <strong>и записи сохраняются</strong> —<br> используй как личную<br class="mob-br"> библиотеку брейк-родителя</p>
+  <p class="team-desc-text fmt-desc">Интенсив длится <strong>1 месяц.</strong><br class="mob-br"><br class="br-desk">Каждой теме посвящено <strong>3 дня</strong><br class="mob-br"> <strong>погружения,</strong> практики и<br class="mob-br"> обсуждений.<br> <strong>Все материалы</strong><br class="mob-br"> <strong>и записи сохраняются</strong> —<br> используй как личную<br class="mob-br"> библиотеку брейк-родителя</p>
   <div class="creds-grid">
     <div class="cred-card"><span class="cred-num">1</span><span class="cred-text">Видеоуроки</span></div>
     <div class="cred-card"><span class="cred-num">2</span><span class="cred-text">Живые эфиры</span></div>
